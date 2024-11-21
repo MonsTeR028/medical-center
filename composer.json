@@ -83,7 +83,27 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "symfony serve"
+        ],
+        "fix:phpcs": [
+            "php-cs-fixer fix"
+        ],
+        "fix:twigcs": [
+            "twig-cs-fixer lint --fix"
+        ],
+        "fix:cs": [
+            "@fix:phpcs",
+            "@fix:twigcs"
         ]
+    },
+    "scripts-descriptions": {
+        "start": "Démarre le projet avec symfony",
+        "fix:phpcs": "Fixe le style du code source avec PhpCSFixer",
+        "fix:twigcs": "Fixe le style du code source avec TwigCSFixer",
+        "fix:cs": "Fixe le style du code source PHP et Twig"
     },
     "conflict": {
         "symfony/symfony": "*"
