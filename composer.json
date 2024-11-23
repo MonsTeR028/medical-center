@@ -111,8 +111,11 @@
     },
     "scripts-descriptions": {
         "start": "Démarre le projet avec symfony",
+        "test:phpcs": "Test le style du code source avec PhpCSFixer",
         "fix:phpcs": "Fixe le style du code source avec PhpCSFixer",
+        "test:twigcs": "Test le style du code source avec TwigCSFixer",
         "fix:twigcs": "Fixe le style du code source avec TwigCSFixer",
+        "test": "Test le style du code source PHP et Twig",
         "fix:cs": "Fixe le style du code source PHP et Twig"
     },
     "conflict": {
