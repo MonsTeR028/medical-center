@@ -88,11 +88,21 @@
             "Composer\\Config::disableProcessTimeout",
             "symfony serve"
         ],
+        "test:phpcs": [
+            "php vendor/bin/php-cs-fixer fix --dry-run"
+        ],
         "fix:phpcs": [
             "php-cs-fixer fix"
         ],
+        "test:twigcs": [
+            "vendor/bin/twig-cs-fixer"
+        ],
         "fix:twigcs": [
             "twig-cs-fixer lint --fix"
+        ],
+        "test": [
+            "@test:phpcs",
+            "@test:twigcs"
         ],
         "fix:cs": [
             "@fix:phpcs",
