@@ -99,6 +99,12 @@
         "fix": [
             "@fix:phpcs",
             "@fix:twigcs"
+        ],
+        "db": [
+            "bin/console doctrine:database:drop --force --if-exists",
+            "bin/console doctrine:database:create",
+            "bin/console doctrine:migrations:migrate --no-interaction",
+            "bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
@@ -108,7 +114,8 @@
         "test:twigcs": "Test le style du code source avec TwigCSFixer",
         "fix:twigcs": "Fixe le style du code source avec TwigCSFixer",
         "test": "Test le style du code source PHP et Twig",
-        "fix:cs": "Fixe le style du code source PHP et Twig"
+        "fix:cs": "Fixe le style du code source PHP et Twig",
+        "db": "Reconstruit la base de données"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -120,6 +127,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.4.*",
@@ -129,6 +137,7 @@
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*",
-        "vincentlanglet/twig-cs-fixer": "^3.3"
+        "vincentlanglet/twig-cs-fixer": "^3.3",
+        "zenstruck/foundry": "^2.2"
     }
 }
