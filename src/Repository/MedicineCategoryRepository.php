@@ -16,28 +16,14 @@ class MedicineCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, MedicineCategory::class);
     }
 
-    //    /**
-    //     * @return MedicineCategory[] Returns an array of MedicineCategory objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?MedicineCategory
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * @return MedicineCategory[] Returns an array of MedicineCategory objects ordered by name ASC
+     */
+    public function findAllOrderedByName(): array
+    {
+        return $this->createQueryBuilder('mc')
+            ->orderBy('mc.name', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
