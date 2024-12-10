@@ -16,20 +16,21 @@ class MedicineRepository extends ServiceEntityRepository
         parent::__construct($registry, Medicine::class);
     }
 
-//    /**
-//     * @return Medicine[] Returns an array of Medicine objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Medicine[]
+     */
+    public function search(string $value = ''): array
+    {
+        $query = $this->createQueryBuilder('m')
+            ->addOrderBy('m.name', 'ASC')
+            ->leftJoin('m.category', 'ctg')
+            ->addSelect('ctg as categories')
+        ;
+
+        if ('' != $value) {
+            $query->orWhere('m.name LIKE :value')
+                ->setParameter('value', $value.'%');
+        }
 
 //    public function findOneBySomeField($value): ?Medicine
 //    {
