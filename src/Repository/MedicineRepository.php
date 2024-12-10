@@ -41,4 +41,6 @@ class MedicineRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+        return $query->getQuery()->getResult();
+    }
 }
