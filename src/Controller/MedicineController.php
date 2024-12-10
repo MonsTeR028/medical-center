@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MedicineController extends AbstractController
 {
-    #[Route('/medicine', name: 'app_medicine')]
+    #[Route('/medicines', name: 'app_medicine')]
     public function index(
         MedicineRepository $medicineRepository,
         MedicineCategoryRepository $medicineCategoryRepository,
