@@ -2,9 +2,16 @@
 
 {% block title %}Liste des médicaments{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module">
+        import '{{ asset('medecine/filter.js') }}';
+    </script>
+{% endblock %}
+
 {% block body %}
     <form>
-        <input id="search" type="text" placeholder="Rechercher..." id="">
+        <input id="search" type="text" placeholder="Rechercher...">
         <select id="filter-category">
             <option value="0" selected>Catégorie</option>
             {% for ctg in categories %}
