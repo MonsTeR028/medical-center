@@ -6,10 +6,12 @@
     <ul>
     {% for medicine in medicines %}
         <li>
-            {{ medicine.name }}
-            {% for ctg in medicine.category %}
-                {{ ctg.name }}
-            {% endfor %}
+            <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
+                {{ medicine.name }}
+                {% for ctg in medicine.category %}
+                    {{ ctg.name }}
+                {% endfor %}
+            </a>
         </li>
     {% endfor %}
     </ul>
