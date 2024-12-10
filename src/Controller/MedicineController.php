@@ -31,11 +31,10 @@ class MedicineController extends AbstractController
     )]
     public function show(
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
-        Medicine $medicine
-    ): Response
-    {
+        Medicine $medicine,
+    ): Response {
         return $this->render('medicine/show.html.twig', [
-            'medicine' => $medicine
+            'medicine' => $medicine,
         ]);
     }
 }
