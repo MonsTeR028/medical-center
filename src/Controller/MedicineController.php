@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Medicine;
+use App\Repository\MedicineCategoryRepository;
 use App\Repository\MedicineRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +16,17 @@ class MedicineController extends AbstractController
     #[Route('/medicine', name: 'app_medicine')]
     public function index(
         MedicineRepository $medicineRepository,
+        MedicineCategoryRepository $medicineCategoryRepository,
         #[MapQueryParameter] string $search = '',
     ): Response {
         $medicines = $medicineRepository->search($search);
+        $categories = $medicineCategoryRepository->findAllOrderedByName();
+
 
         return $this->render('medicine/index.html.twig', [
             'medicines' => $medicines,
             'search' => $search,
+            'categories' => $categories,
         ]);
     }
 
