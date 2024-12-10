@@ -22,7 +22,6 @@ class MedicineController extends AbstractController
         $medicines = $medicineRepository->search($search);
         $categories = $medicineCategoryRepository->findAllOrderedByName();
 
-
         return $this->render('medicine/index.html.twig', [
             'medicines' => $medicines,
             'search' => $search,
