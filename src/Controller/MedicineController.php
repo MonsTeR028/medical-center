@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Medicine;
 use App\Repository\MedicineRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -27,9 +29,13 @@ class MedicineController extends AbstractController
         name: 'app_medicine_show',
         requirements: ['id' => '\d+']
     )]
-    public function show(): Response
+    public function show(
+        #[MapEntity(expr: 'repository.findWithCategory(id)')]
+        Medicine $medicine
+    ): Response
     {
-        // TODO: Implement show() method. Show detail of a specific medicine by ID
-        return $this->render('medicine/show.html.twig');
+        return $this->render('medicine/show.html.twig', [
+            'medicine' => $medicine
+        ]);
     }
 }
