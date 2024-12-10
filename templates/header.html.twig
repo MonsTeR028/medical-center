@@ -1,0 +1,15 @@
+<header>
+    <span>
+        <img src="{{ asset('images/logo.png') }}">
+        <h1> MedicalCenter </h1>
+    </span>
+    <span>
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="#"> <span class="material-symbols-outlined">person</span> Compte </a>
+            <a href="#"> <span class="material-symbols-outlined">shopping_cart</span> Panier </a>
+        {% else %}
+            <a href="#"> Inscription </a>
+            <a href="#"> Connexion </a>
+        {% endif %}
+    </span>
+</header>
