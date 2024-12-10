@@ -1,0 +1,9 @@
+<ul class="medicines">
+    {% for medicine in medicines %}
+        <li>
+            <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
+                {{ medicine.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

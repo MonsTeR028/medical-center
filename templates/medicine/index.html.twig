@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MedicineController!{% endblock %}
+{% block title %}Liste des médicaments{% endblock %}
 
 {% block body %}
-    <ul>
-    {% for medicine in medicines %}
-        <li>
-            <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
-                {{ medicine.name }}
-                {% for ctg in medicine.category %}
-                    {{ ctg.name }}
-                {% endfor %}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+    <form>
+        <input id="search" type="text" placeholder="Rechercher..." id="">
+        <select id="filter-category">
+            <option value="0" selected>Catégorie</option>
+            {% for ctg in categories %}
+                <option value="">{{ ctg.name }}</option>
+            {% endfor %}
+        </select>
+        <select id="filter-order">
+            <option value="0">Trier par</option>
+        </select>
+    </form>
+
+
+    <div id="medicines-container">
+        {{ include('medicine/_medicines.html.twig') }}
+    </div>
+
 {% endblock %}
