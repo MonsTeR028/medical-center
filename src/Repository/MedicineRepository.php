@@ -32,15 +32,17 @@ class MedicineRepository extends ServiceEntityRepository
                 ->setParameter('value', $value.'%');
         }
 
-//    public function findOneBySomeField($value): ?Medicine
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
         return $query->getQuery()->getResult();
+    }
+
+    public function findWithCategory(int $id): ?Medicine
+    {
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.category', 'ctg')
+            ->addSelect('ctg as category')
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
     }
 }
