@@ -1,5 +1,6 @@
 const inputSearch = document.getElementById('input-search');
 const submitSearch = document.getElementById('submit-search');
+const selectCategory = document.getElementById('filter-category');
 const selectOrder = document.getElementById('filter-order');
 const medicinesContainer = document.getElementById('medicines-container');
 
@@ -14,6 +15,11 @@ if (inputSearch && submitSearch && selectCategory && selectOrder) {
         e.preventDefault();
         return updateQueryAndFetchMedicines('search', inputSearch.value);
     });
+
+    selectCategory.addEventListener('change', (e) => {
+        return updateQueryAndFetchMedicines('categoryFilter', e.target.value);
+    });
+
     selectOrder.addEventListener('change', (e) => {
         return updateQueryAndFetchMedicines('orderFilter', e.target.value, true);
     });
