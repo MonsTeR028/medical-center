@@ -11,7 +11,8 @@
 
 {% block body %}
     <form>
-        <input id="search" type="text" placeholder="Rechercher...">
+        <input id="input-search" type="text" placeholder="Nom d'un médicament...">
+        <input type="submit" id="submit-search" value="Rechercher">
         <select id="filter-category">
             <option value="0" selected>Catégorie</option>
             {% for ctg in categories %}
@@ -21,6 +22,7 @@
         <select id="filter-order">
             <option value="0">Trier par</option>
         </select>
+        <input type="checkbox" id="filter-out-of-stock">
     </form>
 
     <div id="medicines-container">
