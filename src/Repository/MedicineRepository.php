@@ -19,10 +19,10 @@ class MedicineRepository extends ServiceEntityRepository
     /**
      * @return Medicine[]
      */
-    public function search(string $value = '', int $category = 0): array
+    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'asc'): array
     {
         $query = $this->createQueryBuilder('m')
-            ->addOrderBy('m.name', 'ASC')
+            ->orderBy('m.name', 'ASC')
             ->leftJoin('m.category', 'ctg')
             ->addSelect('ctg as categories')
         ;
@@ -35,6 +35,10 @@ class MedicineRepository extends ServiceEntityRepository
         if (0 != $category) {
             $query->andWhere('ctg.id = :category')
                 ->setParameter('category', $category);
+        }
+
+        if ('' != $orderTarget && in_array($orderTarget, ['name', 'priceUnit']) && in_array($orderBy, ['ASC', 'DESC'])) {
+            $query->orderBy("m.$orderTarget", $orderBy);
         }
 
         return $query->getQuery()->getResult();

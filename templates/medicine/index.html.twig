@@ -16,11 +16,15 @@
         <select id="filter-category">
             <option value="0" selected>Catégorie</option>
             {% for ctg in categories %}
-                <option value="">{{ ctg.name }}</option>
+                <option value="{{ ctg.id }}">{{ ctg.name }}</option>
             {% endfor %}
         </select>
         <select id="filter-order">
-            <option value="0">Trier par</option>
+            <option value=''>Trier par</option>
+            <option value='{"column": "priceUnit", "order": "ASC"}'>Prix (croissant)</option>
+            <option value='{"column": "priceUnit", "order": "DESC"}'>Prix (décroissant)</option>
+            <option value='{"column": "name", "order": "ASC"}'>Alphabétique (croissant)</option>
+            <option value='{"column": "name", "order": "DESC"}'>Alphabétique (décroissant)</option>
         </select>
         <label>
             <input type="checkbox" id="filter-out-of-stock">

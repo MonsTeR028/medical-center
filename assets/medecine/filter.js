@@ -1,8 +1,9 @@
 const inputSearch = document.getElementById('input-search');
 const submitSearch = document.getElementById('submit-search');
+const selectOrder = document.getElementById('filter-order');
 const medicinesContainer = document.getElementById('medicines-container');
 
-if (inputSearch && submitSearch) {
+if (inputSearch && submitSearch && selectCategory && selectOrder) {
     inputSearch.addEventListener('keyup', (e) => {
         e.preventDefault();
 
@@ -13,12 +14,26 @@ if (inputSearch && submitSearch) {
         e.preventDefault();
         return updateQueryAndFetchMedicines('search', inputSearch.value);
     });
+    selectOrder.addEventListener('change', (e) => {
+        return updateQueryAndFetchMedicines('orderFilter', e.target.value, true);
+    });
 }
 
 async function updateQueryAndFetchMedicines(key, value) {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
-    params.set(key, value);
+    if (order) {
+        if (value === '') {
+            params.delete('orderTarget');
+            params.delete('orderBy');
+        } else {
+            const object = JSON.parse(value);
+            params.set('orderTarget', object['column']);
+            params.set('orderBy', object['order'])
+        }
+    } else {
+        params.set(key, value);
+    }
 
     if (history.pushState) {
         const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${params.toString()}`;

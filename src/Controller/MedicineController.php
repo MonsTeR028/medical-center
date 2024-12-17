@@ -22,8 +22,10 @@ class MedicineController extends AbstractController
         $search = $request->query->getString('search', '');
         $categoryFilter = $request->query->getInt('categoryFilter');
         $containerOnly = $request->query->getBoolean('containerOnly');
+        $orderTarget = $request->query->getString('orderTarget');
+        $orderBy = $request->query->getString('orderBy');
 
-        $medicines = $medicineRepository->search($search, $categoryFilter);
+        $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy);
 
         if ($containerOnly) {
             return $this->render('medicine/_medicines.html.twig', [
