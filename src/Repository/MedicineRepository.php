@@ -19,17 +19,26 @@ class MedicineRepository extends ServiceEntityRepository
     /**
      * @return Medicine[]
      */
-    public function search(string $value = ''): array
+    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'ASC'): array
     {
         $query = $this->createQueryBuilder('m')
-            ->addOrderBy('m.name', 'ASC')
+            ->orderBy('m.name', 'ASC')
             ->leftJoin('m.category', 'ctg')
             ->addSelect('ctg as categories')
         ;
 
         if ('' != $value) {
-            $query->orWhere('m.name LIKE :value')
-                ->setParameter('value', $value.'%');
+            $query->andWhere('m.name LIKE :value')
+                ->setParameter('value', '%'.$value.'%');
+        }
+
+        if (0 != $category) {
+            $query->andWhere('ctg.id = :category')
+                ->setParameter('category', $category);
+        }
+
+        if ('' != $orderTarget && in_array($orderTarget, ['name', 'priceUnit']) && in_array($orderBy, ['ASC', 'DESC'])) {
+            $query->orderBy("m.$orderTarget", $orderBy);
         }
 
         return $query->getQuery()->getResult();

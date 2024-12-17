@@ -7,8 +7,8 @@ use App\Repository\MedicineCategoryRepository;
 use App\Repository\MedicineRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 class MedicineController extends AbstractController
@@ -17,9 +17,22 @@ class MedicineController extends AbstractController
     public function index(
         MedicineRepository $medicineRepository,
         MedicineCategoryRepository $medicineCategoryRepository,
-        #[MapQueryParameter] string $search = '',
+        Request $request,
     ): Response {
-        $medicines = $medicineRepository->search($search);
+        $search = $request->query->getString('search');
+        $categoryFilter = $request->query->getInt('categoryFilter');
+        $containerOnly = $request->query->getBoolean('containerOnly');
+        $orderTarget = $request->query->getString('orderTarget');
+        $orderBy = $request->query->getString('orderBy');
+
+        $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy);
+
+        if ($containerOnly) {
+            return $this->render('medicine/_medicines.html.twig', [
+                'medicines' => $medicines,
+            ]);
+        }
+
         $categories = $medicineCategoryRepository->findAllOrderedByName();
 
         return $this->render('medicine/index.html.twig', [

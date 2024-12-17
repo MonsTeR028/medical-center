@@ -2,18 +2,34 @@
 
 {% block title %}Liste des médicaments{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module">
+        import '{{ asset('medecine/filter.js') }}';
+    </script>
+{% endblock %}
+
 {% block body %}
     <form>
-        <input id="search" type="text" placeholder="Rechercher..." id="">
+        <input id="input-search" type="text" placeholder="Nom d'un médicament..." value="{{ search }}">
+        <input type="submit" id="submit-search" value="Rechercher">
         <select id="filter-category">
             <option value="0" selected>Catégorie</option>
             {% for ctg in categories %}
-                <option value="">{{ ctg.name }}</option>
+                <option value="{{ ctg.id }}">{{ ctg.name }}</option>
             {% endfor %}
         </select>
         <select id="filter-order">
-            <option value="0">Trier par</option>
+            <option value=''>Trier par</option>
+            <option value='{"column": "priceUnit", "order": "ASC"}'>Prix (croissant)</option>
+            <option value='{"column": "priceUnit", "order": "DESC"}'>Prix (décroissant)</option>
+            <option value='{"column": "name", "order": "ASC"}'>Alphabétique (croissant)</option>
+            <option value='{"column": "name", "order": "DESC"}'>Alphabétique (décroissant)</option>
         </select>
+        <label>
+            <input type="checkbox" id="filter-out-of-stock">
+            Masquer les produits hors-stock
+        </label>
     </form>
 
     <div id="medicines-container">
