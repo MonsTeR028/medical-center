@@ -25,10 +25,6 @@ async function updateQueryAndFetchMedicines(key, value) {
         window.history.pushState({path: newUrl}, '', newUrl);
     }
 
-    await filter(params.toString());
-}
-
-async function filter(query) {
     const response = await fetch(`/medicines?${query}&containerOnly=1`, {
         method: 'GET'
     });
