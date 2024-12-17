@@ -32,7 +32,7 @@ class MedicineRepository extends ServiceEntityRepository
                 ->setParameter('value', $value.'%');
         }
 
-        if(0 != $category) {
+        if (0 != $category) {
             $query->andWhere('ctg.id = :category')
                 ->setParameter('category', $category);
         }
