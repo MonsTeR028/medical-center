@@ -18,8 +18,16 @@ class MedicineController extends AbstractController
         MedicineRepository $medicineRepository,
         MedicineCategoryRepository $medicineCategoryRepository,
         #[MapQueryParameter] string $search = '',
+        #[MapQueryParameter] bool $containerOnly = false,
     ): Response {
         $medicines = $medicineRepository->search($search);
+
+        if ($containerOnly) {
+            return $this->render('medicine/_medicines.html.twig', [
+                'medicines' => $medicines,
+            ]);
+        }
+
         $categories = $medicineCategoryRepository->findAllOrderedByName();
 
         return $this->render('medicine/index.html.twig', [
