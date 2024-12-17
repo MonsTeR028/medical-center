@@ -19,7 +19,7 @@ class MedicineRepository extends ServiceEntityRepository
     /**
      * @return Medicine[]
      */
-    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'asc'): array
+    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'ASC'): array
     {
         $query = $this->createQueryBuilder('m')
             ->orderBy('m.name', 'ASC')
