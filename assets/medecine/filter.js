@@ -22,4 +22,9 @@ async function searchMedicine(input) {
     if(!response.ok) return;
 
     medicinesContainer.innerHTML = await response.text();
+
+    if (history.pushState) {
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?search=${input}`;
+        window.history.pushState({path:newUrl},'',newUrl);
+    }
 }

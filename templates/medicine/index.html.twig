@@ -11,7 +11,7 @@
 
 {% block body %}
     <form>
-        <input id="input-search" type="text" placeholder="Nom d'un médicament...">
+        <input id="input-search" type="text" placeholder="Nom d'un médicament..." value="{{ search }}">
         <input type="submit" id="submit-search" value="Rechercher">
         <select id="filter-category">
             <option value="0" selected>Catégorie</option>
