@@ -25,7 +25,7 @@ if (inputSearch && submitSearch && selectCategory && selectOrder) {
     });
 }
 
-async function updateQueryAndFetchMedicines(key, value) {
+async function updateQueryAndFetchMedicines(key, value, order = false) {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     if (order) {
@@ -46,11 +46,11 @@ async function updateQueryAndFetchMedicines(key, value) {
         window.history.pushState({path: newUrl}, '', newUrl);
     }
 
-    const response = await fetch(`/medicines?${query}&containerOnly=1`, {
+    const response = await fetch(`/medicines?${params.toString()}&containerOnly=1`, {
         method: 'GET'
     });
 
-    if(!response.ok) return;
+    if (!response.ok) return;
 
     medicinesContainer.innerHTML = await response.text();
 }
