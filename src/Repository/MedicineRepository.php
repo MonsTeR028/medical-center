@@ -29,7 +29,7 @@ class MedicineRepository extends ServiceEntityRepository
 
         if ('' != $value) {
             $query->andWhere('m.name LIKE :value')
-                ->setParameter('value', $value.'%');
+                ->setParameter('value', '%'.$value.'%');
         }
 
         if (0 != $category) {
