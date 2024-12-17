@@ -19,7 +19,7 @@ class MedicineController extends AbstractController
         MedicineCategoryRepository $medicineCategoryRepository,
         Request $request,
     ): Response {
-        $search = $request->query->getString('search', '');
+        $search = $request->query->getString('search');
         $categoryFilter = $request->query->getInt('categoryFilter');
         $containerOnly = $request->query->getBoolean('containerOnly');
         $orderTarget = $request->query->getString('orderTarget');
