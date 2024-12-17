@@ -19,7 +19,7 @@ class MedicineRepository extends ServiceEntityRepository
     /**
      * @return Medicine[]
      */
-    public function search(string $value = ''): array
+    public function search(string $value = '', int $category = 0): array
     {
         $query = $this->createQueryBuilder('m')
             ->addOrderBy('m.name', 'ASC')
@@ -28,8 +28,13 @@ class MedicineRepository extends ServiceEntityRepository
         ;
 
         if ('' != $value) {
-            $query->orWhere('m.name LIKE :value')
+            $query->andWhere('m.name LIKE :value')
                 ->setParameter('value', $value.'%');
+        }
+
+        if(0 != $category) {
+            $query->andWhere('ctg.id = :category')
+                ->setParameter('category', $category);
         }
 
         return $query->getQuery()->getResult();
