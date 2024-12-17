@@ -6,16 +6,16 @@ if (inputSearch && submitSearch) {
     inputSearch.addEventListener('keyup', (e) => {
         e.preventDefault();
 
-        if (e.key === 'Enter') return setQueryString('search', e.target.value);
+        if (e.key === 'Enter') return updateQueryAndFetchMedicines('search', e.target.value);
     })
 
     submitSearch.addEventListener('click', (e) => {
         e.preventDefault();
-        return setQueryString('search', inputSearch.value);
+        return updateQueryAndFetchMedicines('search', inputSearch.value);
     });
 }
 
-async function setQueryString(key, value) {
+async function updateQueryAndFetchMedicines(key, value) {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     params.set(key, value);
