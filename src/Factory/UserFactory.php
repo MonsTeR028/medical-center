@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 use Zenstruck\Foundry\Persistence\Proxy;
 use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
@@ -18,6 +19,7 @@ final class UserFactory extends PersistentProxyObjectFactory{
      *
      * @todo inject services if required
      */
+    private UserPasswordHasherInterface $passwordHasher;
     public function __construct()
     {
     }
