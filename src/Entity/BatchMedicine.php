@@ -27,8 +27,8 @@ class BatchMedicine
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $arrivalDate = null;
 
-    #[ORM\Column]
-    private ?float $purchasePrice = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    private ?string $purchasePrice = null;
 
     public function getId(): ?int
     {
@@ -98,6 +98,18 @@ class BatchMedicine
     public function setPurchasePrice(float $purchasePrice): static
     {
         $this->purchasePrice = $purchasePrice;
+
+        return $this;
+    }
+
+    public function getTest(): ?string
+    {
+        return $this->test;
+    }
+
+    public function setTest(string $test): static
+    {
+        $this->test = $test;
 
         return $this;
     }
