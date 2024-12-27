@@ -46,9 +46,16 @@ class Medicine
     #[ORM\ManyToMany(targetEntity: MedicineCategory::class, inversedBy: 'medicines')]
     private Collection $category;
 
+    /**
+     * @var Collection<int, BatchMedicine>
+     */
+    #[ORM\OneToMany(targetEntity: BatchMedicine::class, mappedBy: 'idMed')]
+    private Collection $batchMedicines;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->batchMedicines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +155,36 @@ class Medicine
     public function removeCategory(MedicineCategory $category): static
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BatchMedicine>
+     */
+    public function getBatchMedicines(): Collection
+    {
+        return $this->batchMedicines;
+    }
+
+    public function addBatchMedicine(BatchMedicine $batchMedicine): static
+    {
+        if (!$this->batchMedicines->contains($batchMedicine)) {
+            $this->batchMedicines->add($batchMedicine);
+            $batchMedicine->setIdMed($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBatchMedicine(BatchMedicine $batchMedicine): static
+    {
+        if ($this->batchMedicines->removeElement($batchMedicine)) {
+            // set the owning side to null (unless already changed)
+            if ($batchMedicine->getIdMed() === $this) {
+                $batchMedicine->setIdMed(null);
+            }
+        }
 
         return $this;
     }
