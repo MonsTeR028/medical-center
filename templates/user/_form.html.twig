@@ -1,0 +1,8 @@
+{% set submit_label = submit_label %}
+{{ form_start(form) }}
+        {{ form_row(form.firstname, {label: 'Firstname'}) }}
+        {{ form_row(form.lastname, {label: 'Lastname'}) }}
+        {{ form_row(form.email, {label: 'Email'}) }}
+        {{ form_row(form.password, {label: 'Password'}) }}
+<button type="submit" class="btn btn-dark container-lg">{{ submit_label }}</button>
+{{ form_end(form) }}

@@ -66,3 +66,16 @@ Lancez la correction du code PHP et Twig :
 ```bash
 composer fix
 ```
+
+## Utilisateur de test 
+Compte utilisateur :
+```bash
+    email : mickey@example.com
+    mdp : test
+```
+Compte administrateur : 
+```bash
+    email : batman@example.com
+    mdp : test
+```
+
