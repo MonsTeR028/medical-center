@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% set title = "Votre profil" %}
+{% set title = "Connexion" %}
 {% block title %}{{ title}}{% endblock %}
 
 {% block body %}
@@ -9,10 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>{{ title }}</h1>
-
-    Page utilisateur
-    <a href={{ path('app_login') }}>Connexion</a>
-    <a href={{ path('app_user_register') }}>Inscription</a>
+    <h1>Choisissez une action :</h1>
+    <ul>
+        <li>
+            <a class="btn btn-primary" role="button" href={{ path('app_login') }}>Connexion</a
+        </li>
+        <li>
+            <a class="btn btn-secondary" role="button" href={{ path('app_user_register') }}>Inscription</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
