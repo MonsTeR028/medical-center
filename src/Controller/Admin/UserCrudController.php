@@ -40,5 +40,9 @@ class UserCrudController extends AbstractCrudController
             }),
         ];
     }
-    */
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return $assets->addCssFile('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+    }
 }
