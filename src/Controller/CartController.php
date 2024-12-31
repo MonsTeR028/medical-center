@@ -13,7 +13,7 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function index(SessionInterface $session, MedicineRepository $medicineRepository): Response
     {
-        $panier = $session->get('panier', []);
+        $panier = $session->get('cart', []);
         $panierWithData = [];
 
         foreach ($panier as $id => $quantity) {
