@@ -30,12 +30,12 @@ class CartController extends AbstractController
 
         return $this->render('cart/index.html.twig', [
             'items' => $panierWithData,
-            'total' => $total
+            'total' => $total,
         ]);
     }
 
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
-    public function add($id, SessionInterface $session): void
+    public function add($id, SessionInterface $session): Response
     {
         $cart = $session->get('cart', []);
         if (isset($cart[$id])) {
@@ -44,6 +44,6 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        $this->redirectToRoute('app_cart');
+        dd($cart);
     }
 }
