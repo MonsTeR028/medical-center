@@ -25,7 +25,7 @@ class CartController extends AbstractController
         $total = 0;
 
         foreach ($panierWithData as $item) {
-            $total += $item['quantity'] * $item['product']['price'];
+            $total += $item['quantity'] * $item['product']->getPriceUnit();
         }
 
         return $this->render('cart/index.html.twig', [
