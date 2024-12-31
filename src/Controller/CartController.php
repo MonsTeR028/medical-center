@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\MedicineRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +14,24 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function index(SessionInterface $session, MedicineRepository $medicineRepository): Response
     {
+        $panier = $session->get('panier', []);
+        $panierWithData = [];
+
+        foreach ($panier as $id => $quantity) {
+            $panierWithData[] = [
+                'product' => $medicineRepository->find($id),
+                'quantity' => $quantity,
+            ];
+        }
+        $total = 0;
+
+        foreach ($panierWithData as $item) {
+            $total += $item['quantity'] * $item['product']['price'];
+        }
+
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+            'items' => $panierWithData,
+            'total' => $total
         ]);
     }
 
