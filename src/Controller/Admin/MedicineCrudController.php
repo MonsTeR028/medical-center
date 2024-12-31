@@ -7,10 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MedicineCrudController extends AbstractCrudController
@@ -26,30 +24,37 @@ class MedicineCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Nom du médicament'),
             ChoiceField::new('type', 'Type')->setChoices([
-                'Orale (per os)' => 'oral',
-                'Sublinguale' => 'sublingual',
-                'Rectale' => 'rectal',
-                'Intraveineuse (IV)' => 'intravenous',
-                'Intramusculaire (IM)' => 'intramuscular',
-                'Sous-cutanée (SC)' => 'subcutaneous',
-                'Transdermique' => 'transdermal',
-                'Cutanée' => 'cutaneous',
-                'Oculaire (ophtalmique)' => 'ocular',
-                'Auriculaire (otic)' => 'auricular',
-                'Nasale' => 'nasal',
-                'Vaginale' => 'vaginal',
-                'Pulmonaire (inhalation)' => 'pulmonary',
-                'Intra-artérielle' => 'intra-arterial',
-                'Intra-articulaire' => 'intra-articular',
-                'Intrathécale' => 'intrathecal',
-                'Péridurale' => 'epidural',
-                'Intradermique' => 'intradermal',
-                'Buccale' => 'buccal',
-                'Intranasale' => 'intranasal',
-                'Intraoculaire' => 'intraocular',
-                'Intrapéritonéale' => 'intraperitoneal',
-                'Intraosseuse' => 'intraosseous',
-                ]),
+                'Comprimés' => 'tablets',
+                'Sirop' => 'syrup',
+                'Gélules' => 'capsules',
+                'Pilules' => 'pills',
+                'Pommade' => 'ointment',
+                'Crème' => 'cream',
+                'Gel' => 'gel',
+                'Spray' => 'spray',
+                'Patch' => 'patch',
+                'Solution injectable' => 'injectable_solution',
+                'Suppositoire' => 'suppository',
+                'Ovule' => 'vaginal_suppository',
+                'Collyre' => 'eye_drops',
+                'Gouttes auriculaires' => 'ear_drops',
+                'Gouttes nasales' => 'nasal_drops',
+                'Inhalateur' => 'inhaler',
+                'Aérosol' => 'aerosol',
+                'Nébuliseur' => 'nebulizer',
+                'Poudre' => 'powder',
+                'Granulés' => 'granules',
+                'Liquide' => 'liquid',
+                'Pastille' => 'lozenge',
+                'Injectable' => 'injectable',
+                'Bain de bouche' => 'mouthwash',
+                'Shampoing médicamenteux' => 'medicated_shampoo',
+                'Bandelette' => 'strip',
+                'Résine' => 'resin',
+                'Implant' => 'implant',
+                'Solution buvable' => 'oral_solution',
+                'Film orodispersible' => 'orodispersible_film',
+            ]),
             TextField::new('dosage', 'Dosage'),
             MoneyField::new('priceUnit', 'Prix unitaire')
                 ->setCurrency('EUR'),
