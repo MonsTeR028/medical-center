@@ -20,6 +20,7 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
     #[Route('user/register', name: 'app_user_register')]
     public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
@@ -35,6 +36,7 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
         }
+
         return $this->render('user/register.html.twig', ['form' => $form]);
     }
 }
