@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CartController extends AbstractController
@@ -18,9 +19,8 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
-    public function add($id, Request $request)
+    public function add($id, SessionInterface $session)
     {
-        $session = $request->getSession();
         $cart = $session->get('cart', []);
         if (isset($cart[$id])) {
             ++$cart[$id];
