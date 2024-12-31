@@ -16,15 +16,17 @@ class CartController extends AbstractController
             'controller_name' => 'CartController',
         ]);
     }
+
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
     public function add($id, Request $request)
     {
         $session = $request->getSession();
         $cart = $session->get('cart', []);
         if (isset($cart[$id])) {
-            $cart[$id]++;
-        } else
+            ++$cart[$id];
+        } else {
             $cart[$id] = 1;
+        }
         $session->set('cart', $cart);
         dd($cart);
     }
