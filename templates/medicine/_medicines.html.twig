@@ -4,6 +4,7 @@
             <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
                 {{ medicine.name }}
             </a>
+            <a href="{{ path('app_cart_add', {'id': medicine.id}) }}">Ajouter au panier</a>
         </li>
     {% endfor %}
 </ul>
