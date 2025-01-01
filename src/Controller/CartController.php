@@ -15,11 +15,8 @@ class CartController extends AbstractController
     public function index(CartService $cartService): Response
     {
         $panierWithData = $cartService->getCart();
-        $total = 0;
 
-        foreach ($panierWithData as $item) {
-            $total += $item['quantity'] * $item['product']->getPriceUnit();
-        }
+        $total = $cartService->getTotal();
 
         return $this->render('cart/index.html.twig', [
             'items' => $panierWithData,
