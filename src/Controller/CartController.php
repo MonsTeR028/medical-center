@@ -54,6 +54,6 @@ class CartController extends AbstractController
             unset($cart[$id]);
         }
         $session->set('cart', $cart);
-        dd($cart);
+        return $this->redirectToRoute('app_cart');
     }
 }
