@@ -45,13 +45,9 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
-    public function remove($id, SessionInterface $session): Response
+    public function remove($id, CartService $cartService): Response
     {
-        $cart = $session->get('cart', []);
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-        }
-        $session->set('cart', $cart);
+        $cartService->remove($id);
 
         return $this->redirectToRoute('app_cart');
     }
