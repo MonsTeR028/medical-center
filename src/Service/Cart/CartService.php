@@ -2,8 +2,11 @@
 
 namespace App\Service\Cart;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 class CartService
 {
+    protected SessionInterface $session;
     public function add(int $id): void
     {
         $cart = $session->get('cart', []);
