@@ -24,6 +24,11 @@ class CartService
 
     public function remove(int $id): void
     {
+        $cart = $this->session->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+        }
+        $this->session->set('cart', $cart);
     }
 
     public function getCart(): array
