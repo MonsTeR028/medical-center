@@ -2,10 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\MedicineFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class MedecineFixtures extends Fixture
+class MedicineFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
