@@ -10,9 +10,11 @@ class MedicineFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $data = file_get_contents(__DIR__.'/data/data_medicines_fixtures.json');
+        $medicines = json_decode($data, true);
 
-        $manager->flush();
+        foreach ($medicines as $medicineData) {
+            MedicineFactory::createOne($medicineData);
+        }
     }
 }
