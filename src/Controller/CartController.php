@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\MedicineRepository;
 use App\Service\Cart\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -14,17 +12,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart')]
-    public function index(SessionInterface $session, MedicineRepository $medicineRepository): Response
+    public function index(CartService $cartService): Response
     {
-        $panier = $session->get('cart', []);
-        $panierWithData = [];
-
-        foreach ($panier as $id => $quantity) {
-            $panierWithData[] = [
-                'product' => $medicineRepository->find($id),
-                'quantity' => $quantity,
-            ];
-        }
+        $panierWithData = $cartService->getCart();
         $total = 0;
 
         foreach ($panierWithData as $item) {
@@ -41,6 +31,7 @@ class CartController extends AbstractController
     public function add($id, CartService $cartService): Response
     {
         $cartService->add($id);
+
         return $this->redirectToRoute('app_medicine');
     }
 
