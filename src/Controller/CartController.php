@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\MedicineRepository;
+use App\Service\Cart\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -37,16 +38,9 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/add/{id}', name: 'app_cart_add')]
-    public function add($id, SessionInterface $session): Response
+    public function add($id, CartService $cartService): Response
     {
-        $cart = $session->get('cart', []);
-        if (isset($cart[$id])) {
-            ++$cart[$id];
-        } else {
-            $cart[$id] = 1;
-        }
-        $session->set('cart', $cart);
-
+        $cartService->add($id);
         return $this->redirectToRoute('app_medicine');
     }
 
