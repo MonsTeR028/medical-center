@@ -46,4 +46,14 @@ class CartController extends AbstractController
         $session->set('cart', $cart);
         dd($cart);
     }
+    #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
+    public function remove($id, SessionInterface $session): Response
+    {
+        $cart = $session->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+        }
+        $session->set('cart', $cart);
+        dd($cart);
+    }
 }
