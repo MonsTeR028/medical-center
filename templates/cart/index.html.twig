@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    {% if items | length > 0 %}
+    {% if items|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
@@ -20,9 +20,9 @@
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.product.priceUnit }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.priceUnit *  item.quantity}}</td>
+                        <td>{{ item.product.priceUnit * item.quantity }}</td>
                         <td>
-                            <a href="{{ path('app_cart_remove', { id: item.product.id }) }}" class="btn btn-danger-sm">
+                            <a href="{{ path('app_cart_remove', {id: item.product.id}) }}" class="btn btn-danger-sm">
                                 Supprimer
                             </a>
                         </td>
