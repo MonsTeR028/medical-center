@@ -50,5 +50,11 @@ class CartService
 
     public function getTotal(): int
     {
+        $total = 0;
+
+        foreach ($this->getCart() as $item) {
+            $total += $item['quantity'] * $item['product']->getPriceUnit();
+        }
+        return $total;
     }
 }
