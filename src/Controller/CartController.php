@@ -44,7 +44,7 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        dd($cart);
+        return $this->redirectToRoute('app_medicine');
     }
     #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
     public function remove($id, SessionInterface $session): Response
