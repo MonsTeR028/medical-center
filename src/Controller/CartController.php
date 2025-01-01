@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted("ROLE_USER")]
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart')]
@@ -44,8 +46,10 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
+
         return $this->redirectToRoute('app_medicine');
     }
+
     #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
     public function remove($id, SessionInterface $session): Response
     {
@@ -54,6 +58,7 @@ class CartController extends AbstractController
             unset($cart[$id]);
         }
         $session->set('cart', $cart);
+
         return $this->redirectToRoute('app_cart');
     }
 }
