@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CartService
 {
     protected SessionInterface $session;
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
     public function add(int $id): void
     {
         $cart = $session->get('cart', []);
