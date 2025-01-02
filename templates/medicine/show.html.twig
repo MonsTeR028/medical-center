@@ -1,15 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-
+    Médicament - {{ medicine.name }}
 {% endblock %}
 
 {% block body %}
+    <h1>{{ medicine.name }}</h1>
 
-    {{ medicine.name }}
+    {% if medicine.imageFileName %}
+        <img src="{{ medicine.imageFileName }}" alt="{{ medicine.name }}" style="width:150px; height:auto;">
+    {% else %}
+        <p>Image non disponible</p>
+    {% endif %}
 
-    {% for ctg in medicine.category %}
-        {{ ctg.name }}
-    {% endfor %}
+    <p>Type : {{ medicine.type }}</p>
+    <p>Dosage : {{ medicine.dosage }}</p>
+    <p>Prix unitaire : {{ medicine.priceUnit|number_format(2, ',', ' ') }} €</p>
+    <p>Description : {{ medicine.description }}</p>
 
+    {% if medicine.category is not empty %}
+        <h3>Catégories</h3>
+        <ul>
+            {% for ctg in medicine.category %}
+                <li>{{ ctg.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune catégorie assignée.</p>
+    {% endif %}
 {% endblock %}
