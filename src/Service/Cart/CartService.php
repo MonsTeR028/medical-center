@@ -3,15 +3,16 @@
 namespace App\Service\Cart;
 
 use App\Repository\MedicineRepository;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
     protected SessionInterface $session;
     protected MedicineRepository $medicineRepository;
-    public function __construct(SessionInterface $session, MedicineRepository $medicineRepository)
+    public function __construct(RequestStack $request, MedicineRepository $medicineRepository)
     {
-        $this->session = $session;
+        $this->session = $request->getSession();
         $this->medicineRepository = $medicineRepository;
     }
     public function add(int $id): void
