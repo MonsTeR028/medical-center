@@ -37,16 +37,16 @@ class CartService
 
     public function getCart(): array
     {
-        $panier = $this->session->get('cart', []);
-        $panierWithData = [];
+        $cart = $this->session->get('cart', []);
+        $cartWithData = [];
 
-        foreach ($panier as $id => $quantity) {
-            $panierWithData[] = [
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
                 'product' => $this->medicineRepository->find($id),
                 'quantity' => $quantity,
             ];
         }
-        return $panierWithData;
+        return $cartWithData;
     }
 
     public function getTotal(): int
