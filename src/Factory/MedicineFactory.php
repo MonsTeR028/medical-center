@@ -35,6 +35,7 @@ final class MedicineFactory extends PersistentProxyObjectFactory
             'dosage' => self::faker()->text(10),
             'priceUnit' => self::faker()->randomFloat(),
             'type' => self::faker()->randomElement(['Gélule', 'Comprimé', 'Sirop']),
+            'imageFileName' => self::faker()->imageUrl(),
         ];
     }
 
