@@ -66,6 +66,30 @@ header > span > a {
     margin-top: 76px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.presentation {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+.solutions {
+    display: flex;
+    flex-direction: row;
+    gap: 5em;
+    align-items: center;
+    padding: 100px;
+}
+
+.solutions > p {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    max-width: 450px;
 }
 
 footer {
