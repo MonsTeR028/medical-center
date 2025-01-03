@@ -38,9 +38,16 @@ class BatchMedicine
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'idBatchMedicine')]
     private Collection $orderItems;
 
+    /**
+     * @var Collection<int, PurchaseItem>
+     */
+    #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'idBatchMedicine')]
+    private Collection $purchaseItems;
+
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->purchaseItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +158,36 @@ class BatchMedicine
             // set the owning side to null (unless already changed)
             if ($orderItem->getIdBatchMedicine() === $this) {
                 $orderItem->setIdBatchMedicine(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseItem>
+     */
+    public function getPurchaseItems(): Collection
+    {
+        return $this->purchaseItems;
+    }
+
+    public function addPurchaseItem(PurchaseItem $purchaseItem): static
+    {
+        if (!$this->purchaseItems->contains($purchaseItem)) {
+            $this->purchaseItems->add($purchaseItem);
+            $purchaseItem->setIdBatchMedicine($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseItem(PurchaseItem $purchaseItem): static
+    {
+        if ($this->purchaseItems->removeElement($purchaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseItem->getIdBatchMedicine() === $this) {
+                $purchaseItem->setIdBatchMedicine(null);
             }
         }
 

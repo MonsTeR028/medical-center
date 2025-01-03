@@ -28,9 +28,16 @@ class Purchase
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $purchaseDate = null;
 
+    /**
+     * @var Collection<int, PurchaseItem>
+     */
+    #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'idPurchase')]
+    private Collection $purchaseItems;
+
     public function __construct()
     {
         $this->idSupp = new ArrayCollection();
+        $this->purchaseItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,6 +102,36 @@ class Purchase
     public function setPurchaseDate(\DateTimeInterface $purchaseDate): static
     {
         $this->purchaseDate = $purchaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseItem>
+     */
+    public function getPurchaseItems(): Collection
+    {
+        return $this->purchaseItems;
+    }
+
+    public function addPurchaseItem(PurchaseItem $purchaseItem): static
+    {
+        if (!$this->purchaseItems->contains($purchaseItem)) {
+            $this->purchaseItems->add($purchaseItem);
+            $purchaseItem->setIdPurchase($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseItem(PurchaseItem $purchaseItem): static
+    {
+        if ($this->purchaseItems->removeElement($purchaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseItem->getIdPurchase() === $this) {
+                $purchaseItem->setIdPurchase(null);
+            }
+        }
 
         return $this;
     }
