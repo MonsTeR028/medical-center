@@ -8,12 +8,12 @@
     <span class="header-button">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="#" class="lexend-bold">
-                <span class="material-symbols-outlined">person</span>
-                Compte
-            </a>
-            <a href="#" class="lexend-bold">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 Panier
+            </a>
+            <a href="#" class="lexend-bold">
+                <span class="material-symbols-outlined">person</span>
+                Compte
             </a>
         {% else %}
             <a href="{{ path('app_user_register') }}" class="lexend-bold">Inscription</a>
