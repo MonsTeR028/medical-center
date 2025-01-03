@@ -1,15 +1,23 @@
 <header>
     <span>
-        <img src="{{ asset('images/logo.png') }}">
-        <h1> MedicalCenter </h1>
+        <a href="{{ path('app_home') }}">
+            <img id="logo" src="{{ asset('images/logo.png') }}" alt="MedicalCenter">
+            <h1 class="league-spartan-medium">MedicalCenter</h1>
+        </a>
     </span>
-    <span>
+    <span class="header-button">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="#"> <span class="material-symbols-outlined">person</span> Compte </a>
-            <a href="#"> <span class="material-symbols-outlined">shopping_cart</span> Panier </a>
+            <a href="#" class="lexend-bold">
+                <span class="material-symbols-outlined">person</span>
+                Compte
+            </a>
+            <a href="#" class="lexend-bold">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                Panier
+            </a>
         {% else %}
-            <a href="#"> Inscription </a>
-            <a href="#"> Connexion </a>
+            <a href="{{ path('app_user_register') }}" class="lexend-bold">Inscription</a>
+            <a href="{{ path('app_login') }}" class="lexend-bold">Connexion</a>
         {% endif %}
     </span>
 </header>
