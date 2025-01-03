@@ -42,6 +42,9 @@ class Supplier
     )]
     private ?string $email = null;
 
+    #[ORM\ManyToOne(inversedBy: 'idSupp')]
+    private ?Purchase $purchase = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +89,18 @@ class Supplier
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPurchase(): ?Purchase
+    {
+        return $this->purchase;
+    }
+
+    public function setPurchase(?Purchase $purchase): static
+    {
+        $this->purchase = $purchase;
 
         return $this;
     }
