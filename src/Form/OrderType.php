@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Adress;
+use App\Entity\Transporter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,13 @@ class OrderType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'choices' => $user->getAdresses(),
+                'expanded' => true,
+            ])
+            ->add('transporters', EntityType::class, [
+                'class' => Transporter::class,
+                'label' => false,
+                'required' => true,
+                'multiple' => false,
                 'expanded' => true,
             ])
         ;
