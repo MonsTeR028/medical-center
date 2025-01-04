@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
 class OrderItem
@@ -21,7 +22,9 @@ class OrderItem
     #[ORM\JoinColumn(nullable: false)]
     private ?BatchMedicine $idBatchMedicine = null;
 
-    #[ORM\Column]
+    #[Assert\NotNull(message: 'La quantité doit être renseignée.')]
+    #[Assert\GreaterThan(0, message: 'La quantité doit être supérieure à 0.')]
+    #[ORM\Column(type: 'integer')]
     private ?int $quantity = null;
 
     public function getId(): ?int
