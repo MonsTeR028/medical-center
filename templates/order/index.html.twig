@@ -3,19 +3,18 @@
 {% block title %}Création de commande{% endblock %}
 
 {% block body %}
+    <div class="example-wrapper">
+        <h1>Création de commande</h1>
+        {{ form_start(form) }}
+        <h3>Choisir addresse de livraison</h3>
+        {{ form_row(form.addresses) }}
+        <h3>Mode de livraison</h3>
+        {{ form_row(form.transporters) }}
+        {{ form_end(form) }}
+    </div>
+
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-
-<div class="example-wrapper">
-    <h1>Création de commande</h1>
-    {{ form_start(form) }}
-        <h3>Création de la commande</h3>
-        <h3>Choisir addresse de livraison</h3>
-            {{ form_row(form.addresses) }}
-        <h3>Choisir mode de livraison</h3>
-            {{ form_row(form.transporter) }}
-    {{ form_end(form) }}
-</div>
 {% endblock %}
