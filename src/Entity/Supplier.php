@@ -38,7 +38,7 @@ class Supplier
         maxMessage: 'Votre email ne doit pas faire plus de {{ limit }} caractères',
     )]
     #[Assert\Email(
-        message: '{{ value }} n est pas un email valide.',
+        message: '{{ value }} n'est pas un email valide.',
     )]
     private ?string $email = null;
 
