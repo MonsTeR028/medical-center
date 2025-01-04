@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderItemRepository;
+use App\Repository\PurchaseItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: OrderItemRepository::class)]
-class OrderItem
+#[ORM\Entity(repositoryClass: PurchaseItemRepository::class)]
+class PurchaseItem
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orderItems')]
+    #[ORM\ManyToOne(inversedBy: 'purchaseItems')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Order $idOrder = null;
+    private ?Purchase $idPurchase = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orderItems')]
+    #[ORM\ManyToOne(inversedBy: 'purchaseItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?BatchMedicine $idBatchMedicine = null;
 
@@ -39,14 +39,14 @@ class OrderItem
         return $this;
     }
 
-    public function getIdOrder(): ?Order
+    public function getIdPurchase(): ?Purchase
     {
-        return $this->idOrder;
+        return $this->idPurchase;
     }
 
-    public function setIdOrder(?Order $idOrder): static
+    public function setIdPurchase(?Purchase $idPurchase): static
     {
-        $this->idOrder = $idOrder;
+        $this->idPurchase = $idPurchase;
 
         return $this;
     }
