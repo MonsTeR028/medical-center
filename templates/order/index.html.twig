@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Création de commande{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/aPERSO/Cours IUT/Deuxième année/SAE3/sae3-01/src/Controller/OrderController.php</code></li>
-        <li>Your template at <code>C:/aPERSO/Cours IUT/Deuxième année/SAE3/sae3-01/templates/order/index.html.twig</code></li>
-    </ul>
+    <h1>Création de commande</h1>
+    {{ form_start(form) }}
+        <h3>Création de la commande</h3>
+        <h3>Choisir addresse de livraison</h3>
+            {{ form_row(form.addresses) }}
+        <h3>Choisir mode de livraison</h3>
+            {{ form_row(form.transporter) }}
+    {{ form_end(form) }}
 </div>
 {% endblock %}
