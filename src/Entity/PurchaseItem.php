@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PurchaseItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PurchaseItemRepository::class)]
 class PurchaseItem
@@ -20,6 +21,11 @@ class PurchaseItem
     #[ORM\ManyToOne(inversedBy: 'purchaseItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?BatchMedicine $idBatchMedicine = null;
+
+    #[Assert\NotNull(message: 'La quantité doit être renseignée.')]
+    #[Assert\GreaterThan(0, message: 'La quantité doit être supérieure à 0.')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $quantity = null;
 
     public function getId(): ?int
     {
@@ -53,6 +59,18 @@ class PurchaseItem
     public function setIdBatchMedicine(?BatchMedicine $idBatchMedicine): static
     {
         $this->idBatchMedicine = $idBatchMedicine;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
