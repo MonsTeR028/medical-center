@@ -16,7 +16,6 @@ class TransporterCrudController extends AbstractCrudController
         return Transporter::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
