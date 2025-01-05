@@ -43,6 +43,7 @@ class Adress
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
+
     public function __toString()
     {
         return $this->adress;
