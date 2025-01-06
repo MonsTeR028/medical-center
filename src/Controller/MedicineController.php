@@ -39,7 +39,7 @@ class MedicineController extends AbstractController
 
         $batchMedicines = [];
         foreach ($medicines as $medicine) {
-            $batchMedicines[] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
+            $batchMedicines[$medicine->getId()] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
         }
 
         return $this->render('medicine/index.html.twig', [
