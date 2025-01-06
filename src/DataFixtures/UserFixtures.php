@@ -16,12 +16,16 @@ class UserFixtures extends Fixture
             'lastname' => 'Banner',
             'password' => 'test',
             'roles' => ['ROLE_ADMIN'], ]);
+
         UserFactory::createOne([
             'email' => 'mickey@example.com',
             'firstname' => 'Mickey',
             'lastname' => 'Mouse',
             'password' => 'test',
             'roles' => ['ROLE_USER'], ]);
-        $manager->flush();
+
+        UserFactory::createMany(15, function () {
+            return ['roles' => ['ROLE_USER']];
+        });
     }
 }
