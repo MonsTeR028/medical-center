@@ -29,7 +29,7 @@ class BatchMedicine
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $arrivalDate = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 2)]
     private ?string $purchasePrice = null;
 
     /**
@@ -43,6 +43,9 @@ class BatchMedicine
      */
     #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'idBatchMedicine')]
     private Collection $purchaseItems;
+
+    #[ORM\Column]
+    private ?int $stock = null;
 
     public function __construct()
     {
@@ -190,6 +193,18 @@ class BatchMedicine
                 $purchaseItem->setIdBatchMedicine(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
 
         return $this;
     }
