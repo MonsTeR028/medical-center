@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Medicine;
+use App\Repository\BatchMedicineRepository;
 use App\Repository\MedicineCategoryRepository;
 use App\Repository\MedicineRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -17,6 +18,7 @@ class MedicineController extends AbstractController
     public function index(
         MedicineRepository $medicineRepository,
         MedicineCategoryRepository $medicineCategoryRepository,
+        BatchMedicineRepository $batchMedicineRepository,
         Request $request,
     ): Response {
         $search = $request->query->getString('search');
@@ -35,10 +37,16 @@ class MedicineController extends AbstractController
 
         $categories = $medicineCategoryRepository->findAllOrderedByName();
 
+        $batchMedicines = [];
+        foreach ($medicines as $medicine) {
+            $batchMedicines[] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
+        }
+
         return $this->render('medicine/index.html.twig', [
             'medicines' => $medicines,
             'search' => $search,
             'categories' => $categories,
+            'batchMedecines' => $batchMedicines,
         ]);
     }
 
