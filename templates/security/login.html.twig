@@ -3,41 +3,42 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-<div class="user-form">
-    <h3 class="h3 poppins-semibold">Connexion</h3>
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+<div class="main">
+    <div class="user-form">
+        <h3 class="h3 poppins-semibold">Connexion</h3>
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <div class="form-buttons">
+                <label for="inputEmail">
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control inter-regular" autocomplete="email" placeholder="Email" autofocus>
+                </label>
+                <label for="inputPassword">
+                    <input type="password" name="password" id="inputPassword" class="form-control inter-regular" autocomplete="current-password" placeholder="Password" required>
+                </label>
             </div>
-        {% endif %}
 
-        <div class="form-buttons">
-            <label for="inputEmail">
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control inter-regular" autocomplete="email" placeholder="Email" autofocus>
-            </label>
-            <label for="inputPassword">
-                <input type="password" name="password" id="inputPassword" class="form-control inter-regular" autocomplete="current-password" placeholder="Password" required>
-            </label>
-        </div>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+            <button class="poppins-semibold" type="submit">
+                Connexion
+            </button>
 
-        <button class="poppins-semibold" type="submit">
-            Connexion
-        </button>
-
-        <div class="no-account">
-            <p class="lexend-medium">Pas de compte ?</p>
-            <a href="{{ path('app_user_register') }}" class="lexend-medium">S'inscrire</a>
-        </div>
-    </form>
-</div>
-
+            <div class="no-account">
+                <p class="lexend-medium">Pas de compte ?</p>
+                <a href="{{ path('app_user_register') }}" class="lexend-medium">S'inscrire</a>
+            </div>
+        </form>
+    </div>
+<div>
 {% endblock %}

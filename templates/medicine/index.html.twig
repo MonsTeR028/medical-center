@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block body %}
+<div class="main-medecine">
     <form>
         <input id="input-search" type="text" placeholder="Nom d'un médicament..." value="{{ search }}">
         <input type="submit" id="submit-search" value="Rechercher">
@@ -35,5 +36,5 @@
     <div id="medicines-container">
         {{ include('medicine/_medicines.html.twig') }}
     </div>
-
+</div>
 {% endblock %}

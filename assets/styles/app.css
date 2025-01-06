@@ -171,6 +171,13 @@ header > span > a {
     align-items: center;
 }
 
+.main-medecine {
+    margin-top: 76px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 footer {
     position: fixed;
     left: 0;
