@@ -16,11 +16,9 @@ class Purchase
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, Supplier>
-     */
-    #[ORM\OneToMany(targetEntity: Supplier::class, mappedBy: 'purchase')]
-    private Collection $idSupp;
+    #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'purchases')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Supplier $idSupp = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $totalAmount = null;
@@ -36,7 +34,6 @@ class Purchase
 
     public function __construct()
     {
-        $this->idSupp = new ArrayCollection();
         $this->purchaseItems = new ArrayCollection();
     }
 
@@ -45,39 +42,14 @@ class Purchase
         return $this->id;
     }
 
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Supplier>
-     */
-    public function getIdSupp(): Collection
+    public function getIdSupp(): ?Supplier
     {
         return $this->idSupp;
     }
 
-    public function addIdSupp(Supplier $idSupp): static
+    public function setIdSupp(?Supplier $idSupp): static
     {
-        if (!$this->idSupp->contains($idSupp)) {
-            $this->idSupp->add($idSupp);
-            $idSupp->setPurchase($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdSupp(Supplier $idSupp): static
-    {
-        if ($this->idSupp->removeElement($idSupp)) {
-            // set the owning side to null (unless already changed)
-            if ($idSupp->getPurchase() === $this) {
-                $idSupp->setPurchase(null);
-            }
-        }
+        $this->idSupp = $idSupp;
 
         return $this;
     }
