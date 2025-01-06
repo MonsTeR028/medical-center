@@ -3,6 +3,8 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
-    {{ include('user/_form.html.twig', {form: form, submit_label: 'Inscription'}, with_context=false) }}
+    <div class="user-form">
+        <h3 class="h3 poppins-semibold">{{ title }}</h3>
+        {{ include('user/_form.html.twig', {form: form, submit_label: 'Inscription'}, with_context=false) }}
+    </div>
 {% endblock %}
