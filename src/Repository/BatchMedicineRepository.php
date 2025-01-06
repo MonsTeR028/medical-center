@@ -22,6 +22,7 @@ class BatchMedicineRepository extends ServiceEntityRepository
             ->select('COALESCE(SUM(b.quantity), 0) AS quantity')
             ->setParameter(':id', $id)
             ->where('b.idMed = :id')
+            ->andWhere('b.arrivalDate <= CURRENT_TIMESTAMP()')
             ->getQuery()
             ->getSingleScalarResult();
     }
