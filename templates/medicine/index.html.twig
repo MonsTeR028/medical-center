@@ -10,30 +10,31 @@
 {% endblock %}
 
 {% block body %}
+<div class="main-medecine">
     <form>
-        <input id="input-search" type="text" placeholder="Nom d'un médicament..." value="{{ search }}">
-        <input type="submit" id="submit-search" value="Rechercher">
-        <select id="filter-category">
-            <option value="0" selected>Catégorie</option>
+        <label class="search-label">
+            <span class="material-symbols-outlined">search</span>
+            <input class="league-spartan-regular" id="input-search" type="text" placeholder="Nom d'un médicament..." value="{{ search }}">
+        </label>
+        <input class="league-spartan-regular" type="submit" id="submit-search" value="Rechercher">
+        <select class="league-spartan-regular" id="filter-category">
+            <option class="league-spartan-regular" value="0" selected>Catégorie</option>
             {% for ctg in categories %}
-                <option value="{{ ctg.id }}">{{ ctg.name }}</option>
+                <option class="league-spartan-regular" value="{{ ctg.id }}">{{ ctg.name }}</option>
             {% endfor %}
         </select>
-        <select id="filter-order">
+        <select class="league-spartan-regular" id="filter-order">
             <option value=''>Trier par</option>
             <option value='{"column": "priceUnit", "order": "ASC"}'>Prix (croissant)</option>
             <option value='{"column": "priceUnit", "order": "DESC"}'>Prix (décroissant)</option>
             <option value='{"column": "name", "order": "ASC"}'>Alphabétique (croissant)</option>
             <option value='{"column": "name", "order": "DESC"}'>Alphabétique (décroissant)</option>
         </select>
-        <label>
+        <label class="league-spartan-medium filter-oot-label">
             <input type="checkbox" id="filter-out-of-stock">
             Masquer les produits hors-stock
         </label>
     </form>
-
-    <div id="medicines-container">
-        {{ include('medicine/_medicines.html.twig') }}
-    </div>
-
+    {{ include('medicine/_medicines.html.twig') }}
+</div>
 {% endblock %}

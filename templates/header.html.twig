@@ -7,7 +7,11 @@
     </span>
     <span class="header-button">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="#" class="lexend-bold">
+            <a href="{{ path('app_medicine') }}" class="lexend-bold">
+                <span class="material-symbols-outlined">pill</span>
+                Médicaments
+            </a>
+            <a href="{{ path('app_cart') }}" class="lexend-bold">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 Panier
             </a>
