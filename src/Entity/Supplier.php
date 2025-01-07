@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SupplierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -42,8 +44,13 @@ class Supplier
     )]
     private ?string $email = null;
 
-    #[ORM\ManyToOne(inversedBy: 'idSupp')]
-    private ?Purchase $purchase = null;
+    #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: 'idSupp')]
+    private Collection $purchases;
+
+    public function __construct()
+    {
+        $this->purchases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,14 +100,32 @@ class Supplier
         return $this;
     }
 
-    public function getPurchase(): ?Purchase
+    /**
+     * @return Collection<int, Purchase>
+     */
+    public function getPurchases(): Collection
     {
-        return $this->purchase;
+        return $this->purchases;
     }
 
-    public function setPurchase(?Purchase $purchase): static
+    public function addPurchase(Purchase $purchase): static
     {
-        $this->purchase = $purchase;
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases->add($purchase);
+            $purchase->setIdSupp($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): static
+    {
+        if ($this->purchases->removeElement($purchase)) {
+            // Set the owning side to null (unless already changed)
+            if ($purchase->getIdSupp() === $this) {
+                $purchase->setIdSupp(null);
+            }
+        }
 
         return $this;
     }

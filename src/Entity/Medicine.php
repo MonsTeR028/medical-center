@@ -41,20 +41,16 @@ class Medicine
     private ?string $imageFileName = null;
 
     /**
-     * @var Collection<int, MedicineCategory>
-     */
-    #[ORM\ManyToMany(targetEntity: MedicineCategory::class, inversedBy: 'medicines')]
-    private Collection $category;
-
-    /**
      * @var Collection<int, BatchMedicine>
      */
     #[ORM\OneToMany(targetEntity: BatchMedicine::class, mappedBy: 'idMed')]
     private Collection $batchMedicines;
 
+    #[ORM\ManyToOne(inversedBy: 'medicines')]
+    private ?MedicineCategory $category = null;
+
     public function __construct()
     {
-        $this->category = new ArrayCollection();
         $this->batchMedicines = new ArrayCollection();
     }
 
@@ -136,30 +132,6 @@ class Medicine
     }
 
     /**
-     * @return Collection<int, MedicineCategory>
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(MedicineCategory $category): static
-    {
-        if (!$this->category->contains($category)) {
-            $this->category->add($category);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(MedicineCategory $category): static
-    {
-        $this->category->removeElement($category);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, BatchMedicine>
      */
     public function getBatchMedicines(): Collection
@@ -185,6 +157,18 @@ class Medicine
                 $batchMedicine->setIdMed(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?MedicineCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?MedicineCategory $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
