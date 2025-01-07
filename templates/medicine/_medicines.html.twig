@@ -1,10 +1,45 @@
-<ul class="medicines">
+<div class="medicines">
     {% for medicine in medicines %}
-        <li>
+        <div class="medicine">
             <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
-                {{ medicine.name }}
+                <p class="league-spartan-regular">{{ medicine.name }}</p>
             </a>
-            <a href="{{ path('app_cart_add', {id: medicine.id}) }}">Ajouter au panier</a>
-        </li>
+            <div class="medicine-item">
+                {% if medicine.imageFileName %}
+                    <img src="{{ medicine.imageFileName }}" alt="{{ medicine.name }}">
+                {% else %}
+                    <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
+                {% endif %}
+                <div class="medicine-description">
+                    <p class="league-spartan-regular">(NB) {{ medicine.type }}(s)</p>
+                    <p class="league-spartan-regular">Voie VOIE</p>
+                    <p class="league-spartan-regular">Date</p>
+                </div>
+            </div>
+            <div class="medicine-add">
+                <span class="material-symbols-outlined">add_shopping_cart</span>
+                <p>{{ medicine.priceUnit }} €</p>
+            </div>
+
+            {% if batchMedecines[medicine.id] == 0 %}
+                <p class="medicine-quantity league-spartan-regular">Plus de stock</p>
+            {% elseif batchMedecines[medicine.id] == 1 %}
+                <p class="medicine-quantity league-spartan-regular" style="color: red">1 restant</p>
+            {% elseif batchMedecines[medicine.id] < 25 %}
+                <p class="medicine-quantity league-spartan-regular" style="color: red">{{ batchMedecines[medicine.id] }} restants</p>
+            {% elseif batchMedecines[medicine.id] < 100 %}
+                <p class="medicine-quantity league-spartan-regular">{{ batchMedecines[medicine.id] }} restants</p>
+            {% endif %}
+
+            <div class="dropdown">
+                <span class="material-symbols-outlined selection-chevron">chevron_right</span>
+                <div class="placebo"></div>
+                <ul class="medicine-actions">
+                    <li><a href="{{ path('app_medicine_show', {id: medicine.id}) }}" class="league-spartan-regular">Information sur le produit</a></li>
+                    <li><a href="{{ path('app_cart_add', {id: medicine.id}) }}" class="league-spartan-regular">Ajouter au panier</a></li>
+                    <li><a href="#" class="league-spartan-regular">Acheter cet article</a></li>
+                </ul>
+            </div>
+        </div>
     {% endfor %}
-</ul>
+</div>
