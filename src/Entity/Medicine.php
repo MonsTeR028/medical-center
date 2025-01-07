@@ -40,7 +40,6 @@ class Medicine
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageFileName = null;
 
-
     /**
      * @var Collection<int, BatchMedicine>
      */
@@ -131,7 +130,6 @@ class Medicine
 
         return $this;
     }
-
 
     /**
      * @return Collection<int, BatchMedicine>
