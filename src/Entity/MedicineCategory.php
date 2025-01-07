@@ -21,7 +21,7 @@ class MedicineCategory
     /**
      * @var Collection<int, Medicine>
      */
-    #[ORM\ManyToMany(targetEntity: Medicine::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Medicine::class, mappedBy: 'category')]
     private Collection $medicines;
 
     public function __construct()
@@ -58,7 +58,7 @@ class MedicineCategory
     {
         if (!$this->medicines->contains($medicine)) {
             $this->medicines->add($medicine);
-            $medicine->addCategory($this);
+            $medicine->setCategory($this);
         }
 
         return $this;
@@ -67,7 +67,10 @@ class MedicineCategory
     public function removeMedicine(Medicine $medicine): static
     {
         if ($this->medicines->removeElement($medicine)) {
-            $medicine->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($medicine->getCategory() === $this) {
+                $medicine->setCategory(null);
+            }
         }
 
         return $this;
