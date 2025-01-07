@@ -4,7 +4,8 @@ body * {
 }
 
 body {
-    background: url('../images/background.jpeg');
+    background: url('../images/background.jpeg') fixed;
+    background-size: cover;
 }
 
 html, body {
@@ -176,6 +177,272 @@ header > span > a {
     display: flex;
     flex-direction: column;
     flex: 1;
+}
+
+.main-medecine form {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em;
+    align-items: center;
+}
+
+#input-search, #submit-search, #filter-order, #filter-category {
+    font-size: 26px;
+    border-radius: 40px;
+    border: solid #137C8B 4px;
+    padding: 0 0.5em 0 1.5em;
+}
+
+#submit-search {
+    padding: 0 1em 0 1em;
+}
+
+#submit-search:hover {
+    background-color: #137C8B;
+    color: white;
+}
+
+#filter-order, #filter-category {
+    padding: 0.2em 1em 0.2em 0.5em;
+}
+
+.filter-oot-label {
+    color: white;
+    font-size: 22px;
+}
+
+.search-label {
+    position: relative;
+}
+
+.search-label span {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    color: #797979;
+}
+
+.medicines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    justify-items: center;
+    padding: 0 3em 180px 3em;
+    overflow-y: scroll;
+    height: 780px;
+    gap: 3em;
+}
+
+.medicine {
+    height: 450px;
+    width: 500px;
+    background: white;
+    border: solid #137C8B 4px;
+    border-radius: 35px;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    position: relative;
+}
+
+.medicine > a {
+    text-decoration: underline 1px black;
+}
+
+.medicine > a > p {
+    font-size: 30px;
+    color: black;
+}
+
+.medicine-item {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+}
+
+.medicine-item img {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.medicine-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.medicine-description p {
+    font-size: 26px;
+    line-height: 30px;
+    color: #656565;
+}
+
+.medicine-add {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #137C8B;
+    border-radius: 25px;
+    padding: 0.375em 0.75em 0.375em 0.75em;
+    gap: 0.5em;
+}
+
+.medicine-add * {
+    color: white;
+    font-size: 24px;
+}
+
+.medicine-add span {
+    font-size: 28px;
+}
+
+.medicine-quantity {
+    font-size: 20px;
+}
+
+.selection-chevron {
+    font-size: 4em;
+    transform: rotate(-90deg);
+}
+
+.selection-chevron:hover {
+    transform: rotate(90deg);
+    transition: ease-in-out 0.4s;
+}
+
+.medicine-actions {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    position: absolute;
+    bottom: 0.5em;
+    right: 209px;
+    height: 60px;
+}
+
+.dropdown .selection-chevron {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+}
+
+.medicine-actions {
+    list-style-type: none;
+    margin: 0;
+    display: none;
+    position: absolute;
+    left: -213px;
+    background-color: #137C8B;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    z-index: 1;
+    top: calc(100% + 10px);
+}
+
+.placebo {
+    display: none;
+    height: 50px;
+    position: absolute;
+    left: -213px;
+    top: 50%;
+    width: 500px;
+    background-color: #137C8B;
+    z-index: -1;
+}
+
+.medicine-actions li {
+    margin: 0;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.medicine-actions li a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    white-space: nowrap;
+}
+
+.medicine-actions li:hover {
+    background-color: #075a67;
+}
+
+
+.dropdown:hover .medicine-actions {
+    display: block;
+    transition: ease-in-out 10s;
+}
+
+.dropdown:hover .placebo {
+    display: block;
+    transition: ease-in-out 10s;
+}
+
+.medicine-actions:hover {
+    display: block;
+}
+
+.checkbox-wrapper-21 .control {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.checkbox-wrapper-21 .control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.checkbox-wrapper-21 .control__indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+}
+.checkbox-wrapper-21 .control:hover input ~ .control__indicator,
+.checkbox-wrapper-21 .control input:focus ~ .control__indicator {
+    background: #ccc;
+}
+.checkbox-wrapper-21 .control input:checked ~ .control__indicator {
+    background: #2aa1c0;
+}
+.checkbox-wrapper-21 .control:hover input:not([disabled]):checked ~ .control__indicator,
+.checkbox-wrapper-21 .control input:checked:focus ~ .control__indicator {
+    background: #0e647d;
+}
+.checkbox-wrapper-21 .control input:disabled ~ .control__indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.checkbox-wrapper-21 .control__indicator:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+.checkbox-wrapper-21 .control input:checked ~ .control__indicator:after {
+    display: block;
+}
+.checkbox-wrapper-21 .control--checkbox .control__indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.checkbox-wrapper-21 .control--checkbox input:disabled ~ .control__indicator:after {
+    border-color: #7b7b7b;
 }
 
 footer {
