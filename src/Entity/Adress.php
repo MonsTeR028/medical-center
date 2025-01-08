@@ -49,11 +49,6 @@ class Adress
         return $this->adress;
     }
 
-    public function __toString()
-    {
-        return $this->adress;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
