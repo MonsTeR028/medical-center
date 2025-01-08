@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,5 +44,20 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/register.html.twig', ['form' => $form]);
+    }
+
+    #[Route('/user/change_password', name: 'app_user_change_password')]
+    public function changePassword(): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createForm(ChangePasswordFormType::class);
+
+        return $this->render('user/change_password.html.twig', [
+            'form' => $form,
+        ]);
     }
 }
