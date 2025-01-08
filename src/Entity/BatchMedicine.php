@@ -20,9 +20,6 @@ class BatchMedicine
     #[ORM\JoinColumn(nullable: false)]
     private ?Medicine $idMed = null;
 
-    #[ORM\Column]
-    private ?int $quantity = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $expirationDate = null;
 
@@ -44,8 +41,6 @@ class BatchMedicine
     #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'idBatchMedicine')]
     private Collection $purchaseItems;
 
-    #[ORM\Column]
-    private ?int $stock = null;
 
     public function __construct()
     {
@@ -73,18 +68,6 @@ class BatchMedicine
     public function setIdMed(?Medicine $idMed): static
     {
         $this->idMed = $idMed;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }
@@ -121,18 +104,6 @@ class BatchMedicine
     public function setPurchasePrice(float $purchasePrice): static
     {
         $this->purchasePrice = $purchasePrice;
-
-        return $this;
-    }
-
-    public function getTest(): ?string
-    {
-        return $this->test;
-    }
-
-    public function setTest(string $test): static
-    {
-        $this->test = $test;
 
         return $this;
     }
@@ -193,18 +164,6 @@ class BatchMedicine
                 $purchaseItem->setIdBatchMedicine(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): static
-    {
-        $this->stock = $stock;
 
         return $this;
     }
