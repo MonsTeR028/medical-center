@@ -35,6 +35,9 @@
             Masquer les produits hors-stock
         </label>
     </form>
-    {{ include('medicine/_medicines.html.twig') }}
+
+    <div id="medicines-container" class="medicines">
+        {{ include('medicine/_medicines.html.twig') }}
+    </div>
 </div>
 {% endblock %}
