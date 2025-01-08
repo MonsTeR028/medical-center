@@ -34,9 +34,7 @@ final class BatchMedicineFactory extends PersistentProxyObjectFactory
         return [
             'arrivalDate' => self::faker()->dateTime(),
             'expirationDate' => self::faker()->dateTime(),
-            'purchasePrice' => self::faker()->randomFloat(2, 0, 999.99),
-            'quantity' => self::faker()->randomNumber(),
-            'stock' => self::faker()->randomNumber(),
+            'purchasePrice' => self::faker()->randomFloat(2, 1, 999.99),
         ];
     }
 

@@ -49,6 +49,9 @@ class Medicine
     #[ORM\ManyToOne(inversedBy: 'medicines')]
     private ?MedicineCategory $category = null;
 
+    #[ORM\Column]
+    private ?int $quantity = null;
+
     public function __construct()
     {
         $this->batchMedicines = new ArrayCollection();
@@ -127,6 +130,18 @@ class Medicine
     public function setImageFileName(?string $imageFileName): static
     {
         $this->imageFileName = $imageFileName;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

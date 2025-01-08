@@ -30,7 +30,7 @@
                         </div>
                         <div class="cart-item-modify">
                             <div class="cart-item-price">
-                                <p class="league-spartan-light">{{ (item.product.priceUnit * item.quantity)|round(2)}}€</p>
+                                <p class="league-spartan-light">{{ (item.product.priceUnit * item.quantity)|round(2) }}€</p>
                                 <div class="cart-item-quantity">
                                     <a href="{{ path('app_cart_decrease', {id: item.product.id}) }}">
                                         <span class="material-symbols-outlined">remove</span>
