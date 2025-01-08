@@ -1,10 +1,10 @@
 {% set submit_label = submit_label %}
 {{ form_start(form) }}
 <div class="form-buttons">
-        {{ form_row(form.firstname, {'attr' : {'class' : 'form-control inter-regular', 'placeholder' : 'Prénom'}, 'label' : false}) }}
-        {{ form_row(form.lastname, {'attr' : {'class' : 'form-control inter-regular', 'placeholder' : 'Nom'}, 'label' : false}) }}
-        {{ form_row(form.email, {'attr' : {'class' : 'form-control inter-regular', 'placeholder' : 'Email'}, 'label' : false}) }}
-        {{ form_row(form.password, {'attr' : {'class' : 'form-control inter-regular', 'placeholder' : 'Mot de passe'}, 'label' : false}) }}
+        {{ form_row(form.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom'}, label: false}) }}
+        {{ form_row(form.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom'}, label: false}) }}
+        {{ form_row(form.email, {attr: {class: 'form-control inter-regular', placeholder: 'Email'}, label: false}) }}
+        {{ form_row(form.password, {attr: {class: 'form-control inter-regular', placeholder: 'Mot de passe'}, label: false}) }}
 </div>
 <button type="submit" class="poppins-semibold">{{ submit_label }}</button>
 <div class="no-account">
