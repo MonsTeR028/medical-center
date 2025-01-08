@@ -24,6 +24,7 @@ class OrderController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/order/prepare', name: 'app_order_prepare', methods: ['POST'])]
     public function prepareOrder(Request $request, CartService $cartService, LoggerInterface $logger): Response
     {
@@ -31,6 +32,7 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderType::class, null, ['user' => $this->getUser()]);
         $form->handleRequest($request);
         dd($form);
+
         /*
         if ($form->isSubmitted() && $form->isValid()) {
             $dateTime = new \DateTime();
@@ -43,6 +45,5 @@ class OrderController extends AbstractController
         }
         */
         return $this->render('order/prepare.html.twig', []);
-
     }
 }
