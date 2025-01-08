@@ -18,7 +18,8 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class, ['empty_data' => ''])
             ->add('firstname', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['empty_data' => ''])
             ->add('lastname', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['empty_data' => ''])
-        ;
+            ->add('tel', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['empty_data' => ''])
+            ->add('RRPS', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['empty_data' => '']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
