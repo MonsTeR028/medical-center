@@ -388,61 +388,121 @@ header > span > a {
     display: block;
 }
 
-.checkbox-wrapper-21 .control {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    cursor: pointer;
-    font-size: 18px;
+.main-cart {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: solid #137C8B 5px;
+    border-radius: 35px;
+    padding: 1em;
+    margin: 96px 5em 58px 5em;
+    height: 800px;
 }
-.checkbox-wrapper-21 .control input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
+
+.main-cart h3 {
+    font-size: 42px;
+    border-bottom: black 1px solid;
+    text-align: center;
 }
-.checkbox-wrapper-21 .control__indicator {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background: #e6e6e6;
+
+.main-cart form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
-.checkbox-wrapper-21 .control:hover input ~ .control__indicator,
-.checkbox-wrapper-21 .control input:focus ~ .control__indicator {
-    background: #ccc;
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 2em;
+    padding: 1em;
+    height: 680px;
 }
-.checkbox-wrapper-21 .control input:checked ~ .control__indicator {
-    background: #2aa1c0;
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    background-color: #B8CBD0;
+    justify-content: space-between;
+    padding: 1em 3em 1em 3em;
+    border-radius: 20px;
 }
-.checkbox-wrapper-21 .control:hover input:not([disabled]):checked ~ .control__indicator,
-.checkbox-wrapper-21 .control input:checked:focus ~ .control__indicator {
-    background: #0e647d;
+
+.cart-item-presentation {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+    align-items: center;
 }
-.checkbox-wrapper-21 .control input:disabled ~ .control__indicator {
-    background: #e6e6e6;
-    opacity: 0.6;
-    pointer-events: none;
+
+.cart-item-presentation img {
+    max-height: 180px;
+    max-width: 180px;
 }
-.checkbox-wrapper-21 .control__indicator:after {
-    content: '';
-    position: absolute;
-    display: none;
+
+.cart-item-description {
+    display: flex;
+    flex-direction: column;
 }
-.checkbox-wrapper-21 .control input:checked ~ .control__indicator:after {
-    display: block;
+
+.cart-item-description p:first-child {
+    font-size: 32px;
 }
-.checkbox-wrapper-21 .control--checkbox .control__indicator:after {
-    left: 8px;
-    top: 4px;
-    width: 3px;
-    height: 8px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+
+.cart-item-modify {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5em;
 }
-.checkbox-wrapper-21 .control--checkbox input:disabled ~ .control__indicator:after {
-    border-color: #7b7b7b;
+
+.cart-item-price {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.cart-item-price p:first-child {
+    font-size: 30px;
+}
+
+.main-cart button {
+    background-color: #709CA7;
+    color: black;
+    border-radius: 15px;
+    border: none;
+    padding-top: 5px;
+    align-self: center;
+    width: 350px;
+    font-size: 20px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 25px;
+    border: solid #137C8B 3px;
+    gap: 1em;
+    padding: 5px 0.3em 0 0.3em;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-item-quantity span {
+    font-size: 28px;
+    color: black;
+}
+
+.cart-item-quantity p {
+    font-size: 20px;
+}
+
+.cart-item-delete {
+    font-size: 34px;
+    color: red;
 }
 
 footer {
