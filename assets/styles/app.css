@@ -408,6 +408,7 @@ header > span > a {
 .main-cart form {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .cart-items {
@@ -416,7 +417,7 @@ header > span > a {
     overflow-y: scroll;
     gap: 2em;
     padding: 1em;
-    flex: 1;
+    height: 680px;
 }
 
 .cart-item {
@@ -424,14 +425,14 @@ header > span > a {
     flex-direction: row;
     background-color: #B8CBD0;
     justify-content: space-between;
-    padding: 1em 2em 1em 2em;
+    padding: 1em 3em 1em 3em;
     border-radius: 20px;
 }
 
 .cart-item-presentation {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 3em;
     align-items: center;
 }
 
@@ -443,6 +444,65 @@ header > span > a {
 .cart-item-description {
     display: flex;
     flex-direction: column;
+}
+
+.cart-item-description p:first-child {
+    font-size: 32px;
+}
+
+.cart-item-modify {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.cart-item-price {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.cart-item-price p:first-child {
+    font-size: 30px;
+}
+
+.main-cart button {
+    background-color: #709CA7;
+    color: black;
+    border-radius: 15px;
+    border: none;
+    padding-top: 5px;
+    align-self: center;
+    width: 350px;
+    font-size: 20px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 25px;
+    border: solid #137C8B 3px;
+    gap: 1em;
+    padding: 5px 0.3em 0 0.3em;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-item-quantity span {
+    font-size: 28px;
+    color: black;
+}
+
+.cart-item-quantity p {
+    font-size: 20px;
+}
+
+.cart-item-delete {
+    font-size: 34px;
+    color: red;
 }
 
 footer {
