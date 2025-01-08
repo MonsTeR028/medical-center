@@ -5,7 +5,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="module">
-        import '{{ asset('medecine/filter.js') }}';
+        import '{{ asset('js/filter.js') }}';
     </script>
 {% endblock %}
 
@@ -35,6 +35,9 @@
             Masquer les produits hors-stock
         </label>
     </form>
-    {{ include('medicine/_medicines.html.twig') }}
+
+    <div id="medicines-container" class="medicines">
+        {{ include('medicine/_medicines.html.twig') }}
+    </div>
 </div>
 {% endblock %}
