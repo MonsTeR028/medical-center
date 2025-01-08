@@ -5,7 +5,7 @@
 {% block body %}
     <div class="example-wrapper">
         <h1>Création de commande</h1>
-        {{ form_start(form) }}
+        {{ form_start(form, {'action': path('app_order_prepare'), 'method' : 'POST'}) }}
         <h3>Choisir addresse de livraison</h3>
         {{ form_row(form.addresses) }}
         <h3>Mode de livraison</h3>
