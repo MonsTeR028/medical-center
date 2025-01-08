@@ -29,18 +29,19 @@ class MedicineController extends AbstractController
 
         $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy);
 
-        if ($containerOnly) {
-            return $this->render('medicine/_medicines.html.twig', [
-                'medicines' => $medicines,
-            ]);
-        }
-
-        $categories = $medicineCategoryRepository->findAllOrderedByName();
-
         $batchMedicines = [];
         foreach ($medicines as $medicine) {
             $batchMedicines[$medicine->getId()] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
         }
+
+        if ($containerOnly) {
+            return $this->render('medicine/_medicines.html.twig', [
+                'medicines' => $medicines,
+                'batchMedecines' => $batchMedicines,
+            ]);
+        }
+
+        $categories = $medicineCategoryRepository->findAllOrderedByName();
 
         return $this->render('medicine/index.html.twig', [
             'medicines' => $medicines,
