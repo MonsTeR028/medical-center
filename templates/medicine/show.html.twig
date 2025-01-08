@@ -21,9 +21,7 @@
     {% if medicine.category is not empty %}
         <h3>Catégories</h3>
         <ul>
-            {% for ctg in medicine.category %}
-                <li>{{ ctg.name }}</li>
-            {% endfor %}
+            {{ medicine.category.name }}
         </ul>
     {% else %}
         <p>Aucune catégorie assignée.</p>
