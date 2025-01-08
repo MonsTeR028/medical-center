@@ -48,13 +48,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Adresse>
      */
-    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'idUser')]
-    private Collection $adresses;
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
+    private Collection $adresse;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->adresses = new ArrayCollection();
+        $this->adresse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,27 +190,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Adresse>
      */
-    public function getAdresses(): Collection
+    public function getAdresse(): Collection
     {
-        return $this->adresses;
+        return $this->adresse;
     }
 
-    public function addAdress(Adresse $adress): static
+    public function addAdresse(Adresse $adresse): static
     {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses->add($adress);
-            $adress->setIdUser($this);
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse->add($adresse);
+            $adresse->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAdress(Adresse $adress): static
+    public function removeAdresse(Adresse $adresse): static
     {
-        if ($this->adresses->removeElement($adress)) {
+        if ($this->adresse->removeElement($adresse)) {
             // set the owning side to null (unless already changed)
-            if ($adress->getIdUser() === $this) {
-                $adress->setIdUser(null);
+            if ($adresse->getUser() === $this) {
+                $adresse->setUser(null);
             }
         }
 

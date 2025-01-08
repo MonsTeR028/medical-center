@@ -14,10 +14,6 @@ class Adresse
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'adresses')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $idUser = null;
-
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
@@ -29,6 +25,10 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[ORM\ManyToOne(inversedBy: 'adresse')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,18 +37,6 @@ class Adresse
     public function setId(int $id): static
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function getIdUser(): ?User
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(?User $idUser): static
-    {
-        $this->idUser = $idUser;
 
         return $this;
     }
@@ -85,6 +73,18 @@ class Adresse
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
