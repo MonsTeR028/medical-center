@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Controller\Cart;
 
 use App\Factory\UserFactory;
@@ -26,6 +25,4 @@ class CartIndexCest
         $I->see('Votre Panier', 'h3');
         $I->see('Votre panier est vide !', 'p');
     }
-
-
 }

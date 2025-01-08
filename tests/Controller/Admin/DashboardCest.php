@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Controller\Admin;
 
 use App\Factory\UserFactory;

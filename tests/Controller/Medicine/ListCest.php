@@ -2,10 +2,7 @@
 
 namespace App\Tests\Controller\Medicine;
 
-use App\Factory\MedicineFactory;
 use App\Tests\Support\ControllerTester;
-
-use function PHPUnit\Framework\assertEquals;
 
 class ListCest
 {
