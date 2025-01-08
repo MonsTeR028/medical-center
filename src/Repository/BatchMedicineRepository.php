@@ -19,10 +19,11 @@ class BatchMedicineRepository extends ServiceEntityRepository
     public function findAllQuantityById($id): int
     {
         return $this->createQueryBuilder('b')
-            ->select('COALESCE(SUM(b.quantity), 0) AS quantity')
+            ->select('COUNT(b.id)')
             ->setParameter(':id', $id)
             ->where('b.idMed = :id')
             ->andWhere('b.arrivalDate <= CURRENT_TIMESTAMP()')
+            ->andWhere('b.expirationDate > CURRENT_TIMESTAMP()')
             ->getQuery()
             ->getSingleScalarResult();
     }
