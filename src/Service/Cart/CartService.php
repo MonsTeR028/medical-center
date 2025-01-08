@@ -10,11 +10,13 @@ class CartService
 {
     protected SessionInterface $session;
     protected MedicineRepository $medicineRepository;
+
     public function __construct(RequestStack $request, MedicineRepository $medicineRepository)
     {
         $this->session = $request->getSession();
         $this->medicineRepository = $medicineRepository;
     }
+
     public function add(int $id): void
     {
         $cart = $this->session->get('cart', []);
@@ -46,6 +48,7 @@ class CartService
                 'quantity' => $quantity,
             ];
         }
+
         return $cartWithData;
     }
 
@@ -56,6 +59,7 @@ class CartService
         foreach ($this->getCart() as $item) {
             $total += $item['quantity'] * $item['product']->getPriceUnit();
         }
+
         return $total;
     }
 }
