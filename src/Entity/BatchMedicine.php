@@ -41,6 +41,7 @@ class BatchMedicine
     #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'idBatchMedicine')]
     private Collection $purchaseItems;
 
+
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
