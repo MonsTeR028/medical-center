@@ -234,7 +234,7 @@ header > span > a {
 }
 
 .medicine {
-    height: 450px;
+    height: 430px;
     width: 500px;
     background: white;
     border: solid #137C8B 4px;
@@ -243,7 +243,7 @@ header > span > a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.75em;
     position: relative;
 }
 
@@ -388,6 +388,13 @@ header > span > a {
     display: block;
 }
 
+.medicine-category {
+    background-color: lightgray;
+    border: solid grey 1px;
+    border-radius: 10px;
+    padding: 0 0.5em 0 0.5em;
+}
+
 .main-cart {
     display: flex;
     flex-direction: column;
@@ -475,7 +482,7 @@ header > span > a {
     border: none;
     padding-top: 5px;
     align-self: center;
-    width: 350px;
+    width: 400px;
     font-size: 20px;
 }
 

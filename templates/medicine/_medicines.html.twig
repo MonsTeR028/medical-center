@@ -10,11 +10,12 @@
                     <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
                 {% endif %}
                 <div class="medicine-description">
-                    <p class="league-spartan-regular">(NB) {{ medicine.type }}(s)</p>
+                    <p class="league-spartan-regular">{{ medicine.quantity }} {{ medicine.type }}s</p>
                     <p class="league-spartan-regular">Voie VOIE</p>
                     <p class="league-spartan-regular">Date</p>
                 </div>
             </div>
+            <p class="league-spartan-regular medicine-category">{{ medicine.category.name }}</p>
             <div class="medicine-add">
                 <span class="material-symbols-outlined">add_shopping_cart</span>
                 <p>{{ medicine.priceUnit }} €</p>
@@ -35,8 +36,15 @@
                 <div class="placebo"></div>
                 <ul class="medicine-actions">
                     <li><a href="{{ path('app_medicine_show', {id: medicine.id}) }}" class="league-spartan-regular">Information sur le produit</a></li>
-                    <li><a href="{{ path('app_cart_add', {id: medicine.id}) }}" class="league-spartan-regular">Ajouter au panier</a></li>
-                    <li><a href="#" class="league-spartan-regular">Acheter cet article</a></li>
+                    {% if batchMedecines[medicine.id] == 0 %}
+                        <li style="background-color: grey">
+                            <a href="{{ path('app_cart_add', {id: medicine.id}) }}" class="league-spartan-regular" disabled>Ajouter au panier</a>
+                        </li>
+                        <li style="background-color: grey"><a href="#" class="league-spartan-regular" disabled="">Acheter cet article</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_cart_add', {id: medicine.id}) }}" class="league-spartan-regular">Ajouter au panier</a></li>
+                        <li><a href="#" class="league-spartan-regular">Acheter cet article</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
