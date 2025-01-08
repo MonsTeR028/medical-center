@@ -31,11 +31,16 @@ final class BatchMedicineFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
-        return [
-            'arrivalDate' => self::faker()->dateTime(),
-            'expirationDate' => self::faker()->dateTime(),
-            'purchasePrice' => self::faker()->randomFloat(2, 1, 999.99),
-        ];
+        return function () {
+            $arrivalDate = self::faker()->dateTime();
+            $expirationDate = self::faker()->dateTimeBetween($arrivalDate, '+2 years');
+
+            return [
+                'arrivalDate' => $arrivalDate,
+                'expirationDate' => $expirationDate,
+                'purchasePrice' => self::faker()->randomFloat(2, 1, 999.99),
+            ];
+        };
     }
 
     /**
