@@ -12,7 +12,9 @@
                     <div class="cart-item">
                         <div class="cart-item-presentation">
                             <label>
-                                <input type="checkbox" name="item" value="{{ item.product.id }}">
+                                <input type="checkbox" name="item" value="{{ item.product.id }}"
+                                       data-price="{{ (item.product.priceUnit * item.quantity)|round(2) }}"
+                                        data-quantity="{{ item.quantity }}">
                             </label>
                             {% if item.product.imageFileName %}
                                 <img src="{{ item.product.imageFileName }}" alt="{{ item.product.name }}">
@@ -20,27 +22,38 @@
                                 <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
                             {% endif %}
                             <div class="cart-item-description">
-                                <p>{{ item.product.name }}</p>
-                                <p>Type : {{ item.product.type }}</p>
-                                <p>Voie : VOIE</p>
+                                <p class="league-spartan-regular">{{ item.product.name }}</p>
+                                <p class="inter-regular">Quantité : QUANTITE</p>
+                                <p class="inter-regular">Type : {{ item.product.type }}</p>
+                                <p class="inter-regular">Voie : VOIE</p>
                             </div>
                         </div>
                         <div class="cart-item-modify">
                             <div class="cart-item-price">
-                                <p>{{ item.product.priceUnit * item.quantity }}</p>
-                                <p>{{ item.quantity }}</p>
+                                <p class="league-spartan-light">{{ (item.product.priceUnit * item.quantity)|round(2)}}€</p>
+                                <div class="cart-item-quantity">
+                                    <a href="{{ path('app_cart_decrease', {id: item.product.id}) }}">
+                                        <span class="material-symbols-outlined">remove</span>
+                                    </a>
+                                    <p class="league-spartan-bold">{{ item.quantity }}</p>
+                                    <a href="{{ path('app_cart_increase', {id: item.product.id}) }}">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </a>
+                                </div>
                             </div>
                             <a href="{{ path('app_cart_remove', {id: item.product.id}) }}" class="btn btn-danger-sm">
-                                Supprimer
+                                <span class="material-symbols-outlined cart-item-delete">delete</span>
                             </a>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-            <button type="submit">Passer commande (NB articles) : {{ total }} €</button>
+            <button id="no-selection-button" class="league-spartan-regular">Aucun article sélectionné</button>
+            <button type="submit" id="checkout-button" class="league-spartan-regular" hidden>Passer commande (0 articles) : 0.00 €</button>
         </form>
     {% else %}
         <p class="cart-empty">Votre panier est vide !</p>
     {% endif %}
 </div>
+<script src="{{ asset('/cart/checkbox_price.js') }}"></script>
 {% endblock %}
