@@ -95,9 +95,9 @@
         "fix:twigcs": "vendor/bin/twig-cs-fixer lint --fix",
         "test:codeception": [
             "vendor/bin/codecept clean",
-            "bin/console doctrine:database:drop --force --quiet --env=test",
-            "bin/console doctrine:database:create --quiet --env=test",
-            "bin/console doctrine:schema:create --quiet --env=test",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
             "vendor/bin/codecept run"
         ],
         "test": [
