@@ -23,6 +23,7 @@ class BatchMedicineRepository extends ServiceEntityRepository
             ->setParameter(':id', $id)
             ->where('b.idMed = :id')
             ->andWhere('b.arrivalDate <= CURRENT_TIMESTAMP()')
+            ->andWhere('b.expirationDate > CURRENT_TIMESTAMP()')
             ->getQuery()
             ->getSingleScalarResult();
     }
