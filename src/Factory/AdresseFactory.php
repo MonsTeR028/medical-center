@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\BatchMedicine;
+use App\Entity\Adresse;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<BatchMedicine>
+ * @extends PersistentProxyObjectFactory<Adresse>
  */
-final class BatchMedicineFactory extends PersistentProxyObjectFactory
+final class AdresseFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +21,7 @@ final class BatchMedicineFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return BatchMedicine::class;
+        return Adresse::class;
     }
 
     /**
@@ -31,16 +31,11 @@ final class BatchMedicineFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
-        return function () {
-            $arrivalDate = self::faker()->dateTime();
-            $expirationDate = self::faker()->dateTimeBetween($arrivalDate, '+2 years');
-
-            return [
-                'arrivalDate' => $arrivalDate,
-                'expirationDate' => $expirationDate,
-                'purchasePrice' => self::faker()->randomFloat(2, 1, 999.99),
-            ];
-        };
+        return [
+            'adresse' => self::faker()->streetAddress(),
+            'city' => self::faker()->city(),
+            'zipcode' => self::faker()->postcode(),
+        ];
     }
 
     /**
@@ -49,7 +44,7 @@ final class BatchMedicineFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(BatchMedicineFixtures $batchMedicine): void {})
+            // ->afterInstantiate(function(Adresse $adresse): void {})
         ;
     }
 }
