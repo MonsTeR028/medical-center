@@ -37,6 +37,24 @@ class CartService
         $this->session->set('cart', $cart);
     }
 
+    public function decrease(int $id): void
+    {
+        $cart = $this->session->get('cart', []);
+        if (isset($cart[$id])) {
+            if ($cart[$id] > 1) {
+                --$cart[$id];
+            } else {
+                $this->remove($id);
+            }
+        }
+        $this->session->set('cart', $cart);
+    }
+
+    public function increase(int $id): void
+    {
+        $this->add($id);
+    }
+
     public function getCart(): array
     {
         $cart = $this->session->get('cart', []);
@@ -52,7 +70,7 @@ class CartService
         return $cartWithData;
     }
 
-    public function getTotal(): int
+    public function getTotal(): float
     {
         $total = 0;
 
