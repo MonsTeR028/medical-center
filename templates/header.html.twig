@@ -19,12 +19,12 @@
                 <span class="material-symbols-outlined">shopping_cart</span>
                 Panier
             </a>
-            <a href="{{ path('app_user') }}" class="lexend-bold">
+            <a href="{{ path('app_user') }}" class="lexend-bold  account">
                 <span class="material-symbols-outlined">person</span>
                 Compte
             </a>
         {% else %}
-            <a href="{{ path('app_user_register') }}" class="lexend-bold account">Inscription</a>
+            <a href="{{ path('app_user_register') }}" class="lexend-bold">Inscription</a>
             <a href="{{ path('app_login') }}" class="lexend-bold">Connexion</a>
         {% endif %}
     </span>
