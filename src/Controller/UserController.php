@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +16,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    public function index(OrderRepository $orderRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $orders = $orderRepository->findActiveOrdersByUserId($user->getId());
+
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'user' => $user,
+            'orders' => $orders,
         ]);
     }
 
@@ -38,5 +48,42 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/register.html.twig', ['form' => $form]);
+    }
+
+    #[Route('/user/change_password', name: 'app_user_change_password')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createForm(ChangePasswordFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('currentPassword')->getData();
+
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('warning', 'Le mot de passe actuel est incorrect.');
+
+                return $this->redirectToRoute('app_user_change_password');
+            }
+
+            $newPassword = $form->get('newPassword')->getData();
+            $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+            $user->setPassword($hashedPassword);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+
+            return $this->redirectToRoute('app_user',
+                ['popup' => ['message' => 'Votre mot de passe a été changé avec succès.']]);
+        }
+
+        return $this->render('user/change_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

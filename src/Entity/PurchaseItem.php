@@ -74,4 +74,9 @@ class PurchaseItem
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->quantity.' '.$this->idBatchMedicine->getIdMed()->getName();
+    }
 }

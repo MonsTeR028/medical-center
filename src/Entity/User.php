@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -45,9 +46,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'idUser')]
     private Collection $orders;
 
+    /**
+     * @var Collection<int, Adresse>
+     */
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
+    private Collection $adresse;
+
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 10,
+        max: 20,
+        minMessage: 'Votre téléphone doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Votre téléphone ne doit pas faire plus de {{ limit }} caractères',
+    )]
+    #[Assert\Regex(pattern: '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4})$/',
+        message: 'Format de téléphone invalide')]
+    private ?string $tel = null;
+
+    #[ORM\Column(length: 11)]
+    #[Assert\Length(min: 11, max: 11, exactMessage: 'Le numéro RRPS doit comporter exactement 11 caractères.')]
+    #[Assert\Regex(pattern: "/^\d{11}$/", message: 'Le numéro RRPS doit contenir uniquement des chiffres.')]
+    private ?string $RRPS = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
+        $this->adresse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,5 +203,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresse(): Collection
+    {
+        return $this->adresse;
+    }
+
+    public function addAdresse(Adresse $adresse): static
+    {
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse->add($adresse);
+            $adresse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresse(Adresse $adresse): static
+    {
+        if ($this->adresse->removeElement($adresse)) {
+            // set the owning side to null (unless already changed)
+            if ($adresse->getUser() === $this) {
+                $adresse->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): static
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getRRPS(): ?string
+    {
+        return $this->RRPS;
+    }
+
+    public function setRRPS(string $RRPS): static
+    {
+        $this->RRPS = $RRPS;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->lastname.' '.$this->firstname;
     }
 }

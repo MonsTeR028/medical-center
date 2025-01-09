@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BatchMedicineRepository::class)]
 class BatchMedicine
@@ -24,6 +25,9 @@ class BatchMedicine
     private ?\DateTimeInterface $expirationDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Expression('this.getArrivalDate() <= this.()getExpirationDate',
+        message: "La date de péremption ne peut pas être antérieure à la date d'arrivée."
+    )]
     private ?\DateTimeInterface $arrivalDate = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 2)]
