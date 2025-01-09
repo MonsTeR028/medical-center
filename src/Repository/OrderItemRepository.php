@@ -16,6 +16,19 @@ class OrderItemRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderItem::class);
     }
 
+    public function findOrderItemsByOrderId(int $orderId): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o, o.quantity, b, m')
+            ->innerJoin('o.idBatchMedicine', 'b')
+            ->innerJoin('b.idMed', 'm')
+            ->where('o.idOrder = :idOrder')
+            ->setParameter('idOrder', $orderId)
+            ->orderBy('o.quantity', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return OrderItem[] Returns an array of OrderItem objects
     //     */

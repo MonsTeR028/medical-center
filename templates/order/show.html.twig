@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande n°{{ order.id }}{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <h1>Commande du {{ order.orderDate|date('d/m/Y') }}</h1>
+        <p>{{ order.status }}</p>
+    {% if data is not empty %}
+            {% for item in data %}
+                <div class="medicine-item">
+                    <p>Quantité : {{ item.quantity }}</p>
+                    {% if item.medicine.imageFileName %}
+                        <img src="{{ item.medicine.imageFileName }}" alt="{{ item.medicine.name }}">
+                    {% else %}
+                        <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
+                    {% endif %}
+                    <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">{{ item.medicine.name }}</a>
+                </div>
+            {% endfor %}
+        <p>Montant total : {{ order.totalAmount }} €</p>
+    {% else %}
+        <p>Pas de commande pour ce numéro : {{ order.id }}</p>
+    {% endif %}
+    </div>
+{% endblock %}
