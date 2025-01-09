@@ -19,6 +19,14 @@ class AdresseFixtures extends Fixture implements DependentFixtureInterface
         AdresseFactory::createMany(30, function () use ($users) {
             return ['user' => faker()->randomElement($users)];
         });
+
+        AdresseFactory::createOne(function () {
+            return ['user' => UserFactory::find(['id' => 1])];
+        });
+
+        AdresseFactory::createOne(function () {
+            return ['user' => UserFactory::find(['id' => 2])];
+        });
     }
 
     public function getDependencies(): array
