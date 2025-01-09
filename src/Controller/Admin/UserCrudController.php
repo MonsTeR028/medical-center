@@ -3,12 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\AdresseType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -22,11 +23,6 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('Email'),
-            TextField::new('Password')->onlyOnForms()
-                ->setFormType(PasswordType::class)
-                ->setRequired(false)
-                ->setEmptyData('')
-                ->setCustomOption('autocomplete', 'new-password'),
             TextField::new('FirstName'),
             TextField::new('LastName'),
             ArrayField::new('Roles')->formatValue(function ($value) {
@@ -38,6 +34,10 @@ class UserCrudController extends AbstractCrudController
                     return '';
                 }
             }),
+            CollectionField::new('adresse', 'Adresse')
+                ->setEntryType(AdresseType::class)
+                ->allowAdd()
+                ->allowDelete(),
         ];
     }
 

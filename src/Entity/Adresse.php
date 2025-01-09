@@ -88,4 +88,9 @@ class Adresse
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->adresse.' '.$this->zipcode.' '.$this->city;
+    }
 }
