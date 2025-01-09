@@ -73,6 +73,12 @@ header > span > a {
     font-size: 36px;
 }
 
+.alert {
+    margin-top: 70px;
+    z-index: 1000;
+    position: relative;
+}
+
 .main {
     margin-top: 76px;
     display: flex;
