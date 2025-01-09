@@ -3,57 +3,65 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-<div class="main-cart">
-    <h3 class="league-spartan-extrabold">Votre Panier</h3>
-    {% if items|length > 0 %}
-        <form method="post">
-            <div class="cart-items">
-                {% for item in items %}
-                    <div class="cart-item">
-                        <div class="cart-item-presentation">
-                            <label>
-                                <input type="checkbox" name="item" value="{{ item.product.id }}"
-                                       data-price="{{ (item.product.priceUnit * item.quantity)|round(2) }}"
-                                        data-quantity="{{ item.quantity }}">
-                            </label>
-                            {% if item.product.imageFileName %}
-                                <img src="{{ item.product.imageFileName }}" alt="{{ item.product.name }}">
-                            {% else %}
-                                <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
-                            {% endif %}
-                            <div class="cart-item-description">
-                                <a href="{{ path('app_medicine_show', {id: item.product.id}) }}" class="league-spartan-regular">{{ item.product.name }}</a>
-                                <p class="inter-regular">Quantité : QUANTITE</p>
-                                <p class="inter-regular">Type : {{ item.product.type }}</p>
-                                <p class="inter-regular">Voie : VOIE</p>
-                            </div>
-                        </div>
-                        <div class="cart-item-modify">
-                            <div class="cart-item-price">
-                                <p class="league-spartan-light">{{ (item.product.priceUnit * item.quantity)|round(2) }}€</p>
-                                <div class="cart-item-quantity">
-                                    <a href="{{ path('app_cart_decrease', {id: item.product.id}) }}">
-                                        <span class="material-symbols-outlined">remove</span>
-                                    </a>
-                                    <p class="league-spartan-bold">{{ item.quantity }}</p>
-                                    <a href="{{ path('app_cart_increase', {id: item.product.id}) }}">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </a>
+    <
+    <div class="main-cart">
+        <h3 class="league-spartan-extrabold">Votre Panier</h3>
+        {% if items|length > 0 %}
+            <form method="post" action="{{ path('app_order_new') }}">
+                <div class="cart-items">
+                    {% for item in items %}
+                        <div class="cart-item">
+                            <div class="cart-item-presentation">
+                                <label>
+                                    <input type="checkbox" name="item-{{ item.product.id }}"
+                                           value="{{ item.product.id }}"
+                                           data-price="{{ (item.product.priceUnit * item.quantity)|round(2) }}"
+                                           data-quantity="{{ item.quantity }}"
+                                           class="item-checkbox">
+                                </label>
+                                {% if item.product.imageFileName %}
+                                    <img src="{{ item.product.imageFileName }}" alt="{{ item.product.name }}">
+                                {% else %}
+                                    <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
+                                {% endif %}
+                                <div class="cart-item-description">
+                                    <a href="{{ path('app_medicine_show', {id: item.product.id}) }}"
+                                       class="league-spartan-regular">{{ item.product.name }}</a>
+                                    <p class="inter-regular">Quantité : QUANTITE</p>
+                                    <p class="inter-regular">Type : {{ item.product.type }}</p>
+                                    <p class="inter-regular">Voie : VOIE</p>
                                 </div>
                             </div>
-                            <a href="{{ path('app_cart_remove', {id: item.product.id}) }}" class="btn btn-danger-sm">
-                                <span class="material-symbols-outlined cart-item-delete">delete</span>
-                            </a>
+                            <div class="cart-item-modify">
+                                <div class="cart-item-price">
+                                    <p class="league-spartan-light">{{ (item.product.priceUnit * item.quantity)|round(2) }}
+                                        €</p>
+                                    <div class="cart-item-quantity">
+                                        <a href="{{ path('app_cart_decrease', {id: item.product.id}) }}">
+                                            <span class="material-symbols-outlined">remove</span>
+                                        </a>
+                                        <p class="league-spartan-bold">{{ item.quantity }}</p>
+                                        <a href="{{ path('app_cart_increase', {id: item.product.id}) }}">
+                                            <span class="material-symbols-outlined">add</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="{{ path('app_cart_remove', {id: item.product.id}) }}"
+                                   class="btn btn-danger-sm">
+                                    <span class="material-symbols-outlined cart-item-delete">delete</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <button id="no-selection-button" class="league-spartan-regular">Aucun article sélectionné</button>
-            <button type="submit" id="checkout-button" class="league-spartan-regular" hidden>Passer commande (0 articles) : 0.00 €</button>
-        </form>
-    {% else %}
-        <p class="cart-empty">Votre panier est vide !</p>
-    {% endif %}
-</div>
-<script src="{{ asset('/cart/checkbox_price.js') }}"></script>
+                    {% endfor %}
+                </div>
+                <button id="no-selection-button" class="league-spartan-regular">Aucun article sélectionné</button>
+                <button type="submit" id="checkout-button" class="league-spartan-regular" hidden>Passer commande (0
+                    articles) : 0.00 €
+                </button>
+            </form>
+        {% else %}
+            <p class="cart-empty">Votre panier est vide !</p>
+        {% endif %}
+    </div>
+    <script src="{{ asset('/cart/checkbox_price.js') }}"></script>
 {% endblock %}
