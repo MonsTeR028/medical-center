@@ -25,7 +25,7 @@ class CartController extends AbstractController
     {
         $cartService->add($id);
 
-        return $this->redirectToRoute('app_medicine');
+        return $this->redirectToRoute('app_cart');
     }
 
     #[Route('/cart/remove/{id}', name: 'app_cart_remove')]

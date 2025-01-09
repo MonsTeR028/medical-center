@@ -30,8 +30,12 @@
         {% endblock %}
     </head>
     <body>
+        <div class="deconnect-container">
+            <a href="{{ path('app_logout') }}" class="lexend-bold deconnect">Déconnexion</a>
+        </div>
         {{ include('header.html.twig') }}
         {% block body %}{% endblock %}
         {{ include('footer.html.twig') }}
     </body>
+    <script src="{{ asset('js/deconnect.js') }}"></script>
 </html>

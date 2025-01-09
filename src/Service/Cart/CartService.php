@@ -2,6 +2,7 @@
 
 namespace App\Service\Cart;
 
+use App\Repository\BatchMedicineRepository;
 use App\Repository\MedicineRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -10,18 +11,25 @@ class CartService
 {
     protected SessionInterface $session;
     protected MedicineRepository $medicineRepository;
+    protected BatchMedicineRepository $batchMedicineRepository;
 
-    public function __construct(RequestStack $request, MedicineRepository $medicineRepository)
-    {
+    public function __construct(RequestStack $request,
+        MedicineRepository $medicineRepository,
+        BatchMedicineRepository $batchMedicineRepository,
+    ) {
         $this->session = $request->getSession();
         $this->medicineRepository = $medicineRepository;
+        $this->batchMedicineRepository = $batchMedicineRepository;
     }
 
     public function add(int $id): void
     {
         $cart = $this->session->get('cart', []);
+        $stock = $this->batchMedicineRepository->findAllQuantityById($this->medicineRepository->find($id));
         if (isset($cart[$id])) {
-            ++$cart[$id];
+            if ($cart[$id] < $stock) {
+                ++$cart[$id];
+            }
         } else {
             $cart[$id] = 1;
         }
@@ -43,11 +51,11 @@ class CartService
         if (isset($cart[$id])) {
             if ($cart[$id] > 1) {
                 --$cart[$id];
+                $this->session->set('cart', $cart);
             } else {
                 $this->remove($id);
             }
         }
-        $this->session->set('cart', $cart);
     }
 
     public function increase(int $id): void

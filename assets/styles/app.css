@@ -42,7 +42,7 @@ header > span {
     height: 45px;
 }
 
-header a {
+header a, .deconnect-container {
     display: flex;
     flex-direction: row;
     text-decoration: none;
@@ -54,7 +54,24 @@ header > span > a {
     padding: 20px;
 }
 
-.header-button > a {
+.deconnect-container {
+    margin-top: 76px;
+    position: absolute;
+    right: 0;
+    top: -55px;
+    background-color: #FF4D4D;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: block;
+    transition: ease-in-out 0.3s;
+}
+
+.deconnect-container a {
+    text-decoration: none;
+}
+
+.header-button > a, .deconnect-container a{
     font-size: 24px;
     color: white;
 }
@@ -459,8 +476,10 @@ header > span > a {
     flex-direction: column;
 }
 
-.cart-item-description p:first-child {
+.cart-item-description a:first-child {
     font-size: 32px;
+    text-decoration: underline solid 1px;
+    color: black;
 }
 
 .cart-item-modify {
@@ -516,6 +535,141 @@ header > span > a {
 .cart-item-delete {
     font-size: 34px;
     color: red;
+}
+
+.main-medicine-show {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 92px 10em 58px 10em;
+    background-color: white;
+    border-radius: 35px;
+    border: solid #137C8B 5px;
+    padding: 2em;
+}
+
+.medicine-show-left {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    align-items: center;
+    gap: 2em;
+}
+
+.medicine-show-left h3 {
+    font-size: 48px;
+}
+
+.medicine-show-left > p {
+    font-size: 28px;
+    background-color: lightgray;
+    border: solid darkgray 2px;
+    border-radius: 25px;
+    padding: 2px 1em 0 1em;
+    margin-bottom: 1em;
+}
+
+.no-category {
+    font-size: 28px;
+    border: solid darkgray 2px;
+    border-radius: 25px;
+    padding: 5px 1em 0 1em;
+    margin-bottom: 1em;
+}
+
+.medicine-show-right {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    align-items: center;
+    gap: 2em;
+}
+
+.medicine-show-right img {
+    width: 400px;
+    height: auto;
+}
+
+.medicine-show-description, .medicine-show-information{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: #137C8B solid 4px;
+    border-radius: 15px;
+    align-items: center;
+    z-index: 0;
+    padding: 1.5em 1em 0.5em 1em;
+}
+
+.medicine-show-description p.lexend-semibold, .medicine-show-information p.lexend-semibold  {
+    color: white;
+    position: absolute;
+    z-index: 2;
+    left: auto;
+    top: -15px;
+    text-align: center;
+}
+
+.medicine-show-description p.league-spartan-regular {
+    font-size: 20px;
+}
+
+.medicine-show-information p.league-spartan-regular {
+    font-size: 26px;
+    line-height: 34px;
+}
+
+.medicine-show-add {
+    display: flex;
+    flex-direction: row;
+    background-color: #137C8B;
+    color: white;
+    align-items: center;
+    gap: 1em;
+    padding: 0 2.5em 0 2.5em;
+    border-radius: 40px;
+}
+
+.medicine-show-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.medicine-show-add p {
+    font-size: 30px;
+    padding-top: 5px;
+}
+
+.medicine-show-payment > p {
+    font-size: 24px;
+}
+
+.trapeze {
+    position: absolute;
+    top: -22px;
+    left: auto;
+    height: 0;
+    width: 350px;
+    border-bottom: 40px solid #137C8B;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    z-index: 1;
+}
+
+
+
+.trapeze-reverse {
+    position: absolute;
+    top: -22px;
+    left: auto;
+    height: 0;
+    width: 350px;
+    border-top: 40px solid #137C8B;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    z-index: 1;
 }
 
 footer {

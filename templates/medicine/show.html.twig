@@ -5,25 +5,60 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ medicine.name }}</h1>
+    <div class="main-medicine-show">
+        <div class="medicine-show-left">
+            <h3 class="league-spartan-semibold">{{ medicine.name }}</h3>
+            {% if medicine.category is not empty %}
+                <p class="league-spartan-regular">{{ medicine.category.name }}</p>
+            {% else %}
+                <p class="league-spartan-regular no-category">Aucune catégorie</p>
+            {% endif %}
+            <div class="medicine-show-description">
+                <div class="trapeze"></div>
+                <div class="trapeze-reverse"></div>
+                <p class="lexend-semibold">Indications concernant le produit</p>
+                <p class="league-spartan-regular">{{ medicine.description }}</p>
+            </div>
+        </div>
+        <div class="medicine-show-right">
+            {% if medicine.imageFileName %}
+                <img src="{{ medicine.imageFileName }}" alt="{{ medicine.name }}">
+            {% else %}
+                <img src="{{ asset('images/placeholder.png') }}" alt="{{ medicine.name }}">
+            {% endif %}
+            <div class="medicine-show-information">
+                <div class="trapeze" style="width: 200px"></div>
+                <div class="trapeze-reverse" style="width: 200px"></div>
+                <p class="lexend-semibold">Autres informations</p>
+                <p class="league-spartan-regular">{{ medicine.quantity }} {{ medicine.type }}s</p>
+                <p class="league-spartan-regular">Par voie VOIE</p>
+                <p class="league-spartan-regular">Dosage : {{ medicine.dosage }}</p>
+                <p class="league-spartan-regular">{{ medicine.priceUnit|number_format(2, ',', ' ') }}€/unité</p>
+                <p class="league-spartan-regular">Date</p>
+            </div>
+            <div class="medicine-show-payment">
+                {% if stock != 0 %}
+                    <div class="medicine-show-add">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                        <p class="league-spartan-extralight">{{ medicine.priceUnit }} €</p>
+                    </div>
+                {% else %}
+                    <div class="medicine-show-add" style="background-color: grey">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                        <p class="league-spartan-extralight">{{ medicine.priceUnit }} €</p>
+                    </div>
+                {% endif %}
 
-    {% if medicine.imageFileName %}
-        <img src="{{ medicine.imageFileName }}" alt="{{ medicine.name }}" style="width:150px; height:auto;">
-    {% else %}
-        <p>Image non disponible</p>
-    {% endif %}
-
-    <p>Type : {{ medicine.type }}</p>
-    <p>Dosage : {{ medicine.dosage }}</p>
-    <p>Prix unitaire : {{ medicine.priceUnit|number_format(2, ',', ' ') }} €</p>
-    <p>Description : {{ medicine.description }}</p>
-
-    {% if medicine.category is not empty %}
-        <h3>Catégorie</h3>
-        <ul>
-            {{ medicine.category.name }}
-        </ul>
-    {% else %}
-        <p>Aucune catégorie assignée.</p>
-    {% endif %}
+                {% if stock == 0 %}
+                    <p class="medicine-show-quantity league-spartan-regular">Plus de stock</p>
+                {% elseif stock == 1 %}
+                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">1 restant</p>
+                {% elseif stock < 25 %}
+                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">{{ stock }} restants</p>
+                {% elseif stock < 100 %}
+                    <p class="medicine-show-quantity league-spartan-regular">{{ stock }} restants</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
