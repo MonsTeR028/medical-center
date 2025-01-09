@@ -15,9 +15,8 @@ class CartService
 
     public function __construct(RequestStack $request,
         MedicineRepository $medicineRepository,
-        BatchMedicineRepository $batchMedicineRepository
-    )
-    {
+        BatchMedicineRepository $batchMedicineRepository,
+    ) {
         $this->session = $request->getSession();
         $this->medicineRepository = $medicineRepository;
         $this->batchMedicineRepository = $batchMedicineRepository;
