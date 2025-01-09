@@ -22,11 +22,6 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('Email'),
-            TextField::new('Password')->onlyOnForms()
-                ->setFormType(PasswordType::class)
-                ->setRequired(false)
-                ->setEmptyData('')
-                ->setCustomOption('autocomplete', 'new-password'),
             TextField::new('FirstName'),
             TextField::new('LastName'),
             ArrayField::new('Roles')->formatValue(function ($value) {
