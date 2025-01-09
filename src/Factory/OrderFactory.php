@@ -33,8 +33,8 @@ final class OrderFactory extends PersistentProxyObjectFactory
     {
         return [
             'orderDate' => self::faker()->dateTime(),
-            'status' => self::faker()->randomElement(['DELIVERED', 'RECEIVED', 'CANCELED']),
-            'totalAmount' => self::faker()->randomFloat(2, 0, 99999999.99),
+            'status' => self::faker()->randomElement(['DELIVERED', 'RECEIVED', 'CANCELED', 'PENDING']),
+            'totalAmount' => self::faker()->randomFloat(2, 1, 99999.99),
         ];
     }
 
