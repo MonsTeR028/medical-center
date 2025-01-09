@@ -38,10 +38,10 @@
                     <li><a href="{{ path('app_medicine_show', {id: medicine.id}) }}" class="league-spartan-regular">Information sur le produit</a></li>
                     {% if batchMedecines[medicine.id] == 0 %}
                         <li style="background-color: grey">
-                            <a href="" class="league-spartan-regular" disabled >Ajouter au panier</a>
+                            <p class="league-spartan-regular" >Ajouter au panier</p>
                         </li>
                         <li style="background-color: grey">
-                            <a href="" class="league-spartan-regular" disabled>Acheter cet article</a>
+                            <p class="league-spartan-regular">Acheter cet article</p>
                         </li>
                     {% else %}
                         <li><a href="{{ path('app_cart_add', {id: medicine.id}) }}" class="league-spartan-regular">Ajouter au panier</a></li>
