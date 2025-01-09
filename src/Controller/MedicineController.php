@@ -58,9 +58,11 @@ class MedicineController extends AbstractController
     public function show(
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
         Medicine $medicine,
+        BatchMedicineRepository $batchMedicineRepository,
     ): Response {
         return $this->render('medicine/show.html.twig', [
             'medicine' => $medicine,
+            'stock' => $batchMedicineRepository->findAllQuantityById($medicine->getId()),
         ]);
     }
 }
