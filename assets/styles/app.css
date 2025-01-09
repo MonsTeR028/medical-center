@@ -42,7 +42,7 @@ header > span {
     height: 45px;
 }
 
-header a {
+header a, .deconnect-container {
     display: flex;
     flex-direction: row;
     text-decoration: none;
@@ -54,7 +54,24 @@ header > span > a {
     padding: 20px;
 }
 
-.header-button > a {
+.deconnect-container {
+    margin-top: 76px;
+    position: absolute;
+    right: 0;
+    top: -55px;
+    background-color: #FF4D4D;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: block;
+    transition: ease-in-out 0.3s;
+}
+
+.deconnect-container a {
+    text-decoration: none;
+}
+
+.header-button > a, .deconnect-container a{
     font-size: 24px;
     color: white;
 }
