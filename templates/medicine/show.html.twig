@@ -54,9 +54,9 @@
                 {% elseif stock == 1 %}
                     <p class="medicine-show-quantity league-spartan-regular" style="color: red">1 restant</p>
                 {% elseif stock < 25 %}
-                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">{{ batchMedecines[medicine.id] }} restants</p>
+                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">{{ stock }} restants</p>
                 {% elseif stock < 100 %}
-                    <p class="medicine-show-quantity league-spartan-regular">{{ batchMedecines[medicine.id] }} restants</p>
+                    <p class="medicine-show-quantity league-spartan-regular">{{ stock }} restants</p>
                 {% endif %}
             </div>
         </div>

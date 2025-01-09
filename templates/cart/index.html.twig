@@ -22,7 +22,7 @@
                                 <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
                             {% endif %}
                             <div class="cart-item-description">
-                                <p class="league-spartan-regular">{{ item.product.name }}</p>
+                                <a href="{{ path('app_medicine_show', {id: item.product.id}) }}" class="league-spartan-regular">{{ item.product.name }}</a>
                                 <p class="inter-regular">Quantité : QUANTITE</p>
                                 <p class="inter-regular">Type : {{ item.product.type }}</p>
                                 <p class="inter-regular">Voie : VOIE</p>

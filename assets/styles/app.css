@@ -453,8 +453,10 @@ header > span > a {
     flex-direction: column;
 }
 
-.cart-item-description p:first-child {
+.cart-item-description a:first-child {
     font-size: 32px;
+    text-decoration: underline solid 1px;
+    color: black;
 }
 
 .cart-item-modify {
