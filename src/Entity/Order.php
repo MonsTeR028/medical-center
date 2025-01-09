@@ -33,7 +33,7 @@ class Order
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'idOrder')]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'idOrder', orphanRemoval: true)]
     private Collection $orderItems;
 
     public function __construct()
