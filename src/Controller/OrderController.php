@@ -12,18 +12,30 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrderController extends AbstractController
 {
     #[Route('/order', name: 'app_order')]
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderRepository $orderRepository, OrderItemRepository $orderItemRepository): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
             return $this->redirectToRoute('app_login');
         }
 
-        $orders = $orderRepository->findOrdersByUserId($user->getId());
+        $orders = $orderRepository->findActiveOrdersByUserId($user->getId());
+        $data = [];
+
+        foreach ($orders as $order) {
+            $orderItems = $orderItemRepository->findOrderItemsByOrderId($order->getId());
+            foreach ($orderItems as $item) {
+                $data[$order->getId()][] = [
+                    'quantity' => $item['quantity'],
+                    'medicine' => $item[0]->getIdBatchMedicine()->getIdMed(),
+                ];
+            }
+        }
 
         return $this->render('order/index.html.twig', [
             'user' => $user,
             'orders' => $orders,
+            'data' => $data,
         ]);
     }
 

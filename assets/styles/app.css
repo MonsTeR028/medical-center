@@ -848,6 +848,155 @@ header > span > a {
 
 }
 
+.main-order {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 800px;
+    margin: 96px 5em 58px 5em;
+    background-color: white;
+    border: #137C8B solid 5px;
+    border-radius: 45px;
+    padding: 1em 2em 2em 2em;
+}
+
+.main-order .orders{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow-y: scroll;
+    padding: 0.5em;
+}
+
+.main-order h3 {
+    text-align: center;
+    padding-bottom: 3px;
+    font-size: 40px;
+}
+
+.main-order .order {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    border: #626262 solid 2px;
+    border-radius: 20px;
+    position: relative;
+    padding: 0 1em 0em 1em;
+}
+
+.main-order .order > p:first-child {
+    position: relative;
+    background-color: #DADADA;
+    top: -2px;
+    left: -18px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 20px;
+    border: #626262 solid 2px;
+    padding: 0.25em;
+    width: 102.3%;
+}
+
+.main-order .order-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-order .order-status-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.main-order .order-status-container p:first-child {
+    font-size: 24px;
+}
+
+.main-order .order-status-container p:nth-child(2) {
+    border: solid 3px;
+    padding: 3px 5px 1px 5px;
+    border-radius: 5px;
+}
+
+.main-order .order-status-container p:nth-child(2).status-vert {
+    border-color: #138B33;
+}
+
+.main-order .order-status-container p:nth-child(2).status-gris {
+    border-color: #BFBFBF;
+}
+
+.main-order .order-status-container p:nth-child(2).status-rouge {
+    border-color: #EA4141;
+}
+
+.main-order .order-status > p {
+    font-size: 24px;
+    color: #137C8B;
+}
+
+.main-order .order-price, .main-order .order-adresse {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.main-order .order-price p, .main-order .order-adresse p {
+    font-size: 24px;
+}
+
+.main-order .order-medecines {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 0 2em 0 2em;
+}
+
+.main-order .order-medecines img {
+    height: 100px;
+    width: auto;
+}
+
+.main-order .order-medecine {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.main-order .order-medecines a {
+    font-size: 20px;
+}
+
+.main-order .order-medecine-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3em;
+}
+
+.main-order .order-medecine-buttons button {
+    border: solid 3px #137C8B;
+    border-radius: 20px;
+    padding: 0.35em 1em 0.35em 1em;
+}
+
+.main-order .order-medecine-buttons button:first-child {
+    background-color: #137C8B;
+    color: white;
+}
+
+.main-order .order-medecine-buttons button:last-child {
+    background-color: white;
+    color: #137C8B;
+}
+
+.main-order .order > p:last-child {
+    font-size: 18px;
+    text-align: end;
+}
+
 footer {
     position: fixed;
     left: 0;
