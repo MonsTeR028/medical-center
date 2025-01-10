@@ -3,8 +3,9 @@
 {% block title %}Gestion adresses{% endblock %}
 
 {% block body %}
-    <div class="main">
-        <h1>Adresses enregistrées</h1>
+<div class="main-cart">
+        <div class="user-adresses">
+            <h3 class="lexend-medium">Adresses enregistrées</h3>
         <a href="{{ path('app_adresse_create') }}" class="btn btn-primary">Ajouter une adresse</a>
         {% for adresse in user.adresse %}
             <div class="adresse-item">
@@ -15,4 +16,5 @@
             </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}
