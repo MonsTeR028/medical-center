@@ -19,7 +19,7 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $orders = $orderRepository->findActiveOrdersByUserId($user->getId());
+        $orders = $user->getOrders();
         $data = [];
 
         foreach ($orders as $order) {
