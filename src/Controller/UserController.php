@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
+use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderRepository $orderRepository, OrderItemRepository $orderItemRepository): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -24,10 +25,22 @@ class UserController extends AbstractController
         }
 
         $orders = $orderRepository->findActiveOrdersByUserId($user->getId());
+        $data = [];
+
+        foreach ($orders as $order) {
+            $orderItems = $orderItemRepository->findOrderItemsByOrderId($order->getId());
+            foreach ($orderItems as $item) {
+                $data[$order->getId()][] = [
+                    'quantity' => $item['quantity'],
+                    'medicine' => $item[0]->getIdBatchMedicine()->getIdMed(),
+                ];
+            }
+        }
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'orders' => $orders,
+            'data' => $data,
         ]);
     }
 
