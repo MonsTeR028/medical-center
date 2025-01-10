@@ -38,15 +38,15 @@
             </div>
             <div class="medicine-show-payment">
                 {% if stock != 0 %}
-                    <div class="medicine-show-add">
+                    <button class="medicine-show-add" onclick="window.location.href='#'">
                         <span class="material-symbols-outlined">add_shopping_cart</span>
-                        <p class="league-spartan-extralight">{{ medicine.priceUnit }} €</p>
-                    </div>
+                        {{ medicine.priceUnit }} €
+                    </button>
                 {% else %}
-                    <div class="medicine-show-add" style="background-color: grey">
+                    <button class="medicine-show-add" onclick="window.location.href='#'" disabled>
                         <span class="material-symbols-outlined">add_shopping_cart</span>
-                        <p class="league-spartan-extralight">{{ medicine.priceUnit }} €</p>
-                    </div>
+                        {{ medicine.priceUnit }} €
+                    </button>
                 {% endif %}
 
                 {% if stock == 0 %}

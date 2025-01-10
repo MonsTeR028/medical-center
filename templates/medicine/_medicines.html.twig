@@ -19,10 +19,17 @@
                 </div>
             </div>
             <p class="league-spartan-regular medicine-category">{{ medicine.category.name }}</p>
-            <div class="medicine-add">
-                <span class="material-symbols-outlined">add_shopping_cart</span>
-                <p>{{ medicine.priceUnit }} €</p>
-            </div>
+            {% if batchMedecines[medicine.id] != 0 %}
+                <button class="medicine-add" onclick="window.location.href='#'">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    {{ medicine.priceUnit }} €
+                </button>
+            {% else %}
+                <button class="medicine-add" onclick="window.location.href='#'" disabled>
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    {{ medicine.priceUnit }} €
+                </button>
+            {% endif %}
 
             {% if batchMedecines[medicine.id] == 0 %}
                 <p class="medicine-quantity league-spartan-regular">Plus de stock</p>

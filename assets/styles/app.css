@@ -319,13 +319,19 @@ header > span > a {
     gap: 0.5em;
 }
 
-.medicine-add * {
+.medicine-add {
     color: white;
     font-size: 24px;
+    border: none;
 }
 
 .medicine-add span {
     font-size: 28px;
+}
+
+.medicine-show-add {
+    border: none;
+    font-size: 22px;
 }
 
 .medicine-quantity {
