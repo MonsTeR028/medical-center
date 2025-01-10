@@ -26,6 +26,10 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param int $userId
+     * @return Order[]
+     */
     public function findActiveOrdersByUserId(int $userId): array
     {
         return $this->createQueryBuilder('o')
