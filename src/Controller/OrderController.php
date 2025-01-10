@@ -52,6 +52,7 @@ class OrderController extends AbstractController
         $cart = $cartService->getCart();
         if (empty($cart)) {
             $this->addFlash('error', 'Votre panier est vide.');
+
             return $this->redirectToRoute('app_cart');
         }
 
