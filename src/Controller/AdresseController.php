@@ -69,7 +69,7 @@ class AdresseController extends AbstractController
 
         $this->addFlash('success', 'Adresse supprimée avec succès.');
 
-        return $this->render('adresse/index.html.twig', [
+        return $this->redirectToRoute('app_adresse', [
             'user' => $user,
         ]);
     }
