@@ -3,24 +3,67 @@
 {% block title %}Commande n°{{ order.id }}{% endblock %}
 
 {% block body %}
-    <div class="main">
-        <h1>Commande du {{ order.orderDate|date('d/m/Y') }}</h1>
-        <p>{{ order.status }}</p>
-    {% if data is not empty %}
-            {% for item in data %}
-                <div class="medicine-item">
-                    <p>Quantité : {{ item.quantity }}</p>
-                    {% if item.medicine.imageFileName %}
-                        <img src="{{ item.medicine.imageFileName }}" alt="{{ item.medicine.name }}">
-                    {% else %}
-                        <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
-                    {% endif %}
-                    <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">{{ item.medicine.name }}</a>
-                </div>
-            {% endfor %}
-        <p>Montant total : {{ order.totalAmount }} €</p>
-    {% else %}
-        <p>Pas de commande pour ce numéro : {{ order.id }}</p>
-    {% endif %}
+    <div class="main-order-item">
+        <div class="order-item-title">
+            <h3 class="inter-light">Commande du {{ order.orderDate|date('d/m/Y') }}</h3>
+            {% if order.status == 'PENDING' %}
+                <p class="league-spartan-regular status-gris">En cours</p>
+            {% elseif order.status == 'CANCELED' %}
+                <p class="league-spartan-regular status-rouge">Annulée</p>
+            {% else %}
+                <p class="league-spartan-regular status-vert">Livrée</p>
+            {% endif %}
+        </div>
+        <p class="league-spartan-light">Commande N°{{ order.id }}</p>
+        <p class="league-spartan-semibold">Livraison prévue pour le DATE</p>
+        <h4 class="league-spartan-medium">Articles</h4>
+        <div class="order-item-medecines">
+            {% if data is not empty %}
+                {% for item in data %}
+                    <div class="order-item-medecine">
+                        {% if item.medicine.imageFileName %}
+                            <img src="{{ item.medicine.imageFileName }}" alt="{{ item.medicine.name }}">
+                        {% else %}
+                            <img src="{{ asset('images/placeholder.png') }}" alt="{{ item.medicine.name }}">
+                        {% endif %}
+                        {% if item.quantity == 1%}
+                            <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">
+                                {{ item.quantity }} Boîte de {{ item.medicine.name }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">
+                                {{ item.quantity }} Boîtes de {{ item.medicine.name }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button class="lexend-bold" onclick="window.location.href='#'">
+                    Acheter à nouveau
+                </button>
+            {% else %}
+                <p class="league-spartan-regular" style="font-size: 18px">Aucun produit</p>
+            {% endif %}
+        </div>
+        <h4 class="league-spartan-medium">Paiement via MOYEN_DE_PAIEMENT</h4>
+        <div class="order-item-payment">
+            <div class="order-item-payment-article">
+                <p class="league-spartan-regular">Articles :</p>
+                <p class="league-spartan-regular">{{ order.totalAmount }}€</p>
+            </div>
+            <div class="order-item-payment-livraison">
+                <p class="league-spartan-regular">Livraison :</p>
+                <p class="league-spartan-regular">PRIX_LIVRAISON</p>
+            </div>
+            <div class="order-item-payment-total">
+                <p class="league-spartan-regular">Total :</p>
+                <p class="league-spartan-semibold">{{ order.totalAmount }}€</p>
+            </div>
+        </div>
+        <h4 class="league-spartan-medium">Adresse de livraison</h4>
+        <div class="order-item-adress">
+            <p class="league-spartan-semibold">{{ user.firstname }} {{ user.lastname }}</p>
+            <p class="league-spartan-regular">ADRESSE_LIVRAISON</p>
+            <p class="league-spartan-regular">{{ user.tel }}</p>
+        </div>
     </div>
 {% endblock %}

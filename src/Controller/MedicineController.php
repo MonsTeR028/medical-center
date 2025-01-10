@@ -30,8 +30,12 @@ class MedicineController extends AbstractController
         $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy);
 
         $batchMedicines = [];
+        $batchMedicinesArrival = [];
         foreach ($medicines as $medicine) {
             $batchMedicines[$medicine->getId()] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
+            $date = strtotime($batchMedicineRepository->findArrivalDateById($medicine->getId()));
+            $batchMedicinesArrival[$medicine->getId()] = date('Y-m-d', $date);
+
         }
 
         if ($containerOnly) {
@@ -42,12 +46,15 @@ class MedicineController extends AbstractController
         }
 
         $categories = $medicineCategoryRepository->findAllOrderedByName();
+        dump($batchMedicinesArrival);
 
         return $this->render('medicine/index.html.twig', [
             'medicines' => $medicines,
             'search' => $search,
             'categories' => $categories,
             'batchMedecines' => $batchMedicines,
+            'arrivalDate' => $batchMedicinesArrival,
+            'currentDate' => date('Y-m-d', strtotime('-2 week', time())),
         ]);
     }
 

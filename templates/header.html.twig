@@ -7,13 +7,13 @@
     </span>
     <span class="header-button">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('app_order') }}" class="lexend-bold">
-                <span class="material-symbols-outlined">package_2</span>
-                Commandes
-            </a>
             <a href="{{ path('app_medicine') }}" class="lexend-bold">
                 <span class="material-symbols-outlined">pill</span>
                 Médicaments
+            </a>
+            <a href="{{ path('app_order') }}" class="lexend-bold">
+                <span class="material-symbols-outlined">package_2</span>
+                Commandes
             </a>
             <a href="{{ path('app_cart') }}" class="lexend-bold">
                 <span class="material-symbols-outlined">shopping_cart</span>

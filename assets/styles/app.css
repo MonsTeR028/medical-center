@@ -250,7 +250,7 @@ header > span > a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     justify-items: center;
-    padding: 0 3em 180px 3em;
+    padding: 1.5em 3em 180px 3em;
     overflow-y: scroll;
     height: 780px;
     gap: 3em;
@@ -270,6 +270,13 @@ header > span > a {
     position: relative;
 }
 
+.medicine > img {
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    height: 80px;
+    width: auto;
+}
 .medicine > a {
     text-decoration: underline 1px black;
 }
@@ -312,13 +319,19 @@ header > span > a {
     gap: 0.5em;
 }
 
-.medicine-add * {
+.medicine-add {
     color: white;
     font-size: 24px;
+    border: none;
 }
 
 .medicine-add span {
     font-size: 28px;
+}
+
+.medicine-show-add {
+    border: none;
+    font-size: 22px;
 }
 
 .medicine-quantity {
@@ -848,6 +861,263 @@ header > span > a {
 
 }
 
+.main-order, .main-order-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 800px;
+    margin: 96px 5em 58px 5em;
+    background-color: white;
+    border: #137C8B solid 5px;
+    border-radius: 45px;
+    padding: 1em 2em 2em 2em;
+}
+
+.main-order .orders{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow-y: scroll;
+    padding: 0.5em;
+}
+
+.main-order h3 {
+    text-align: center;
+    padding-bottom: 3px;
+    font-size: 40px;
+}
+
+.main-order .order {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    border: #626262 solid 2px;
+    border-radius: 20px;
+    position: relative;
+    padding: 0 1em 0 1em;
+}
+
+.main-order .order > p:first-child {
+    position: relative;
+    background-color: #DADADA;
+    top: -2px;
+    left: -18px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 20px;
+    border: #626262 solid 2px;
+    padding: 0.25em;
+    width: 102.3%;
+}
+
+.main-order .order-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-order .order-status-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.main-order .order-status-container p:first-child {
+    font-size: 24px;
+}
+
+.main-order .order-status-container p:nth-child(2) {
+    border: solid 3px;
+    padding: 3px 5px 1px 5px;
+    border-radius: 5px;
+}
+
+.main-order .order-status-container p:nth-child(2).status-vert {
+    border-color: #138B33;
+}
+
+.main-order .order-status-container p:nth-child(2).status-gris {
+    border-color: #BFBFBF;
+}
+
+.main-order .order-status-container p:nth-child(2).status-rouge {
+    border-color: #EA4141;
+}
+
+.main-order .order-status > p {
+    font-size: 24px;
+    color: #137C8B;
+}
+
+.main-order .order-price, .main-order .order-adresse {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.main-order .order-price p, .main-order .order-adresse p {
+    font-size: 24px;
+}
+
+.main-order .order-medecines {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 0 2em 0 2em;
+}
+
+.main-order .order-medecines img {
+    height: 100px;
+    width: auto;
+}
+
+.main-order .order-medecine {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.main-order .order-medecines a {
+    font-size: 20px;
+}
+
+.main-order .order-medecine-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3em;
+}
+
+.main-order .order-medecine-buttons button {
+    border: solid 3px #137C8B;
+    border-radius: 20px;
+    padding: 0.35em 1em 0.35em 1em;
+}
+
+.main-order .order-medecine-buttons button:first-child {
+    background-color: #137C8B;
+    color: white;
+}
+
+.main-order .order-medecine-buttons button:last-child {
+    background-color: white;
+    color: #137C8B;
+}
+
+.main-order .order > p:last-child {
+    font-size: 18px;
+    text-align: end;
+}
+
+.main-order-item {
+    gap: 0.5em;
+}
+
+.order-item-title {
+    display: flex;
+    flex-direction: row;
+    background-color: #DADADA;
+    border: solid 2px #656565;
+    border-radius: 20px;
+    padding: 0.5em;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-item-title > p {
+    position: absolute;
+    right: 1em;
+    top: auto;
+    border: solid 3px;
+    border-radius: 10px;
+    padding: 3px 5px 1px 5px;
+    font-size: 22px;
+}
+
+.order-item-title > p.status-gris {
+    border-color: #656565;
+}
+
+.order-item-title > p.status-vert {
+    border-color: #138B33;
+}
+
+.order-item-title > p.status-rouge {
+    border-color: #EA4141;
+}
+
+.main-order-item > p.league-spartan-semibold {
+    text-align: center;
+    font-size: 24px;
+    color: #137C8B;
+}
+
+.main-order-item > p.league-spartan-light {
+    text-align: center;
+    font-size: 18px;
+}
+
+.main-order-item h4 {
+    font-size: 36px;
+}
+
+.order-item-medecines, .order-item-payment, .order-item-adress {
+    border: solid black 1px;
+    padding: 1em;
+    margin-bottom: 0.5em;
+}
+
+.order-item-medecines {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 1em;
+}
+
+.order-item-medecines img {
+    height: 80px;
+    width: auto;
+}
+
+.order-item-medecine {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+}
+
+.order-item-medecines a {
+    font-size: 18px;
+}
+
+.order-item-medecines button {
+    background-color: white;
+    border: #137C8B solid 3px;
+    border-radius: 15px;
+}
+
+.order-item-payment-article, .order-item-payment-livraison, .order-item-payment-total {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.order-item-payment-article p:first-child,
+.order-item-payment-livraison p:first-child,
+.order-item-payment-total p:first-child {
+    width: 80px;
+}
+
+.order-item-adress {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 22px;
+}
 footer {
     position: fixed;
     left: 0;

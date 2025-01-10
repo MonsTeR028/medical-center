@@ -3,6 +3,72 @@
 {% block title %}Commandes{% endblock %}
 
 {% block body %}
-    <h1>Commandes</h1>
-    {{ include('order/_orders.html.twig') }}
+    <div class="main-order">
+    {# Ajout future du systeme tri des commandes #}
+    <h3>Commandes</h3>
+    <div class="orders">
+        {% if orders is not empty %}
+            {% for order in orders %}
+                <div class="order">
+                    <p class="inter-regular">Commande du : {{ order.orderDate|date('d/m/Y') }}</p>
+                    <div class="order-status">
+                        <div class="order-status-container">
+                            <p class="inter-medium">Statut :</p>
+                            {% if order.status == 'PENDING' %}
+                                <p class="league-spartan-regular status-gris">En cours</p>
+                            {% elseif order.status == 'CANCELED' %}
+                                <p class="league-spartan-regular status-rouge">Annulée</p>
+                            {% else %}
+                                <p class="league-spartan-regular status-vert">Livrée</p>
+                            {% endif %}
+                        </div>
+                        <p class="league-spartan-semibold">Livraison prévue pour le DATE</p>
+                    </div>
+                    <div class="order-price">
+                        <p class="inter-medium">Total :</p>
+                        <p class="league-spartan-light">{{ order.totalAmount }}€</p>
+                    </div>
+                    <div class="order-adresse">
+                        <p class="inter-medium">Livraison à :</p>
+                        <p class="league-spartan-light">ADRESSE LIVRAISON</p>
+                    </div>
+                    {% if data[order.id] is defined %}
+                        <div class="order-medecines">
+                            {% for item in data[order.id] %}
+                                <div class="order-medecine">
+                                    {% if item.medicine.imageFileName %}
+                                        <img src="{{ item.medicine.imageFileName }}" alt="{{ item.medicine.name }}">
+                                    {% else %}
+                                        <img src="{{ asset('images/placeholder.png') }}" alt="{{ item.medicine.name }}">
+                                    {% endif %}
+                                    {% if item.quantity == 1%}
+                                        <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">
+                                            {{ item.quantity }} Boîte de {{ item.medicine.name }}
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">
+                                            {{ item.quantity }} Boîtes de {{ item.medicine.name }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if data[order.id] is defined %}
+                        <div class="order-medecine-buttons">
+                            <button class="lexend-bold" onclick="window.location.href='{{ path('app_order_show', {id: order.id}) }}'">
+                                Consulter la commande
+                            </button>
+                            <button class="lexend-bold" onclick="window.location.href='#'">
+                                Acheter à nouveau
+                            </button>
+                        </div>
+                    {% endif %}
+                    <p class="league-spartan-light">N°de commande {{ order.id }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="league-spartan-regular no-orders">Aucune commande trouvée.</p>
+        {% endif %}
+    </div>
 {% endblock %}
