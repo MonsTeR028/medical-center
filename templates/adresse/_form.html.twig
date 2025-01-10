@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ajout adresse {% endblock %}
+
+{% block body %}
+        <div class="main">
+                <h1>Ajout adresse</h1>
+
+                {{ form_start(form) }}
+                <div class="form-buttons">
+                        {{ form_row(form.adresse, {attr: {class: 'form-control inter-regular', placeholder: 'Rue'}, label: false}) }}
+                        {{ form_row(form.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal'}, label: false}) }}
+                        {{ form_row(form.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville'}, label: false}) }}
+                </div>
+                <button type="submit" class="poppins-semibold">Enregistrer</button>
+                {{ form_end(form) }}
+        </div>
+{% endblock %}
