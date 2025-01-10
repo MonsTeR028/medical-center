@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\User;
+use App\Repository\AdresseRepository;
 use App\Repository\BatchMedicineRepository;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
@@ -34,7 +35,7 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/new', name: 'app_order_new', methods: ['POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, CartService $cartService, BatchMedicineRepository $batchMedicineRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CartService $cartService, BatchMedicineRepository $batchMedicineRepository, AdresseRepository $adresseRepository): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -73,6 +74,11 @@ class OrderController extends AbstractController
         }
 
         $order->setTotalAmount($amount);
+
+        $orderId = $request->request->get('deliveryAdresse');
+        if ($orderId) {
+            $order->setDeliveryAdresse($adresseRepository->find($orderId));
+        }
 
         // Persist and Flush
         $entityManager->persist($order);
