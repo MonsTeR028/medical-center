@@ -672,6 +672,182 @@ header > span > a {
     z-index: 1;
 }
 
+.main-user {
+    display: flex;
+    flex-direction: column;
+    margin: 96px 5em 58px 5em;
+    background-color: white;
+    border: #137C8B solid 5px;
+    border-radius: 45px;
+    padding: 1em 2em 2em 2em;
+    gap: 1em;
+    flex: 1;
+    max-height: 800px;
+}
+
+.main-user h2 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.user-container {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+    height: 60%;
+}
+
+
+
+.user-information {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    border: solid #B8CBD0 4px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    padding-bottom: 1em;
+}
+
+
+.user-information > *:not(.user-information h3) {
+    padding: 0 1em 0 1em;
+    font-size: 18px;
+}
+
+.user-information > p:nth-child(2) {
+    padding-top: 1em;
+}
+
+.user-adresses,
+.user-orders,
+.user-payment,
+.user-security {
+    border: solid #B8CBD0 4px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+}
+
+.user-adresses-container,
+.user-orders-container {
+    overflow-y: auto; /* Auto pour ajouter un scroll uniquement si nécessaire */
+    max-height: 100%; /* S'assurer que la hauteur maximale est respectée */
+    flex: 1; /* Permet à la boîte de s'étendre dans l'espace disponible */
+    box-sizing: border-box; /* Inclut les paddings et les bordures dans la hauteur */
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+/* S'assurer que les boîtes parents sont bien définies */
+.user-adresses,
+.user-orders {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Hauteur 100% pour forcer l'alignement */
+    box-sizing: border-box; /* Prévenir les débordements */
+}
+
+.main-user h3 {
+    text-align: center;
+    background-color: #B8CBD0;
+    padding-bottom: 3px;
+    font-size: 30px;
+}
+
+.user-adresse {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #B8CBD0;
+    border-radius: 10px;
+    padding: 0.5em;
+    align-items: center;
+}
+
+.user-adresse-description {
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+.no-adress, .no-orders {
+    font-size: 26px;
+}
+
+.user-orders-container .order {
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid black 1px;
+    padding-bottom: 1em;
+}
+
+.user-orders-container .order:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.user-orders-container .order-title, .user-orders-container .order-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-orders-container .order-medecines {
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+}
+
+.user-orders-container .order-medecine {
+    text-decoration: underline #565656 solid 1px;
+    font-size: 16px;
+}
+
+.user-orders-container .order-title > p:first-child {
+    font-size: 20px;
+}
+
+.user-orders-container .order-title > p:nth-child(2) {
+    font-size: 18px;
+}
+
+.user-orders-container .order-info > p:nth-child(2) {
+    font-size: 22px;
+}
+
+.user-orders-container .order > a {
+    text-align: center;
+}
+
+.user-security-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    align-items: center;
+    height: 80%;
+}
+
+.btn-change-password, .btn-logout {
+    border-radius: 15px;
+    border: none;
+    padding: 3px 1em 0 1em;
+    color: white;
+    font-size: 20px;
+}
+
+.btn-change-password {
+    background-color: #9A5555;
+}
+
+.btn-logout {
+    background-color: #EA4141;
+
+}
+
 footer {
     position: fixed;
     left: 0;
