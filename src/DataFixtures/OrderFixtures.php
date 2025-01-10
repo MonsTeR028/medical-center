@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\AdresseFactory;
 use App\Factory\OrderFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -13,7 +14,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         OrderFactory::createMany(50, function () {
-            return ['idUser' => UserFactory::random()];
+            return ['idUser' => UserFactory::random(), 'deliveryAdresse' => AdresseFactory::random()];
         });
     }
 
