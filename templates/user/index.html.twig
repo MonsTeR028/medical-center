@@ -20,6 +20,7 @@
                 {% else %}
                     <h3 class="lexend-medium">Adresse</h3>
                 {% endif %}
+                <a href="{{ path('app_adresse') }}">Gérer vos adresses</a>
                 <div class="user-adresses-container">
                     {% if user.adresse|length != 0 %}
                         {% for adresse in user.adresse %}
