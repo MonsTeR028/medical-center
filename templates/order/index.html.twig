@@ -54,14 +54,16 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <div class="order-medecine-buttons">
-                        <button class="lexend-bold" onclick="window.location.href='{{ path('app_order_show', {id: order.id}) }}'">
-                            Consulter la commande
-                        </button>
-                        <button class="lexend-bold" onclick="window.location.href='#'">
-                            Acheter à nouveau
-                        </button>
-                    </div>
+                    {% if data[order.id] is defined %}
+                        <div class="order-medecine-buttons">
+                            <button class="lexend-bold" onclick="window.location.href='{{ path('app_order_show', {id: order.id}) }}'">
+                                Consulter la commande
+                            </button>
+                            <button class="lexend-bold" onclick="window.location.href='#'">
+                                Acheter à nouveau
+                            </button>
+                        </div>
+                    {% endif %}
                     <p class="league-spartan-light">N°de commande {{ order.id }}</p>
                 </div>
             {% endfor %}
