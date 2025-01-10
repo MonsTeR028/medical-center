@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="item"]');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"].item-checkbox');
     const checkoutButton = document.getElementById('checkout-button');
     const noSelectionButton = document.getElementById('no-selection-button');
 

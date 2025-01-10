@@ -33,8 +33,12 @@ class Order
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'idOrder', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'idOrder', cascade: ['persist'], orphanRemoval: true)]
     private Collection $orderItems;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Adresse $DeliveryAdresse = null;
 
     public function __construct()
     {
@@ -127,6 +131,18 @@ class Order
                 $orderItem->setIdOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeliveryAdresse(): ?Adresse
+    {
+        return $this->DeliveryAdresse;
+    }
+
+    public function setDeliveryAdresse(?Adresse $DeliveryAdresse): static
+    {
+        $this->DeliveryAdresse = $DeliveryAdresse;
 
         return $this;
     }
