@@ -64,6 +64,7 @@ class OrderController extends AbstractController
             'orderItems' => $orderItems,
             'data' => $data,
             'order' => $order,
+            'user' => $user,
         ]);
     }
 }

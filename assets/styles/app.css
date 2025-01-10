@@ -848,7 +848,7 @@ header > span > a {
 
 }
 
-.main-order {
+.main-order, .main-order-item {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -881,7 +881,7 @@ header > span > a {
     border: #626262 solid 2px;
     border-radius: 20px;
     position: relative;
-    padding: 0 1em 0em 1em;
+    padding: 0 1em 0 1em;
 }
 
 .main-order .order > p:first-child {
@@ -997,6 +997,114 @@ header > span > a {
     text-align: end;
 }
 
+.main-order-item {
+    gap: 0.5em;
+}
+
+.order-item-title {
+    display: flex;
+    flex-direction: row;
+    background-color: #DADADA;
+    border: solid 2px #656565;
+    border-radius: 20px;
+    padding: 0.5em;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-item-title > p {
+    position: absolute;
+    right: 1em;
+    top: auto;
+    border: solid 3px;
+    border-radius: 10px;
+    padding: 3px 5px 1px 5px;
+    font-size: 22px;
+}
+
+.order-item-title > p.status-gris {
+    border-color: #656565;
+}
+
+.order-item-title > p.status-vert {
+    border-color: #138B33;
+}
+
+.order-item-title > p.status-rouge {
+    border-color: #EA4141;
+}
+
+.main-order-item > p.league-spartan-semibold {
+    text-align: center;
+    font-size: 24px;
+    color: #137C8B;
+}
+
+.main-order-item > p.league-spartan-light {
+    text-align: center;
+    font-size: 18px;
+}
+
+.main-order-item h4 {
+    font-size: 36px;
+}
+
+.order-item-medecines, .order-item-payment, .order-item-adress {
+    border: solid black 1px;
+    padding: 1em;
+    margin-bottom: 0.5em;
+}
+
+.order-item-medecines {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 1em;
+}
+
+.order-item-medecines img {
+    height: 80px;
+    width: auto;
+}
+
+.order-item-medecine {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+}
+
+.order-item-medecines a {
+    font-size: 18px;
+}
+
+.order-item-medecines button {
+    background-color: white;
+    border: #137C8B solid 3px;
+    border-radius: 15px;
+}
+
+.order-item-payment-article, .order-item-payment-livraison, .order-item-payment-total {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.order-item-payment-article p:first-child,
+.order-item-payment-livraison p:first-child,
+.order-item-payment-total p:first-child {
+    width: 80px;
+}
+
+.order-item-adress {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 22px;
+}
 footer {
     position: fixed;
     left: 0;
