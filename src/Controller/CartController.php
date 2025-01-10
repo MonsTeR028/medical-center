@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AdresseRepository;
 use App\Service\Cart\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart')]
-    public function index(CartService $cartService): Response
+    public function index(CartService $cartService, AdresseRepository $adresseRepository): Response
     {
+        $adresses = $adresseRepository->findBy(['user' => $this->getUser()]);
         return $this->render('cart/index.html.twig', [
             'items' => $cartService->getCart(),
             'total' => $cartService->getTotal(),
+            'adresses' => $adresses,
         ]);
     }
 
