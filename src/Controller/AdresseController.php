@@ -69,8 +69,6 @@ class AdresseController extends AbstractController
 
         $this->addFlash('success', 'Adresse supprimée avec succès.');
 
-        return $this->redirectToRoute('app_adresse', [
-            'user' => $user,
-        ]);
+        return $this->redirectToRoute('app_adresse');
     }
 }
