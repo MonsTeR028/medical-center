@@ -54,10 +54,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                <button id="no-selection-button" class="league-spartan-regular">Aucun article sélectionné</button>
-                <button type="submit" id="checkout-button" class="league-spartan-regular" hidden>Passer commande (0
-                    articles) : 0.00 €
-                </button>
+                <div>
+                    <label for="delivery-adresse">Adresse :</label><select name="deliveryAdresse" id="delivery-adresse"
+                                                                           class="league-spartan-regular">
+                        <option value="">Choisir une adresse de livraison</option>
+                        {% for adresse in adresses %}
+                            <option value="{{ adresse.id }}">{{ adresse.adresse }} {{ adresse.zipcode }} {{ adresse.city }}</option>
+                        {% endfor %}
+                    </select>
+                    <button id="no-selection-button" class="league-spartan-regular">Aucun article sélectionné</button>
+                    <button type="submit" id="checkout-button" class="league-spartan-regular" hidden>Passer commande (0
+                        articles) : 0.00 €
+                    </button>
+                </div>
             </form>
         {% else %}
             <p class="cart-empty">Votre panier est vide !</p>
