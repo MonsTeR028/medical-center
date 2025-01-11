@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\AdresseRepository;
 use App\Service\Cart\CartService;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,7 +25,7 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/cart/add/{id}', name: 'app_cart_add')]
+    #[Route('/cart/add/{id}', name: 'app_cart_add', requirements: ['id' => '\d+'])]
     public function add($id, CartService $cartService): Response
     {
         $cartService->add($id);
@@ -32,7 +33,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
+    #[Route('/cart/remove/{id}', name: 'app_cart_remove', requirements: ['id' => '\d+'])]
     public function remove($id, CartService $cartService): Response
     {
         $cartService->remove($id);
@@ -40,7 +41,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route('/cart/increase/{id}', name: 'app_cart_increase')]
+    #[Route('/cart/increase/{id}', name: 'app_cart_increase', requirements: ['id' => '\d+'])]
     public function increase($id, CartService $cartService): Response
     {
         $cartService->increase($id);
@@ -48,11 +49,19 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route('/cart/decrease/{id}', name: 'app_cart_decrease')]
+    #[Route('/cart/decrease/{id}', name: 'app_cart_decrease', requirements: ['id' => '\d+'])]
     public function decrease($id, CartService $cartService): Response
     {
         $cartService->decrease($id);
 
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/cart/quantity/{id}/{nb}', name: 'app_cart_add_quantity', requirements: ['id' => '\d+', 'nb' => '\d+'])]
+    public function addQuantity(int $id, int $nb, CartService $cartService): Response
+    {
+
+        $cartService->addQuantity($id, $nb);
         return $this->redirectToRoute('app_cart');
     }
 }

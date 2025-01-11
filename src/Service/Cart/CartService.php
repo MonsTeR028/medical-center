@@ -88,4 +88,24 @@ class CartService
 
         return $total;
     }
+
+    public function addQuantity(int $id, int $nb): void
+    {
+        $cart = $this->session->get('cart', []);
+        $stock = $this->batchMedicineRepository->findAllQuantityById($this->medicineRepository->find($id));
+        if (isset($cart[$id])) {
+            if (1 == $nb) {
+                $this->add($id);
+            } elseif ($nb > 1) {
+                if ($cart[$id] + $nb <= $stock) {
+                    $cart[$id] += $nb;
+                } else {
+                    $cart[$id] = $stock;
+                }
+            }
+        } else {
+            $cart[$id] = $nb;
+        }
+        $this->session->set('cart', $cart);
+    }
 }
