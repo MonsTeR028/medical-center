@@ -114,6 +114,12 @@
             "php bin/console doctrine:database:create",
             "php bin/console doctrine:migrations:migrate --no-interaction",
             "php bin/console doctrine:fixtures:load --no-interaction"
+        ],
+        "db:w": [
+            "symfony console doctrine:database:drop --force --if-exists",
+            "symfony console doctrine:database:create",
+            "symgony console doctrine:migrations:migrate --no-interaction",
+            "symfony console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
