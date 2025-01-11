@@ -1,42 +1,52 @@
 [
-    {
-        "name": "Paracetamol",
-        "description": "Utilisé pour traiter la fièvre et soulager les douleurs légères à modérées."
-    },
-    {
-        "name": "Ibuprofen",
-        "description": "Anti-inflammatoire non stéroïdien pour réduire la douleur, l'inflammation et la fièvre."
-    },
-    {
-        "name": "Amoxicillin",
-        "description": "Antibiotique utilisé pour traiter diverses infections bactériennes."
-    },
-    {
-        "name": "Aspirin",
-        "description": "Employé pour soulager la douleur, réduire la fièvre ou traiter les inflammations."
-    },
-    {
-        "name": "Cetirizine",
-        "description": "Antihistaminique utilisé pour traiter les allergies, les rhumes des foins et l'urticaire."
-    },
-    {
-        "name": "Omeprazole",
-        "description": "Utilisé pour traiter les reflux gastriques, les ulcères et l'indigestion acide."
-    },
-    {
-        "name": "Metformin",
-        "description": "Utilisé pour contrôler la glycémie chez les patients atteints de diabète de type 2."
-    },
-    {
-        "name": "Losartan",
-        "description": "Employé pour traiter l'hypertension artérielle et protéger les reins chez les diabétiques."
-    },
-    {
-        "name": "Atorvastatin",
-        "description": "Réduit le cholestérol et prévient les maladies cardiovasculaires."
-    },
-    {
-        "name": "Salbutamol",
-        "description": "Utilisé pour soulager les bronchospasmes dans l'asthme et les maladies pulmonaires obstructives."
-    }
+  {
+    "name": "Paracetamol",
+    "description": "Utilisé pour traiter la fièvre et soulager les douleurs légères à modérées.",
+    "category": "Généraliste"
+  },
+  {
+    "name": "Ibuprofen",
+    "description": "Anti-inflammatoire non stéroïdien pour réduire la douleur, l'inflammation et la fièvre.",
+    "category": "Généraliste"
+  },
+  {
+    "name": "Amoxicillin",
+    "description": "Antibiotique utilisé pour traiter diverses infections bactériennes.",
+    "category": "Infectiologie"
+  },
+  {
+    "name": "Aspirin",
+    "description": "Employé pour soulager la douleur, réduire la fièvre ou traiter les inflammations.",
+    "category": "Cardiologie"
+  },
+  {
+    "name": "Cetirizine",
+    "description": "Antihistaminique utilisé pour traiter les allergies, les rhumes des foins et l'urticaire.",
+    "category": "Allergologie"
+  },
+  {
+    "name": "Omeprazole",
+    "description": "Utilisé pour traiter les reflux gastriques, les ulcères et l'indigestion acide.",
+    "category": "Gastroentérologie"
+  },
+  {
+    "name": "Metformin",
+    "description": "Utilisé pour contrôler la glycémie chez les patients atteints de diabète de type 2.",
+    "category": "Diabétologie"
+  },
+  {
+    "name": "Losartan",
+    "description": "Employé pour traiter l'hypertension artérielle et protéger les reins chez les diabétiques.",
+    "category": "Cardiologie"
+  },
+  {
+    "name": "Atorvastatin",
+    "description": "Réduit le cholestérol et prévient les maladies cardiovasculaires.",
+    "category": "Cardiologie"
+  },
+  {
+    "name": "Salbutamol",
+    "description": "Utilisé pour soulager les bronchospasmes dans l'asthme et les maladies pulmonaires obstructives.",
+    "category": "Pneumologie"
+  }
 ]
