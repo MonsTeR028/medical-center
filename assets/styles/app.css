@@ -149,14 +149,17 @@ header > span > a {
     font-size: 36px;
 }
 
-.user-form > form input {
+.user-form > form input,
+.user-form > form select
+{
     background-color: #dcdcdc;
     border-radius: unset;
     font-size: 20px;
     color: #444444;
 }
 
-.user-form > form input:focus {
+.user-form > form input:focus,
+.user-form > form select:focus{
     background-color: #dcdcdc;
 }
 
