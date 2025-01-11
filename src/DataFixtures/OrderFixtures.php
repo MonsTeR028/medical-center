@@ -22,6 +22,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
+            AdresseFixtures::class,
         ];
     }
 }
