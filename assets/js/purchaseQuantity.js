@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
             formulaireInput.value = 1;
             inputId.value = id;
             pNom.innerText = name;
-            pPrice.innerText = price + '€';
+            pPrice.innerText = parseFloat(price).toFixed(2) + '€';
             pImage.setAttribute('src', image);
             pStock.innerText = 'En stock (' + stock + ')'
             formulaireInput.addEventListener('click', () => {
-                pPrice.innerText = price*formulaireInput.value + '€';
+                pPrice.innerText = (parseFloat(price)*formulaireInput.value).toFixed(2) + '€';
             })
             formulaireContainer.style.display = 'block';
             formulaireClose.addEventListener('click', () => {

@@ -603,8 +603,8 @@ header > span > a {
 }
 
 .medicine-show-right img {
-    width: 400px;
-    height: auto;
+    height: 350px;
+    width: auto;
 }
 
 .medicine-show-description, .medicine-show-information{
@@ -629,6 +629,7 @@ header > span > a {
 
 .medicine-show-description p.league-spartan-regular {
     font-size: 20px;
+    text-align: center;
 }
 
 .medicine-show-information p.league-spartan-regular {
@@ -1144,6 +1145,7 @@ header > span > a {
     border-radius: 20px;
     padding: 1em;
     align-items: center;
+    gap: 1em;
 }
 
 .medicine-float > button {
@@ -1207,7 +1209,8 @@ header > span > a {
 .medicine-form-cart form {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.75em;
+    align-items: center;
 }
 
 .medicine-form-cart form div:nth-child(2) {
