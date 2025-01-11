@@ -10,6 +10,17 @@ class MedicineCategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        MedicineCategoryFactory::createMany(5);
+        $data = file_get_contents(__DIR__.'/data/data_medicines_fixtures.json');
+        $medicines = json_decode($data, true);
+        $alreadyDone = [];
+
+        foreach ($medicines as $medicineData) {
+            if (in_array($medicineData['category'], $alreadyDone)) {
+                continue;
+            }
+
+            $alreadyDone[] = $medicineData['category'];
+            MedicineCategoryFactory::createOne(['name' => $medicineData['category']]);
+        }
     }
 }

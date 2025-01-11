@@ -69,6 +69,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Regex(pattern: "/^\d{11}$/", message: 'Le numéro RRPS doit contenir uniquement des chiffres.')]
     private ?string $RRPS = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MedicineCategory $category = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -262,5 +266,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->lastname.' '.$this->firstname;
+    }
+
+    public function getCategory(): ?MedicineCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?MedicineCategory $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

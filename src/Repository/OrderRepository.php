@@ -27,7 +27,6 @@ class OrderRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $userId
      * @return Order[]
      */
     public function findActiveOrdersByUserId(int $userId): array

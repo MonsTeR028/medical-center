@@ -16,12 +16,11 @@ class MedicineController extends AbstractController
 {
     #[Route('/medicines', name: 'app_medicine')]
     public function index(
-        MedicineRepository         $medicineRepository,
+        MedicineRepository $medicineRepository,
         MedicineCategoryRepository $medicineCategoryRepository,
-        BatchMedicineRepository    $batchMedicineRepository,
-        Request                    $request,
-    ): Response
-    {
+        BatchMedicineRepository $batchMedicineRepository,
+        Request $request,
+    ): Response {
         $search = $request->query->getString('search');
         $categoryFilter = $request->query->getInt('categoryFilter');
         $containerOnly = $request->query->getBoolean('containerOnly');
@@ -36,7 +35,6 @@ class MedicineController extends AbstractController
             $batchMedicines[$medicine->getId()] = $batchMedicineRepository->findAllQuantityById($medicine->getId());
             $date = strtotime($batchMedicineRepository->findArrivalDateById($medicine->getId()));
             $batchMedicinesArrival[$medicine->getId()] = date('Y-m-d', $date);
-
         }
 
         if ($containerOnly) {
@@ -64,10 +62,9 @@ class MedicineController extends AbstractController
     )]
     public function show(
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
-        Medicine                $medicine,
+        Medicine $medicine,
         BatchMedicineRepository $batchMedicineRepository,
-    ): Response
-    {
+    ): Response {
         return $this->render('medicine/show.html.twig', [
             'medicine' => $medicine,
             'stock' => $batchMedicineRepository->findAllQuantityById($medicine->getId()),

@@ -14,10 +14,9 @@ class MedicineFixtures extends Fixture implements DependentFixtureInterface
     {
         $data = file_get_contents(__DIR__.'/data/data_medicines_fixtures.json');
         $medicines = json_decode($data, true);
-        $medicineCategories = MedicineCategoryFactory::all();
 
         foreach ($medicines as $medicineData) {
-            $medicineData['category'] = $medicineCategories[array_rand($medicineCategories)];
+            $medicineData['category'] = MedicineCategoryFactory::findBy(['name' => $medicineData['category']])[0];
             MedicineFactory::createOne($medicineData);
         }
     }

@@ -33,6 +33,7 @@ final class MedicineCategoryFactory extends PersistentProxyObjectFactory
     {
         return [
             'name' => self::faker()->text(30),
+            'color' => substr(self::faker()->hexColor(), 1),
         ];
     }
 
@@ -41,8 +42,7 @@ final class MedicineCategoryFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(MedicineCategory $medicineCategory): void {})
+        return $this// ->afterInstantiate(function(MedicineCategory $medicineCategory): void {})
         ;
     }
 }
