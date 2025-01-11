@@ -1,6 +1,6 @@
     {% for medicine in medicines %}
         <div class="medicine">
-            {% if arrivalDate[medicine.id] >= currentDate%}
+            {% if arrivalDate[medicine.id] >= currentDate %}
                 <img src="{{ asset('images/new.png') }}" alt="new">
             {% endif %}
             <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">

@@ -41,7 +41,7 @@
                                     {% else %}
                                         <img src="{{ asset('images/placeholder.png') }}" alt="{{ item.medicine.name }}">
                                     {% endif %}
-                                    {% if item.quantity == 1%}
+                                    {% if item.quantity == 1 %}
                                         <a href="{{ path('app_medicine_show', {id: item.medicine.id}) }}">
                                             {{ item.quantity }} Boîte de {{ item.medicine.name }}
                                         </a>

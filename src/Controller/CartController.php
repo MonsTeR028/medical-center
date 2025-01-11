@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Repository\AdresseRepository;
 use App\Service\Cart\CartService;
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -60,8 +59,8 @@ class CartController extends AbstractController
     #[Route('/cart/quantity/{id}/{nb}', name: 'app_cart_add_quantity', requirements: ['id' => '\d+', 'nb' => '\d+'])]
     public function addQuantity(int $id, int $nb, CartService $cartService): Response
     {
-
         $cartService->addQuantity($id, $nb);
+
         return $this->redirectToRoute('app_cart');
     }
 }
