@@ -118,7 +118,7 @@
         "db:w": [
             "symfony console doctrine:database:drop --force --if-exists",
             "symfony console doctrine:database:create",
-            "symgony console doctrine:migrations:migrate --no-interaction",
+            "symfony console doctrine:migrations:migrate --no-interaction",
             "symfony console doctrine:fixtures:load --no-interaction"
         ]
     },
