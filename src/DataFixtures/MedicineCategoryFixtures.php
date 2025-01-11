@@ -10,7 +10,7 @@ class MedicineCategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $data = file_get_contents(__DIR__ . '/data/data_medicines_fixtures.json');
+        $data = file_get_contents(__DIR__.'/data/data_medicines_fixtures.json');
         $medicines = json_decode($data, true);
         $alreadyDone = [];
 

@@ -43,6 +43,6 @@ final class MedicineCategoryFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this// ->afterInstantiate(function(MedicineCategory $medicineCategory): void {})
-            ;
+        ;
     }
 }

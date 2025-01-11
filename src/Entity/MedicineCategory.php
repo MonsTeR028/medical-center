@@ -81,7 +81,7 @@ class MedicineCategory
 
     public function getColor(): ?string
     {
-        return $this->color ?? "000000";
+        return $this->color ?? '000000';
     }
 
     public function setColor(?string $color): static

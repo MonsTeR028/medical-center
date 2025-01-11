@@ -2,8 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\BatchMedicine;
-use App\Entity\Medicine;
 use App\Entity\OrderItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,8 +28,6 @@ class OrderItemRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-
 
     //    /**
     //     * @return OrderItem[] Returns an array of OrderItem objects
