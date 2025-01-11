@@ -102,9 +102,7 @@ class OrderController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route('/order/{id}',
-        name: 'app_order_show',
-        requirements: ['id' => '\d+']), ]
+    #[Route('/order/{id}', name: 'app_order_show', requirements: ['id' => '\d+']) ]
     public function show(OrderItemRepository $orderItemRepository, int $id, OrderRepository $orderRepository): Response
     {
         $user = $this->getUser();
