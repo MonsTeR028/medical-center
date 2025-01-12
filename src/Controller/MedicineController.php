@@ -49,6 +49,8 @@ class MedicineController extends AbstractController
             return $this->render('medicine/_medicines.html.twig', [
                 'medicines' => $medicines,
                 'batchMedecines' => $batchMedicines,
+                'arrivalDate' => $batchMedicinesArrival,
+                'currentDate' => date('Y-m-d', strtotime('-2 week', time())),
             ]);
         }
 
