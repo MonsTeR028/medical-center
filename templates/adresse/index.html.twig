@@ -9,9 +9,17 @@
         <a href="{{ path('app_adresse_create') }}" class="btn btn-primary">Ajouter une adresse</a>
         {% for adresse in user.adresse %}
             <div class="adresse-item">
+                {% if adresse.firstname and adresse.lastname %}
+                    <p>{{ adresse.firstname }} {{ adresse.lastname }}</p>
+                {% else %}
+                    <p>{{ user.firstname }} {{ user.lastname }}</p>
+                {% endif %}
                 <p>{{ adresse.adresse }}</p>
                 <p>{{ adresse.zipcode }}</p>
                 <p>{{ adresse.city }}</p>
+                {% if adresse.tel %}
+                    <p>{{ adresse.tel }}</p>
+                {% endif %}
                 <a href="{{ path('app_adresse_delete', {id: adresse.id}) }}" class="btn btn-danger">Supprimer</a>
             </div>
         {% endfor %}
