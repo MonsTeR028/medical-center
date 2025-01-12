@@ -34,3 +34,9 @@
 ###> vincentlanglet/twig-cs-fixer ###
 /.twig-cs-fixer.cache
 ###< vincentlanglet/twig-cs-fixer ###
+
+###> uploads ###
+/public/uploads/images/*.png
+/public/uploads/images/*.jpg
+/public/uploads/images/*.jpeg
+###< uploads ###
