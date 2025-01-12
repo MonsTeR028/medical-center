@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Passer commande
+{% endblock %}
+
+{% block body %}
+    <div class="main-new-order">
+        <div class="new-order-form">
+            <h3>1. Adresse de livraison</h3>
+            <form action="{{ path('app_order_new') }}" method="post">
+                {% if adresses %}
+                    <div class="new-order-adresses">
+                        {% for adresse in adresses %}
+                            <div class="new-order-adress">
+                                <label>
+                                    <input type="radio" name="adresse" value="{{ adresse.id }}"/>
+                                </label>
+                                {% if adresse.firstname and adresse.lastname %}
+                                    <p class="new-order-user-name">{{ adresse.firstname }} {{ adresse.lastname }}</p>
+                                {% else %}
+                                    <p class="new-order-user-name">{{ user.firstname }} {{ user.lastname }}</p>
+                                {% endif %}
+                                <p class="new-order-adress-name">{{ adresse.adresse }} {{ adresse.zipcode }} {{ adresse.city }}</p>
+                                {% if adresse.tel %}
+                                    <p class="new-order-user-phone">{{ adresse.tel }}</p>
+                                {% else %}
+                                    <p class="new-order-user-phone">{{ user.tel }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="new-order-new-adress">
+                    <label>
+                        <input type="radio" name="adresse" value="new-adress"/>
+                    </label>
+                    <p>Nouvelle adresse de livraison</p>
+                    {{ form_start(formAdress) }}
+                    {{ form_row(formAdress.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom'}, label: false}) }}
+                    {{ form_row(formAdress.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom de famille'}, label: false}) }}
+                    {{ form_row(formAdress.adresse, {attr: {class: 'form-control inter-regular', placeholder: 'Rue'}, label: false}) }}
+                    {{ form_row(formAdress.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal'}, label: false}) }}
+                    {{ form_row(formAdress.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville'}, label: false}) }}
+                    {{ form_row(formAdress.tel, {attr: {class: 'form-control inter-regular', placeholder: 'N°de Téléphone'}, label: false}) }}
+                    <button disabled hidden type="submit"></button>
+                    {{ form_end(formAdress) }}
+                </div>
+                <button type="submit">Suivant</button>
+            </form>
+        </div>
+        <div class="new-order-payment">
+            <h3>2. Mode de paiement</h3>
+        </div>
+        <div class="new-order-recap">
+            <h3>3. Récapitulatif de la commande</h3>
+            <div class="new-order-recap-container">
+                <h4 class="league-spartan-medium">Articles</h4>
+                <div class="order-item-medecines">
+                    {% for item in order.orderItems %}
+                        <ul class="order-item-medecine">
+                            <li>{{ item.quantity }}x {{ item.medicine.name }}</li>
+                        </ul>
+                    {% endfor %}
+                </div>
+                <h4 class="league-spartan-medium">Paiement via MOYEN_DE_PAIEMENT</h4>
+                <div class="order-item-payment">
+                    <div class="order-item-payment-article">
+                        <p class="league-spartan-regular">Articles :</p>
+                        <p class="league-spartan-regular">{{ order.totalAmount }}€</p>
+                    </div>
+                    <div class="order-item-payment-livraison">
+                        <p class="league-spartan-regular">Livraison :</p>
+                        <p class="league-spartan-regular">PRIX_LIVRAISON</p>
+                    </div>
+                    <div class="order-item-payment-total">
+                        <p class="league-spartan-regular">Total :</p>
+                        <p class="league-spartan-semibold">{{ order.totalAmount }}€</p>
+                    </div>
+                </div>
+                <h4 class="league-spartan-medium">Adresse de livraison</h4>
+                <div class="order-item-adress">
+                    <p class="league-spartan-semibold">{{ user.firstname }} {{ user.lastname }}</p>
+                    <p class="league-spartan-regular">ADRESSE_LIVRAISON</p>
+                    <p class="league-spartan-regular">{{ user.tel }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
