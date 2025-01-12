@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\User;
+use App\Form\AdresseUserType;
 use App\Repository\AdresseRepository;
 use App\Repository\BatchMedicineRepository;
 use App\Repository\OrderItemRepository;
@@ -47,18 +48,16 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/new', name: 'app_order_new', methods: ['POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, CartService $cartService, BatchMedicineRepository $batchMedicineRepository, AdresseRepository $adresseRepository): Response
+    public function new(Request $request,
+        EntityManagerInterface $entityManager,
+        CartService $cartService,
+        BatchMedicineRepository $batchMedicineRepository,
+        AdresseRepository $adresseRepository): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
             return $this->redirectToRoute('app_login');
         }
-
-        // Create the Order
-        $order = new Order();
-        $order->setIdUser($user);
-        $order->setStatus('RECEIVED');
-        $order->setOrderDate(new \DateTime());
 
         // Get Cart Items
         $cart = $cartService->getCart();
@@ -68,8 +67,18 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_cart');
         }
 
+        // Create the Order
+        $order = new Order();
+        $order->setIdUser($user);
+        $order->setStatus('CANCELED');
+        $order->setOrderDate(new \DateTime());
         $amount = 0;
 
+        $reponse = $request->request->all();
+        dump($reponse);
+
+        $adresses = $adresseRepository->findBy(['user' => $user]);
+        // Formulaire à ajouter
         // Add Order Items
         foreach ($cart as $item) {
             $productId = $item['product']->getId();
@@ -92,14 +101,20 @@ class OrderController extends AbstractController
         if ($orderId) {
             $order->setDeliveryAdresse($adresseRepository->find($orderId));
         }
+        // Mettre le contenu du formulaire adresse ici dasn le else
 
         // Persist and Flush
         $entityManager->persist($order);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre commande a été passée avec succès.');
+        $formAdress = $this->createForm(AdresseUserType::class);
 
-        return $this->redirectToRoute('app_cart');
+        return $this->render('order/new.html.twig', [
+            'user' => $user,
+            'adresses' => $adresses,
+            'formAdress' => $formAdress->createView(),
+            'order' => $order,
+        ]);
     }
 
     #[Route('/order/{id}', name: 'app_order_show', requirements: ['id' => '\d+']) ]
