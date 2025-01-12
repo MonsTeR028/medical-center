@@ -17,6 +17,9 @@ class AdresseType extends AbstractType
             ->add('adresse')
             ->add('zipcode')
             ->add('city')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('tel')
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',

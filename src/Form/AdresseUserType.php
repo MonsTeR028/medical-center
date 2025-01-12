@@ -6,6 +6,7 @@ use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class AdresseUserType extends AbstractType
 {
@@ -14,7 +15,10 @@ class AdresseUserType extends AbstractType
         $builder
             ->add('adresse')
             ->add('zipcode')
-            ->add('city');
+            ->add('city')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('tel');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

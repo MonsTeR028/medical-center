@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Adresse;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\User;
+use App\Form\AdresseUserType;
 use App\Repository\AdresseRepository;
 use App\Repository\BatchMedicineRepository;
 use App\Repository\OrderItemRepository;
@@ -47,18 +49,17 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/new', name: 'app_order_new', methods: ['POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, CartService $cartService, BatchMedicineRepository $batchMedicineRepository, AdresseRepository $adresseRepository): Response
+    public function new(Request $request,
+        EntityManagerInterface $entityManager,
+        CartService $cartService,
+        BatchMedicineRepository $batchMedicineRepository,
+        OrderItemRepository $orderItemRepository,
+        AdresseRepository $adresseRepository): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
             return $this->redirectToRoute('app_login');
         }
-
-        // Create the Order
-        $order = new Order();
-        $order->setIdUser($user);
-        $order->setStatus('RECEIVED');
-        $order->setOrderDate(new \DateTime());
 
         // Get Cart Items
         $cart = $cartService->getCart();
@@ -68,38 +69,92 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_cart');
         }
 
-        $amount = 0;
+        $order = '';
+        $itemInfos = [];
+        $itemsData = [];
+        $allRequest = $request->request->all();
+        dump($allRequest);
 
-        // Add Order Items
         foreach ($cart as $item) {
             $productId = $item['product']->getId();
             if (!$request->request->has("item-$productId")) {
                 continue;
             }
-            $orderItem = new OrderItem();
-            $batchMedicine = $batchMedicineRepository->findOneBy(['idMed' => $item['product']]);
-            $orderItem->setIdBatchMedicine($batchMedicine);
-            $orderItem->setQuantity($item['quantity']);
-
-            $amount += $item['product']->getPriceUnit() * $item['quantity'];
-            $order->addOrderItem($orderItem);
-            $cartService->remove($productId);
+            $itemInfos[] = [
+                'id' => "item-{$productId}",
+                'data' => $request->request->get("item-{$productId}"),
+            ];
         }
 
-        $order->setTotalAmount($amount);
+        if ($request->request->get('adresse') || $request->request->get('adresse_user')) {
+            $order = new Order();
+            $order->setIdUser($user);
+            $order->setStatus('DELIVERED');
+            $order->setOrderDate(new \DateTime());
+            $amount = 0;
 
-        $orderId = $request->request->get('deliveryAdresse');
-        if ($orderId) {
-            $order->setDeliveryAdresse($adresseRepository->find($orderId));
+            foreach ($cart as $item) {
+                $productId = $item['product']->getId();
+                if (!$request->request->has("item-$productId")) {
+                    continue;
+                }
+                $quantity = $item['quantity'];
+                $orderItem = new OrderItem();
+                $batchMedicine = $batchMedicineRepository->findOneBy(['idMed' => $productId]);
+                $orderItem->setIdBatchMedicine($batchMedicine);
+                $orderItem->setIdOrder($order->getId());
+                $orderItem->setQuantity($quantity);
+                $newAdresseInfos = $request->request->get('adresse_user');
+                $amount += $item['product']->getPriceUnit() * $quantity;
+                $order->addOrderItem($orderItem);
+                $itemsData[] = [
+                    'name' => $item['product']->getName(),
+                    'quantity' => $quantity,
+                ];
+                /*
+                $cartService->remove($productId);
+                */
+                if ($request->request->get('adresse')) {
+                    $order->setDeliveryAdresse($adresseRepository->find($request->request->get('adresse')));
+                } else {
+                    if ($adresseRepository->find(true === $newAdresseInfos['id'])) {
+                        $order->setDeliveryAdresse($adresseRepository->find($newAdresseInfos['id']));
+                    } else {
+                        dump($newAdresseInfos);
+                        $newAdresse = new Adresse();
+                        $newAdresse->setId($newAdresseInfos['id']);
+                        $newAdresse->setAdresse($newAdresseInfos['adresse']);
+                        $newAdresse->setZipcode($newAdresseInfos['zipcode']);
+                        $newAdresse->setCity($newAdresseInfos['city']);
+                        if ($newAdresseInfos['firstname'] && $newAdresseInfos['lastname']) {
+                            $newAdresse->setFirstname($newAdresseInfos['firstname']);
+                            $newAdresse->setLastname($newAdresseInfos['lastname']);
+                        }
+                        if ($newAdresseInfos['tel']) {
+                            $newAdresse->setTel($newAdresseInfos['tel']);
+                        }
+                        $newAdresse->setUser($user);
+                        $order->setDeliveryAdresse($newAdresse);
+                        $entityManager->persist($newAdresse);
+                    }
+                }
+                $order->setTotalAmount($amount);
+            }
+            $entityManager->persist($order);
+            $entityManager->flush();
         }
 
-        // Persist and Flush
-        $entityManager->persist($order);
-        $entityManager->flush();
+        $adresses = $adresseRepository->findBy(['user' => $user]);
+        $formAdress = $this->createForm(AdresseUserType::class);
 
-        $this->addFlash('success', 'Votre commande a été passée avec succès.');
-
-        return $this->redirectToRoute('app_cart');
+        return $this->render('order/new.html.twig', [
+            'user' => $user,
+            'adresses' => $adresses,
+            'formAdress' => $formAdress->createView(),
+            'order' => $order,
+            'itemInfo' => $itemInfos,
+            'itemData' => $itemsData,
+        ]);
     }
 
     #[Route('/order/{id}', name: 'app_order_show', requirements: ['id' => '\d+']) ]
