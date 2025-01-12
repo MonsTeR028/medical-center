@@ -19,7 +19,7 @@ class MedicineRepository extends ServiceEntityRepository
     /**
      * @return Medicine[]
      */
-    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'ASC'): array
+    public function search(string $value = '', int $category = 0, string $orderTarget = '', string $orderBy = 'ASC', bool $outOfStockFilter = false): array
     {
         $query = $this->createQueryBuilder('m')
             ->orderBy('m.name', 'ASC')
@@ -39,6 +39,12 @@ class MedicineRepository extends ServiceEntityRepository
 
         if ('' != $orderTarget && in_array($orderTarget, ['name', 'priceUnit']) && in_array($orderBy, ['ASC', 'DESC'])) {
             $query->orderBy("m.$orderTarget", $orderBy);
+        }
+
+        if ($outOfStockFilter) {
+            $query->join('m.batchMedicines', 'bm')
+                ->andWhere('bm.arrivalDate <= CURRENT_TIMESTAMP()')
+                ->andWhere('bm.expirationDate > CURRENT_TIMESTAMP()');
         }
 
         return $query->getQuery()->getResult();
