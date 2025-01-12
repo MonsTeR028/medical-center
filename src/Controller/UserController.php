@@ -7,6 +7,7 @@ use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,13 +46,19 @@ class UserController extends AbstractController
     }
 
     #[Route('user/register', name: 'app_user_register')]
-    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
+    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($userRepository->findOneBy(['email' => $user->getEmail()])) {
+                $this->addFlash('error', 'Cet email est déjà utilisé.');
+
+                return $this->redirectToRoute('app_user_register');
+            }
+
             $password = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
             $entityManager->persist($user);
