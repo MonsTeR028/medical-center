@@ -37,7 +37,44 @@
     </form>
 
     <div id="medicines-container" class="medicines">
+        <div class="medicine-float-container" style="display: none">
+            <div class="medicine-float">
+                <button>
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <p class="league-spartan-light medicine-float-item-name"></p>
+                <div class="medicine-float-item">
+                    <div class="medicine-float-item-info">
+                        <p class="league-spartan-semibold medicine-float-item-price"></p>
+                        <p class="league-spartan-semibold medicine-float-item-stock"></p>
+                    </div>
+                    <img src="" alt="" class="medicine-float-item-image">
+                </div>
+                <div class="medicine-float-adress">
+                    <span class="material-symbols-outlined">location_on</span>
+                    {% if user.adresse|length == 0 %}
+                        <p class="medicine-float-adress-location league-spartan-regular">Aucune adresse enregistrée</p>
+                    {% else %}
+                        <p class="medicine-float-adress-location league-spartan-regular">
+                            Livraison à
+                            {{ (user.adresse|first).adresse }}
+                            {{ (user.adresse|first).zipcode }}
+                            {{ (user.adresse|first).city }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="medicine-form-cart">
+                    {{ form_start(formQuantity) }}
+                    {{ form_row(formQuantity.id) }}
+                    {{ form_row(formQuantity.quantity, {attr: {max: 1, class: 'poppins-light'}}) }}
+                    {{ form_row(formQuantity.cart, {attr: {class: 'league-spartan-regular'}}) }}
+                    {{ form_row(formQuantity.buy, {attr: {class: 'league-spartan-regular'}}) }}
+                    {{ form_end(formQuantity) }}
+                </div>
+            </div>
+        </div>
         {{ include('medicine/_medicines.html.twig') }}
     </div>
 </div>
+<script src="{{ asset('js/purchaseQuantity.js') }}"></script>
 {% endblock %}

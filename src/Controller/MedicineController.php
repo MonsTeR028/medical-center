@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Medicine;
+use App\Entity\User;
+use App\Form\PurchaseQuantityType;
 use App\Repository\BatchMedicineRepository;
 use App\Repository\MedicineCategoryRepository;
 use App\Repository\MedicineRepository;
@@ -21,6 +23,11 @@ class MedicineController extends AbstractController
         BatchMedicineRepository $batchMedicineRepository,
         Request $request,
     ): Response {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $search = $request->query->getString('search');
         $categoryFilter = $request->query->getInt('categoryFilter');
         $containerOnly = $request->query->getBoolean('containerOnly');
@@ -46,13 +53,30 @@ class MedicineController extends AbstractController
 
         $categories = $medicineCategoryRepository->findAllOrderedByName();
 
+        $formOrderQuantity = $this->createForm(PurchaseQuantityType::class);
+        $formOrderQuantity->handleRequest($request);
+        if ($formOrderQuantity->isSubmitted() && $formOrderQuantity->isValid()) {
+            dump($formOrderQuantity->get('id')->getData());
+
+            return $formOrderQuantity->get('cart')->isClicked()
+            ? $this->redirectToRoute(
+                'app_cart_add_quantity', [
+                    'id' => $formOrderQuantity->get('id')->getData(),
+                    'nb' => $formOrderQuantity->get('quantity')->getData(),
+                ]
+            )
+            : $this->redirectToRoute('app_order');
+        }
+
         return $this->render('medicine/index.html.twig', [
+            'user' => $user,
             'medicines' => $medicines,
             'search' => $search,
             'categories' => $categories,
             'batchMedecines' => $batchMedicines,
             'arrivalDate' => $batchMedicinesArrival,
             'currentDate' => date('Y-m-d', strtotime('-2 week', time())),
+            'formQuantity' => $formOrderQuantity->createView(),
         ]);
     }
 
@@ -64,10 +88,33 @@ class MedicineController extends AbstractController
         #[MapEntity(expr: 'repository.findWithCategory(id)')]
         Medicine $medicine,
         BatchMedicineRepository $batchMedicineRepository,
+        Request $request,
     ): Response {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $formOrderQuantity = $this->createForm(PurchaseQuantityType::class);
+        $formOrderQuantity->handleRequest($request);
+        if ($formOrderQuantity->isSubmitted() && $formOrderQuantity->isValid()) {
+            dump($formOrderQuantity->get('id')->getData());
+
+            return $formOrderQuantity->get('cart')->isClicked()
+                ? $this->redirectToRoute(
+                    'app_cart_add_quantity', [
+                        'id' => $formOrderQuantity->get('id')->getData(),
+                        'nb' => $formOrderQuantity->get('quantity')->getData(),
+                    ]
+                )
+                : $this->redirectToRoute('app_order');
+        }
+
         return $this->render('medicine/show.html.twig', [
+            'user' => $user,
             'medicine' => $medicine,
             'stock' => $batchMedicineRepository->findAllQuantityById($medicine->getId()),
+            'formQuantity' => $formOrderQuantity->createView(),
         ]);
     }
 }

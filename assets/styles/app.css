@@ -257,6 +257,7 @@ header > span > a {
     overflow-y: scroll;
     height: 780px;
     gap: 3em;
+    position: relative;
 }
 
 .medicine {
@@ -296,8 +297,8 @@ header > span > a {
 }
 
 .medicine-item img {
-    max-height: 200px;
-    max-width: 200px;
+    height: 150px;
+    width: auto;
 }
 
 .medicine-description {
@@ -602,8 +603,8 @@ header > span > a {
 }
 
 .medicine-show-right img {
-    width: 400px;
-    height: auto;
+    height: 350px;
+    width: auto;
 }
 
 .medicine-show-description, .medicine-show-information{
@@ -628,6 +629,7 @@ header > span > a {
 
 .medicine-show-description p.league-spartan-regular {
     font-size: 20px;
+    text-align: center;
 }
 
 .medicine-show-information p.league-spartan-regular {
@@ -1121,6 +1123,129 @@ header > span > a {
     font-size: 18px;
     line-height: 22px;
 }
+
+.medicine-form-cart > form > div:nth-child(1){
+    display: none;
+}
+
+.medicine-float-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+}
+
+.medicine-float {
+    transform: translate(-50%, -60%);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: #B8CBD0;
+    border: solid #137C8B 2px;
+    border-radius: 20px;
+    padding: 1em;
+    align-items: center;
+    gap: 1em;
+}
+
+.medicine-float > button {
+    background-color: unset;
+    border: none;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+}
+
+.medicine-float-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2em;
+}
+
+.medicine-float-item img {
+    height: 150px;
+    width: auto;
+}
+
+.medicine-float-item-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 40px;
+}
+
+.medicine-float-item-name {
+    font-size: 42px;
+    text-align: center;
+}
+
+.medicine-float-item-price {
+    color: #137C8B;
+    font-size: 46px;
+}
+
+.medicine-float-item-stock {
+    color: #007600;
+    font-size: 28px;
+}
+
+.medicine-float-adress {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+}
+
+.medicine-float-adress-location {
+    max-width: 60%;
+    text-align: center;
+    color: #137C8B;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.medicine-form-cart form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    align-items: center;
+}
+
+.medicine-form-cart form div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.medicine-form-cart form div:nth-child(2) label {
+    font-family: "Poppins", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.medicine-form-cart form div:nth-child(3) button {
+    background-color: white;
+    border: solid #137C8B 3px;
+    border-radius: 25px;
+    color: #137C8B;
+    font-size: 26px;
+    padding-top: 3px;
+    width: 300px;
+}
+
+.medicine-form-cart form div:nth-child(4) button {
+    background-color: #137C8B;
+    border: solid #137C8B 3px;
+    border-radius: 25px;
+    color: white;
+    font-size: 26px;
+    padding-top: 3px;
+    width: 300px;
+}
+
 footer {
     position: fixed;
     left: 0;

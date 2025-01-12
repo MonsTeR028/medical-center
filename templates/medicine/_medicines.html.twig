@@ -1,6 +1,6 @@
     {% for medicine in medicines %}
         <div class="medicine">
-            {% if arrivalDate[medicine.id] >= currentDate%}
+            {% if arrivalDate[medicine.id] >= currentDate %}
                 <img src="{{ asset('images/new.png') }}" alt="new">
             {% endif %}
             <a href="{{ path('app_medicine_show', {id: medicine.id}) }}">
@@ -18,14 +18,27 @@
                     <p class="league-spartan-regular">Date</p>
                 </div>
             </div>
-            <p class="league-spartan-regular medicine-category">{{ medicine.category.name }}</p>
+            <p class="league-spartan-regular medicine-category" style="background-color: #{{ medicine.category.color }}">
+                {{ medicine.category.name }}
+            </p>
             {% if batchMedecines[medicine.id] != 0 %}
-                <button class="medicine-add" onclick="window.location.href='#'">
+                <button class="medicine-add"
+                        data-id="{{ medicine.id }}"
+                        data-stock="{{ batchMedecines[medicine.id] }}"
+                        data-name="{{ medicine.name }}"
+                        data-price="{{ medicine.priceUnit }}"
+                        {% if medicine.imageFileName %}
+                        data-image="{{ medicine.imageFileName }}"
+                        {% else %}
+                        data-image="{{ asset('images/placeholder.png') }}"
+                        {% endif %}>
                     <span class="material-symbols-outlined">add_shopping_cart</span>
                     {{ medicine.priceUnit }} €
                 </button>
             {% else %}
-                <button class="medicine-add" onclick="window.location.href='#'" disabled>
+                <button class="medicine-add"
+                        data-stock="{{ batchMedecines[medicine.id] }}"
+                        style="background-color: grey" disabled>
                     <span class="material-symbols-outlined">add_shopping_cart</span>
                     {{ medicine.priceUnit }} €
                 </button>
