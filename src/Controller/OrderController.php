@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adresse;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\User;
@@ -52,6 +53,7 @@ class OrderController extends AbstractController
         EntityManagerInterface $entityManager,
         CartService $cartService,
         BatchMedicineRepository $batchMedicineRepository,
+        OrderItemRepository $orderItemRepository,
         AdresseRepository $adresseRepository): Response
     {
         $user = $this->getUser();
@@ -67,46 +69,82 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_cart');
         }
 
-        // Create the Order
-        $order = new Order();
-        $order->setIdUser($user);
-        $order->setStatus('CANCELED');
-        $order->setOrderDate(new \DateTime());
-        $amount = 0;
+        $order = '';
+        $itemInfos = [];
+        $itemsData = [];
+        $allRequest = $request->request->all();
+        dump($allRequest);
 
-        $reponse = $request->request->all();
-        dump($reponse);
-
-        $adresses = $adresseRepository->findBy(['user' => $user]);
-        // Formulaire à ajouter
-        // Add Order Items
         foreach ($cart as $item) {
             $productId = $item['product']->getId();
             if (!$request->request->has("item-$productId")) {
                 continue;
             }
-            $orderItem = new OrderItem();
-            $batchMedicine = $batchMedicineRepository->findOneBy(['idMed' => $item['product']]);
-            $orderItem->setIdBatchMedicine($batchMedicine);
-            $orderItem->setQuantity($item['quantity']);
-
-            $amount += $item['product']->getPriceUnit() * $item['quantity'];
-            $order->addOrderItem($orderItem);
-            $cartService->remove($productId);
+            $itemInfos[] = [
+                'id' => "item-{$productId}",
+                'data' => $request->request->get("item-{$productId}"),
+            ];
         }
 
-        $order->setTotalAmount($amount);
+        if ($request->request->get('adresse') || $request->request->get('adresse_user')) {
+            $order = new Order();
+            $order->setIdUser($user);
+            $order->setStatus('DELIVERED');
+            $order->setOrderDate(new \DateTime());
+            $amount = 0;
 
-        $orderId = $request->request->get('deliveryAdresse');
-        if ($orderId) {
-            $order->setDeliveryAdresse($adresseRepository->find($orderId));
+            foreach ($cart as $item) {
+                $productId = $item['product']->getId();
+                if (!$request->request->has("item-$productId")) {
+                    continue;
+                }
+                $quantity = $item['quantity'];
+                $orderItem = new OrderItem();
+                $batchMedicine = $batchMedicineRepository->findOneBy(['idMed' => $productId]);
+                $orderItem->setIdBatchMedicine($batchMedicine);
+                $orderItem->setIdOrder($order->getId());
+                $orderItem->setQuantity($quantity);
+                $newAdresseInfos = $request->request->get('adresse_user');
+                $amount += $item['product']->getPriceUnit() * $quantity;
+                $order->addOrderItem($orderItem);
+                $itemsData[] = [
+                    'name' => $item['product']->getName(),
+                    'quantity' => $quantity,
+                ];
+                /*
+                $cartService->remove($productId);
+                */
+                if ($request->request->get('adresse')) {
+                    $order->setDeliveryAdresse($adresseRepository->find($request->request->get('adresse')));
+                } else {
+                    if ($adresseRepository->find(true === $newAdresseInfos['id'])) {
+                        $order->setDeliveryAdresse($adresseRepository->find($newAdresseInfos['id']));
+                    } else {
+                        dump($newAdresseInfos);
+                        $newAdresse = new Adresse();
+                        $newAdresse->setId($newAdresseInfos['id']);
+                        $newAdresse->setAdresse($newAdresseInfos['adresse']);
+                        $newAdresse->setZipcode($newAdresseInfos['zipcode']);
+                        $newAdresse->setCity($newAdresseInfos['city']);
+                        if ($newAdresseInfos['firstname'] && $newAdresseInfos['lastname']) {
+                            $newAdresse->setFirstname($newAdresseInfos['firstname']);
+                            $newAdresse->setLastname($newAdresseInfos['lastname']);
+                        }
+                        if ($newAdresseInfos['tel']) {
+                            $newAdresse->setTel($newAdresseInfos['tel']);
+                        }
+                        $newAdresse->setUser($user);
+                        $order->setDeliveryAdresse($newAdresse);
+                        $entityManager->persist($newAdresse);
+                    }
+                }
+                $order->setTotalAmount($amount);
+            }
+            $entityManager->persist($order);
+            $entityManager->flush();
         }
-        // Mettre le contenu du formulaire adresse ici dasn le else
 
-        // Persist and Flush
-        $entityManager->persist($order);
-        $entityManager->flush();
-
+        $adresses = $adresseRepository->findBy(['user' => $user]);
         $formAdress = $this->createForm(AdresseUserType::class);
 
         return $this->render('order/new.html.twig', [
@@ -114,6 +152,8 @@ class OrderController extends AbstractController
             'adresses' => $adresses,
             'formAdress' => $formAdress->createView(),
             'order' => $order,
+            'itemInfo' => $itemInfos,
+            'itemData' => $itemsData,
         ]);
     }
 

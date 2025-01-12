@@ -31,35 +31,42 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                <div class="new-order-new-adress">
-                    <label>
-                        <input type="radio" name="adresse" value="new-adress"/>
-                    </label>
-                    <p>Nouvelle adresse de livraison</p>
-                    {{ form_start(formAdress) }}
-                    {{ form_row(formAdress.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom'}, label: false}) }}
-                    {{ form_row(formAdress.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom de famille'}, label: false}) }}
-                    {{ form_row(formAdress.adresse, {attr: {class: 'form-control inter-regular', placeholder: 'Rue'}, label: false}) }}
-                    {{ form_row(formAdress.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal'}, label: false}) }}
-                    {{ form_row(formAdress.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville'}, label: false}) }}
-                    {{ form_row(formAdress.tel, {attr: {class: 'form-control inter-regular', placeholder: 'N°de Téléphone'}, label: false}) }}
-                    <button disabled hidden type="submit"></button>
-                    {{ form_end(formAdress) }}
-                </div>
+                {% for item in itemInfo %}
+                    <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
+                {% endfor %}
                 <button type="submit">Suivant</button>
             </form>
+            <div class="new-order-new-adress">
+                <label>
+                    <input type="radio" name="adresse" value="new-adress"/>
+                </label>
+                <p>Nouvelle adresse de livraison</p>
+                {{ form_start(formAdress, {attr : {action : path('app_order_new'), name: 'new-adress'}}) }}
+                {{ form_row(formAdress.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom'}, label: false}) }}
+                {{ form_row(formAdress.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom de famille'}, label: false}) }}
+                {{ form_row(formAdress.adresse, {attr: {class: 'form-control inter-regular', placeholder: 'Rue'}, label: false}) }}
+                {{ form_row(formAdress.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal'}, label: false}) }}
+                {{ form_row(formAdress.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville'}, label: false}) }}
+                {{ form_row(formAdress.tel, {attr: {class: 'form-control inter-regular', placeholder: 'N°de Téléphone'}, label: false}) }}
+                {% for item in itemInfo %}
+                    <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
+                {% endfor %}
+                <button disabled type="submit" style="display: none">Suivant new</button>
+                {{ form_end(formAdress) }}
+            </div>
         </div>
         <div class="new-order-payment">
             <h3>2. Mode de paiement</h3>
         </div>
         <div class="new-order-recap">
+            {% if order %}
             <h3>3. Récapitulatif de la commande</h3>
             <div class="new-order-recap-container">
                 <h4 class="league-spartan-medium">Articles</h4>
                 <div class="order-item-medecines">
-                    {% for item in order.orderItems %}
+                    {% for item in itemData %}
                         <ul class="order-item-medecine">
-                            <li>{{ item.quantity }}x {{ item.medicine.name }}</li>
+                            <li>{{ item.quantity }}x {{ item.name }}</li>
                         </ul>
                     {% endfor %}
                 </div>
@@ -81,11 +88,13 @@
                 <h4 class="league-spartan-medium">Adresse de livraison</h4>
                 <div class="order-item-adress">
                     <p class="league-spartan-semibold">{{ user.firstname }} {{ user.lastname }}</p>
-                    <p class="league-spartan-regular">ADRESSE_LIVRAISON</p>
+                    <p class="league-spartan-regular">{{ order.deliveryAdresse.adresse }} {{ order.deliveryAdresse.zipcode }} {{ order.deliveryAdresse.city }}</p>
                     <p class="league-spartan-regular">{{ user.tel }}</p>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
+    <script src="{{ asset('js/orderFormChecked.js') }}"></script>
 {% endblock %}
 
