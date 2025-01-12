@@ -2,6 +2,7 @@ const inputSearch = document.getElementById('input-search');
 const submitSearch = document.getElementById('submit-search');
 const selectCategory = document.getElementById('filter-category');
 const selectOrder = document.getElementById('filter-order');
+const selectOutOfStock = document.getElementById('filter-out-of-stock');
 const medicinesContainer = document.getElementById('medicines-container');
 
 if (inputSearch && submitSearch && selectCategory && selectOrder) {
@@ -22,6 +23,10 @@ if (inputSearch && submitSearch && selectCategory && selectOrder) {
 
     selectOrder.addEventListener('change', (e) => {
         return updateQueryAndFetchMedicines('orderFilter', e.target.value, true);
+    });
+
+    selectOutOfStock.addEventListener('change', (e) => {
+        return updateQueryAndFetchMedicines('outOfStockFilter', e.target.checked);
     });
 }
 
