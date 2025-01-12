@@ -43,6 +43,9 @@ class Adresse
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastname = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $tel = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -163,6 +166,18 @@ class Adresse
     public function setLastname(?string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }
