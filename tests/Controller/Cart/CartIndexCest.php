@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller\Cart;
 
+use App\Factory\MedicineCategoryFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -15,7 +16,10 @@ class CartIndexCest
 
     public function responseIsOk(ControllerTester $I): void
     {
-        $user = UserFactory::createOne();
+        $cat = MedicineCategoryFactory::createOne();
+        $user = UserFactory::createOne([
+            'category' => $cat,
+        ]);
         $realUser = $user->_real();
         $I->amLoggedInAs($realUser);
 
