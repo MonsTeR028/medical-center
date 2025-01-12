@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Factory\MedicineCategoryFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 use Codeception\Util\HttpCode;
@@ -10,7 +11,9 @@ class DashboardCest
 {
     public function responseIsOk(ControllerTester $I): void
     {
+        $cat = MedicineCategoryFactory::createOne();
         $user = UserFactory::createOne([
+            'category' => $cat,
             'roles' => ['ROLE_ADMIN'],
         ]);
         $realUser = $user->_real();
@@ -28,7 +31,10 @@ class DashboardCest
 
     public function accessIsRestrictedToAdminUsers(ControllerTester $I): void
     {
-        $user = UserFactory::createOne();
+        $cat = MedicineCategoryFactory::createOne();
+        $user = UserFactory::createOne([
+            'category' => $cat,
+        ]);
         $realUser = $user->_real();
         $I->amLoggedInAs($realUser);
 
