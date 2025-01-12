@@ -33,8 +33,9 @@ class MedicineController extends AbstractController
         $containerOnly = $request->query->getBoolean('containerOnly');
         $orderTarget = $request->query->getString('orderTarget');
         $orderBy = $request->query->getString('orderBy');
+        $outOfStockFilter = $request->query->getBoolean('outOfStockFilter');
 
-        $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy);
+        $medicines = $medicineRepository->search($search, $categoryFilter, $orderTarget, $orderBy, $outOfStockFilter);
 
         $batchMedicines = [];
         $batchMedicinesArrival = [];
