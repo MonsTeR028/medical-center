@@ -26,6 +26,11 @@
                         {% for adresse in user.adresse %}
                             <div class="user-adresse">
                                 <div class="user-adresse-description">
+                                    {% if adresse.firstname and adresse.lastname %}
+                                        <p class="league-spartan-regular">{{ adresse.firstname }} {{ adresse.lastname }}</p>
+                                    {% else %}
+                                        <p class="league-spartan-regular">{{ user.firstname }} {{ user.lastname }}</p>
+                                    {% endif %}
                                     <p class="league-spartan-regular">{{ adresse.adresse }}</p>
                                     <p class="league-spartan-regular">{{ adresse.zipcode }}</p>
                                     <p class="league-spartan-regular">{{ adresse.city }}</p>
