@@ -70,6 +70,11 @@ class OrderController extends AbstractController
         }
 
         $order = '';
+        if ($request->request->get('tour')) {
+            $tour = $request->request->get('tour');
+        } else {
+            $tour = 0;
+        }
         $itemInfos = [];
         $itemsData = [];
         $allRequest = $request->request->all();
@@ -92,6 +97,10 @@ class OrderController extends AbstractController
             $order->setStatus('DELIVERED');
             $order->setOrderDate(new \DateTime());
             $amount = 0;
+            if (1 == $tour) {
+                ++$tour;
+            }
+            ++$tour;
 
             foreach ($cart as $item) {
                 $productId = $item['product']->getId();
@@ -135,15 +144,19 @@ class OrderController extends AbstractController
                         }
                         $newAdresse->setUser($user);
                         $order->setDeliveryAdresse($newAdresse);
-                        $entityManager->persist($newAdresse);
+                        if (3 == $tour) {
+                            $entityManager->persist($newAdresse);
+                        }
                     }
                 }
                 $order->setTotalAmount($amount);
             }
-            $entityManager->persist($order);
-            $entityManager->flush();
+            if (3 == $tour) {
+                $entityManager->persist($order);
+                $entityManager->flush();
+            }
         }
-
+        dump($tour);
         $adresses = $adresseRepository->findBy(['user' => $user]);
         $formAdress = $this->createForm(AdresseUserType::class);
 
@@ -154,6 +167,8 @@ class OrderController extends AbstractController
             'order' => $order,
             'itemInfo' => $itemInfos,
             'itemData' => $itemsData,
+            'tour' => $tour,
+            'choiceAdresse' => $request->request->get('adresse'),
         ]);
     }
 
