@@ -1246,6 +1246,235 @@ header > span > a {
     width: 300px;
 }
 
+.main-new-order {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 76px 0 42px 0;
+    flex: 1;
+    max-height: 800px;
+    align-items: center;
+}
+
+.new-order-form, .new-order-payment, .new-order-recap, .new-order-thanks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: white;
+    border: solid #137C8B 4px;
+    border-radius: 40px;
+    margin: 1em;
+    padding: 2em;
+    width: 1400px;
+    height: 800px;
+    z-index: 0;
+}
+
+.new-order-payment {
+    z-index: 1;
+}
+
+.new-order-recap {
+    z-index: 2;
+}
+
+.new-order-form > form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-height: 45%;
+    margin-bottom: 1em;
+}
+
+.new-order-form h3, .new-order-payment h3, .new-order-recap h3 {
+    font-size: 50px;
+}
+
+.new-order-form > form > p, .new-order-new-adress > p {
+    color: #137C8B;
+    font-size: 26px;
+    padding-left: 2em;
+}
+
+.new-order-form > form button,
+.new-order-new-adress-form > form button,
+.new-order-payment button,
+.new-order-recap button {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translate(-50%);
+    border: none;
+    background-color: #137C8B;
+    border-radius: 10px;
+    color: white;
+    font-size: 26px;
+    padding: 0 2em 0 2em;
+}
+
+.new-order-adresses {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 0.5em;
+    flex: 1;
+    padding: 0 0.5em 0.5em 0.5em;
+}
+
+.new-order-adress {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+.new-order-adress-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #B8CBD0;
+    border-radius: 15px;
+    flex: 1;
+    padding: 0.35em 0 0.35em 1em;
+    line-height: 22px;
+}
+
+.new-order-adress-container > p {
+    font-size: 20px;
+}
+
+.new-order-new-adress {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-order-new-adress-form {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    padding: 0 0.5em 0.5em 0.5em;
+    align-items: center;
+}
+
+.new-order-new-adress-form > form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: #B8CBD0;
+    border-radius: 15px;
+    padding: 0.5em;
+    flex: 1;
+}
+
+.new-order-new-adress-form-identity,
+.new-order-new-adress-form-adress,
+.new-order-new-adress-form-phone
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.new-order-new-adress-form-identity > p,
+.new-order-new-adress-form-adress > p,
+.new-order-new-adress-form-phone > p
+{
+    font-size: 20px;
+}
+
+.new-order-new-adress-form-identity-container,
+.new-order-new-adress-form-adress-container,
+.new-order-new-adress-form-phone-container
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+#adresse_user_adresse {
+    width: 350px;
+}
+
+#adresse_user_zipcode {
+    width: 120px;
+}
+
+#adresse_user_tel {
+    width: 150px;
+}
+
+.nb-pages {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.new-order-form .nb-pages-rectangles {
+    width: 200px;
+    height: 12px;
+    background-color: #d9d9d9;
+}
+
+.new-order-form .nb-pages-rectangles:first-child {
+    background-color: #137C8B;
+}
+
+.new-order-payment .nb-pages-rectangles {
+    width: 200px;
+    height: 12px;
+    background-color: #137C8B;
+}
+
+.new-order-payment .nb-pages-rectangles:last-child {
+    background-color: #d9d9d9;
+}
+
+.new-order-recap .nb-pages-rectangles {
+    background-color: #137C8B;
+    width: 200px;
+    height: 12px;
+}
+
+.new-order-recap {
+    display: none;
+}
+
+.new-order-recap-livraison {
+    font-size: 28px;
+    text-align: center;
+    color: #137C8B;
+}
+
+.new-order-thanks {
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.new-order-thanks-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.new-order-thanks > p {
+    font-size: 50px;
+    color: #626262;
+}
+
+.new-order-thanks-container > p, .new-order-thanks-container > a {
+    font-size: 20px;
+}
+
 footer {
     position: fixed;
     left: 0;
@@ -1265,7 +1494,6 @@ footer a {
     color: white;
     text-decoration: none;
 }
-
 
 /* League Spartan Font */
 .league-spartan-thin {
