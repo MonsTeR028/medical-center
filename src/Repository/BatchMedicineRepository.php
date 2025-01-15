@@ -28,7 +28,7 @@ class BatchMedicineRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findArrivalDateById($id): string
+    public function findArrivalDateById($id): ?string
     {
         return $this->createQueryBuilder('b')
             ->select('DISTINCT MAX(b.arrivalDate) AS arrivalDate')
