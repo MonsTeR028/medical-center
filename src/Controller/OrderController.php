@@ -78,7 +78,6 @@ class OrderController extends AbstractController
         $itemInfos = [];
         $itemsData = [];
         $allRequest = $request->request->all();
-        dump($allRequest);
 
         foreach ($cart as $item) {
             $productId = $item['product']->getId();
@@ -120,16 +119,13 @@ class OrderController extends AbstractController
                     'name' => $item['product']->getName(),
                     'quantity' => $quantity,
                 ];
-                /*
-                $cartService->remove($productId);
-                */
+
                 if ($request->request->get('adresse')) {
                     $order->setDeliveryAdresse($adresseRepository->find($request->request->get('adresse')));
                 } else {
                     if ($adresseRepository->find(true === $newAdresseInfos['id'])) {
                         $order->setDeliveryAdresse($adresseRepository->find($newAdresseInfos['id']));
                     } else {
-                        dump($newAdresseInfos);
                         $newAdresse = new Adresse();
                         $newAdresse->setId($newAdresseInfos['id']);
                         $newAdresse->setAdresse($newAdresseInfos['adresse']);
@@ -150,13 +146,15 @@ class OrderController extends AbstractController
                     }
                 }
                 $order->setTotalAmount($amount);
+                if (3 == $tour) {
+                    $cartService->remove($productId);
+                }
             }
             if (3 == $tour) {
                 $entityManager->persist($order);
                 $entityManager->flush();
             }
         }
-        dump($tour);
         $adresses = $adresseRepository->findBy(['user' => $user]);
         $formAdress = $this->createForm(AdresseUserType::class);
 
