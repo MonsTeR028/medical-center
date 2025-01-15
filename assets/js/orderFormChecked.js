@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const radioAlone = document.querySelector('input[value="new-adress"]');
     const buttonNext = mainForm.querySelector('button');
     const buttonNewNext = document.querySelector('.new-order-new-adress button');
-
+    const allInputNewForm = document.querySelectorAll('.new-order-new-adress-form > form input');
 
     radioAlone.addEventListener('click', () => {
         mainFormRadios.forEach(radio => {
@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonNewNext.disabled = false;
             buttonNext.disabled = true;
             buttonNext.style.display = 'none';
+            allInputNewForm.forEach(input => {
+                input.disabled = false;
+            })
         })
     })
 
@@ -25,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonNext.disabled = false;
             buttonNewNext.disabled = true;
             buttonNewNext.style.display = 'none';
+            allInputNewForm.forEach(input => {
+                input.disabled = true;
+            })
         })
     })
 

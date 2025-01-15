@@ -70,10 +70,14 @@ class OrderController extends AbstractController
         }
 
         $order = '';
+        if ($request->request->get('tour')) {
+            $tour = $request->request->get('tour');
+        } else {
+            $tour = 0;
+        }
         $itemInfos = [];
         $itemsData = [];
         $allRequest = $request->request->all();
-        dump($allRequest);
 
         foreach ($cart as $item) {
             $productId = $item['product']->getId();
@@ -92,6 +96,10 @@ class OrderController extends AbstractController
             $order->setStatus('DELIVERED');
             $order->setOrderDate(new \DateTime());
             $amount = 0;
+            if (1 == $tour) {
+                ++$tour;
+            }
+            ++$tour;
 
             foreach ($cart as $item) {
                 $productId = $item['product']->getId();
@@ -111,16 +119,13 @@ class OrderController extends AbstractController
                     'name' => $item['product']->getName(),
                     'quantity' => $quantity,
                 ];
-                /*
-                $cartService->remove($productId);
-                */
+
                 if ($request->request->get('adresse')) {
                     $order->setDeliveryAdresse($adresseRepository->find($request->request->get('adresse')));
                 } else {
                     if ($adresseRepository->find(true === $newAdresseInfos['id'])) {
                         $order->setDeliveryAdresse($adresseRepository->find($newAdresseInfos['id']));
                     } else {
-                        dump($newAdresseInfos);
                         $newAdresse = new Adresse();
                         $newAdresse->setId($newAdresseInfos['id']);
                         $newAdresse->setAdresse($newAdresseInfos['adresse']);
@@ -135,15 +140,21 @@ class OrderController extends AbstractController
                         }
                         $newAdresse->setUser($user);
                         $order->setDeliveryAdresse($newAdresse);
-                        $entityManager->persist($newAdresse);
+                        if (3 == $tour) {
+                            $entityManager->persist($newAdresse);
+                        }
                     }
                 }
                 $order->setTotalAmount($amount);
+                if (3 == $tour) {
+                    $cartService->remove($productId);
+                }
             }
-            $entityManager->persist($order);
-            $entityManager->flush();
+            if (3 == $tour) {
+                $entityManager->persist($order);
+                $entityManager->flush();
+            }
         }
-
         $adresses = $adresseRepository->findBy(['user' => $user]);
         $formAdress = $this->createForm(AdresseUserType::class);
 
@@ -154,6 +165,8 @@ class OrderController extends AbstractController
             'order' => $order,
             'itemInfo' => $itemInfos,
             'itemData' => $itemsData,
+            'tour' => $tour,
+            'choiceAdresse' => $request->request->get('adresse'),
         ]);
     }
 

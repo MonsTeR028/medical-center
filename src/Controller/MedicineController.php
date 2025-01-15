@@ -56,8 +56,6 @@ class MedicineController extends AbstractController
         $formOrderQuantity = $this->createForm(PurchaseQuantityType::class);
         $formOrderQuantity->handleRequest($request);
         if ($formOrderQuantity->isSubmitted() && $formOrderQuantity->isValid()) {
-            dump($formOrderQuantity->get('id')->getData());
-
             return $formOrderQuantity->get('cart')->isClicked()
             ? $this->redirectToRoute(
                 'app_cart_add_quantity', [

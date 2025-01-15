@@ -6,27 +6,34 @@
 
 {% block body %}
     <div class="main-new-order">
+        {% if tour != 0 %}
+        <div class="new-order-form" hidden>
+        {% else %}
         <div class="new-order-form">
-            <h3>1. Adresse de livraison</h3>
+        {% endif %}
+            <h3 class="league-spartan-medium">1. Adresse de livraison</h3>
             <form action="{{ path('app_order_new') }}" method="post">
                 {% if adresses %}
+                    <p class="league-spartan-regular">Adresses existantes</p>
                     <div class="new-order-adresses">
                         {% for adresse in adresses %}
                             <div class="new-order-adress">
                                 <label>
                                     <input type="radio" name="adresse" value="{{ adresse.id }}"/>
                                 </label>
-                                {% if adresse.firstname and adresse.lastname %}
-                                    <p class="new-order-user-name">{{ adresse.firstname }} {{ adresse.lastname }}</p>
-                                {% else %}
-                                    <p class="new-order-user-name">{{ user.firstname }} {{ user.lastname }}</p>
-                                {% endif %}
-                                <p class="new-order-adress-name">{{ adresse.adresse }} {{ adresse.zipcode }} {{ adresse.city }}</p>
-                                {% if adresse.tel %}
-                                    <p class="new-order-user-phone">{{ adresse.tel }}</p>
-                                {% else %}
-                                    <p class="new-order-user-phone">{{ user.tel }}</p>
-                                {% endif %}
+                                <div class="new-order-adress-container">
+                                    {% if adresse.firstname and adresse.lastname %}
+                                    <p class="league-spartan-semibold">{{ adresse.firstname }} {{ adresse.lastname }}</p>
+                                    {% else %}
+                                        <p class="league-spartan-semibold">{{ user.firstname }} {{ user.lastname }}</p>
+                                    {% endif %}
+                                    <p class="league-spartan-regular">{{ adresse.adresse }}, {{ adresse.zipcode }}, {{ adresse.city }}</p>
+                                    {% if adresse.tel %}
+                                        <p class="league-spartan-regular">{{ adresse.tel }}</p>
+                                    {% else %}
+                                        <p class="league-spartan-regular">{{ user.tel }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -34,33 +41,72 @@
                 {% for item in itemInfo %}
                     <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
                 {% endfor %}
-                <button type="submit">Suivant</button>
+                <input type="hidden" name="tour" value="{{ tour }}"/>
+                <button disabled type="submit" class="lexend-semibold">Suivant</button>
             </form>
             <div class="new-order-new-adress">
-                <label>
-                    <input type="radio" name="adresse" value="new-adress"/>
-                </label>
-                <p>Nouvelle adresse de livraison</p>
-                {{ form_start(formAdress, {attr : {action : path('app_order_new'), name: 'new-adress'}}) }}
-                {{ form_row(formAdress.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom'}, label: false}) }}
-                {{ form_row(formAdress.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom de famille'}, label: false}) }}
-                {{ form_row(formAdress.adresse, {attr: {class: 'form-control inter-regular', placeholder: 'Rue'}, label: false}) }}
-                {{ form_row(formAdress.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal'}, label: false}) }}
-                {{ form_row(formAdress.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville'}, label: false}) }}
-                {{ form_row(formAdress.tel, {attr: {class: 'form-control inter-regular', placeholder: 'N°de Téléphone'}, label: false}) }}
-                {% for item in itemInfo %}
-                    <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
+                <p class="league-spartan-regular">Nouvelle adresse de livraison</p>
+                <div class="new-order-new-adress-form">
+                    <label>
+                        <input type="radio" name="adresse" value="new-adress"/>
+                    </label>
+                    {{ form_start(formAdress, {attr : {action : path('app_order_new'), name: 'new-adress'}}) }}
+                    <div class="new-order-new-adress-form-identity">
+                        <p class="league-spartan-medium">Identitée</p>
+                        <div class="new-order-new-adress-form-identity-container">
+                            {{ form_row(formAdress.firstname, {attr: {class: 'form-control inter-regular', placeholder: 'Prénom', disabled: true}, label: false}) }}
+                            {{ form_row(formAdress.lastname, {attr: {class: 'form-control inter-regular', placeholder: 'Nom de famille', disabled: true}, label: false}) }}
+                        </div>
+                    </div>
+                    <div class="new-order-new-adress-form-adress">
+                        <p class="league-spartan-medium">Adresse</p>
+                        <div class="new-order-new-adress-form-adress-container">
+                            {{ form_row(formAdress.adresse, {attr: {class: 'form-control inter-regular', placeholder: '26 Avenue du Général de Gascogne', disabled: true}, label: false}) }}
+                            {{ form_row(formAdress.zipcode, {attr: {class: 'form-control inter-regular', placeholder: 'Code Postal', disabled: true}, label: false}) }}
+                            {{ form_row(formAdress.city, {attr: {class: 'form-control inter-regular', placeholder: 'Ville', disabled: true}, label: false}) }}
+                        </div>
+                    </div>
+                    <div class="new-order-new-adress-form-phone">
+                        <p class="league-spartan-medium">Téléphone</p>
+                        <div class="new-order-new-adress-form-phone-container">
+                            {{ form_row(formAdress.tel, {attr: {class: 'form-control inter-regular', placeholder: 'N°de Téléphone', disabled: true}, label: false}) }}
+                        </div>
+                    </div>
+                    {% for item in itemInfo %}
+                        <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
+                    {% endfor %}
+                    <input type="hidden" name="tour" value="{{ tour }}"/>
+                    <button disabled type="submit" style="display: none" class="lexend-semibold">Suivant</button>
+                    {{ form_end(formAdress) }}
+                </div>
+            </div>
+            <div class="nb-pages">
+                {% for i in 0..2 %}
+                    <div class="nb-pages-rectangles"></div>
                 {% endfor %}
-                <button disabled type="submit" style="display: none">Suivant new</button>
-                {{ form_end(formAdress) }}
             </div>
         </div>
+        {% if tour == 1 %}
         <div class="new-order-payment">
-            <h3>2. Mode de paiement</h3>
+        {% else %}
+        <div class="new-order-payment" hidden>
+        {% endif %}
+            <h3 class="league-spartan-medium">2. Mode de paiement</h3>
+            <button class="lexend-semibold">Suivant</button>
+            <div class="nb-pages">
+                {% for i in 0..2 %}
+                    <div class="nb-pages-rectangles"></div>
+                {% endfor %}
+            </div>
         </div>
+        {% if tour == 1 %}
         <div class="new-order-recap">
+        {% else %}
+        <div class="new-order-recap" hidden>
+        {% endif %}
             {% if order %}
             <h3>3. Récapitulatif de la commande</h3>
+            <p class="league-spartan-medium new-order-recap-livraison">Livraison prévue pour le DATE</p>
             <div class="new-order-recap-container">
                 <h4 class="league-spartan-medium">Articles</h4>
                 <div class="order-item-medecines">
@@ -92,9 +138,35 @@
                     <p class="league-spartan-regular">{{ user.tel }}</p>
                 </div>
             </div>
+            <form action="{{ path('app_order_new') }}" method="post">
+                {% for item in itemInfo %}
+                    <input type="hidden" name="{{ item['id'] }}" value="{{ item['data'] }}"/>
+                {% endfor %}
+                <input type="hidden" name="tour" value="{{ tour }}"/>
+                <input type="hidden" name="adresse" value="{{ order.deliveryAdresse.id }}"/>
+                <button class="lexend-semibold" type="submit">Suivant</button>
+            </form>
+            <div class="nb-pages">
+                {% for i in 0..2 %}
+                    <div class="nb-pages-rectangles"></div>
+                {% endfor %}
+            </div>
             {% endif %}
+        </div>
+        {% if tour == 3 %}
+        <div class="new-order-thanks">
+        {% else %}
+        <div class="new-order-thanks" hidden>
+        {% endif %}
+            <p class="league-spartan-semibold">Merci beaucoup pour votre achat !</p>
+            <div class="new-order-thanks-container">
+                <p class="league-spartan-regular">Vous pouvez acceder à votre commande :</p>
+                {% if order and order.id %}
+                <a class="league-spartan-regular" href="{{ path('app_order_show', {id : order.id}) }}">Ici</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     <script src="{{ asset('js/orderFormChecked.js') }}"></script>
+    <script src="{{ asset('js/changePage.js') }}"></script>
 {% endblock %}
-
