@@ -68,11 +68,9 @@
                 <div class="trapeze" style="width: 200px"></div>
                 <div class="trapeze-reverse" style="width: 200px"></div>
                 <p class="lexend-semibold">Autres informations</p>
-                <p class="league-spartan-regular">{{ medicine.quantity }} {{ medicine.type }}s</p>
-                <p class="league-spartan-regular">Par voie VOIE</p>
+                <p class="league-spartan-regular">Quantité : {{ medicine.quantity }}</p>
                 <p class="league-spartan-regular">Dosage : {{ medicine.dosage }}</p>
                 <p class="league-spartan-regular">{{ medicine.priceUnit|number_format(2, ',', ' ') }}€/unité</p>
-                <p class="league-spartan-regular">Date</p>
             </div>
             <div class="medicine-show-payment">
                 {% if stock != 0 %}
@@ -97,13 +95,13 @@
                 {% endif %}
 
                 {% if stock == 0 %}
-                    <p class="medicine-show-quantity league-spartan-regular">Plus de stock</p>
+                    <p class="medicine-show-quantity league-spartan-regular">Plus de stock !</p>
                 {% elseif stock == 1 %}
-                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">1 restant</p>
+                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">1 restant !</p>
                 {% elseif stock < 25 %}
-                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">{{ stock }} restants</p>
+                    <p class="medicine-show-quantity league-spartan-regular" style="color: red">{{ stock }} restants !</p>
                 {% elseif stock < 100 %}
-                    <p class="medicine-show-quantity league-spartan-regular">{{ stock }} restants</p>
+                    <p class="medicine-show-quantity league-spartan-regular">{{ stock }} restants !</p>
                 {% endif %}
             </div>
         </div>
