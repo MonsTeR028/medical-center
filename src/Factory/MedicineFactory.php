@@ -32,10 +32,10 @@ final class MedicineFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'dosage' => self::faker()->text(10),
-            'priceUnit' => self::faker()->randomFloat(2, 1, 999.99),
+            'dosage' => self::faker()->randomElement(['2 fois par jour', '3 fois par semaines', 'Tous les matins']),
+            'priceUnit' => self::faker()->randomFloat(2, 4.99, 39.99),
             'type' => self::faker()->randomElement(['Gélule', 'Comprimé', 'Sirop']),
-            'quantity' => self::faker()->randomNumber(),
+            'quantity' => self::faker()->randomNumber(2),
         ];
     }
 
