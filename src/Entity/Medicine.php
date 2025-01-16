@@ -25,7 +25,7 @@ class Medicine
     #[ORM\Column(length: 20)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 30)]
     private ?string $dosage = null;
 
     #[Assert\NotBlank(message: 'Le prix unitaire doit être renseigné.')]
