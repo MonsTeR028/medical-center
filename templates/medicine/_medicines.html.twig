@@ -12,11 +12,6 @@
                 {% else %}
                     <img src="{{ asset('images/placeholder.png') }}" alt="Pas d'image">
                 {% endif %}
-                <div class="medicine-description">
-                    <p class="league-spartan-regular">{{ medicine.quantity }} {{ medicine.type }}s</p>
-                    <p class="league-spartan-regular">Voie VOIE</p>
-                    <p class="league-spartan-regular">Date</p>
-                </div>
             </div>
             <p class="league-spartan-regular medicine-category" style="background-color: #{{ medicine.category.color }}">
                 {{ medicine.category.name }}
