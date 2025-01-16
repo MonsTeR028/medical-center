@@ -50,7 +50,7 @@
                     <label>
                         <input type="radio" name="adresse" value="new-adress"/>
                     </label>
-                    {{ form_start(formAdress, {attr : {action : path('app_order_new'), name: 'new-adress'}}) }}
+                    {{ form_start(formAdress, {attr: {action: path('app_order_new'), name: 'new-adress'}}) }}
                     <div class="new-order-new-adress-form-identity">
                         <p class="league-spartan-medium">Identitée</p>
                         <div class="new-order-new-adress-form-identity-container">
@@ -162,7 +162,7 @@
             <div class="new-order-thanks-container">
                 <p class="league-spartan-regular">Vous pouvez acceder à votre commande :</p>
                 {% if order and order.id %}
-                <a class="league-spartan-regular" href="{{ path('app_order_show', {id : order.id}) }}">Ici</a>
+                <a class="league-spartan-regular" href="{{ path('app_order_show', {id: order.id}) }}">Ici</a>
                 {% endif %}
             </div>
         </div>
