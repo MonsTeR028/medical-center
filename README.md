@@ -1,10 +1,17 @@
-# SAE3-01
+# Medical Center
+Médical center est une application web complète, permettant au professionnel de la santé de commander des médicaments parmi une vague base de données, comprenant :
+- Un système de compte
+- Un système de commande et de stock
+- Un système de catalogue et recherche
+
+Bien qu'il s'agisse d'un projet universitaire, et qu'il n'existe pas réellement de vente de médicament le site est parfaitement fonctionnel.
+
 ## Auteurs
-- Florian CHASSELOUP (chas0025)
-- Clement DAVID (davi0063)
-- Karim RYSMAN (rysm0002)
-- Romaric PERICHARD (peri0060)
-- Tristan AUDINOT (audi0010)
+- Florian CHASSELOUP
+- Clement DAVID
+- Karim RYSMAN
+- Romaric PERICHARD
+- Tristan AUDINOT
 
 ## Installation / Configuration
 ```shell
