@@ -1,88 +1,113 @@
-# Medical Center
-Médical center est une application web complète, permettant au professionnel de la santé de commander des médicaments parmi une vague base de données, comprenant :
-- Un système de compte
-- Un système de commande et de stock
-- Un système de catalogue et recherche
+# Guide Utilisateur - Medical Center
 
-Bien qu'il s'agisse d'un projet universitaire, et qu'il n'existe pas réellement de vente de médicament le site est parfaitement fonctionnel.
+## 📖 Introduction
+Medical Center est une application web destinée aux professionnels de la santé, leur permettant de commander des médicaments à partir d'une vaste base de données.
 
-## Auteurs
-- Florian CHASSELOUP
-- Clement DAVID
-- Karim RYSMAN
-- Romaric PERICHARD
-- Tristan AUDINOT
+### ✨ Fonctionnalités principales
+- 👤 Système de gestion de comptes
+- 📦 Gestion des commandes et du stock
+- 🔍 Catalogue et moteur de recherche avancé
 
-## Installation / Configuration
-```shell
-composer install # Installation des dépendances du projet 
+> **Note** : Ce projet est réalisé dans un cadre universitaire. Bien qu'il soit pleinement fonctionnel, aucune vente réelle de médicaments n'a lieu.
+
+## 👥 Auteurs
+- **Florian CHASSELOUP**
+- **Clement DAVID**
+- **Karim RYSMAN**
+- **Romaric PERICHARD**
+- **Tristan AUDINOT**
+
+---
+
+## 🚀 Installation et Configuration
+
+### 📌 Prérequis
+Avant d'installer le projet, assurez-vous d'avoir :
+- **PHP** (8.x recommandé)
+- **Composer** (gestionnaire de dépendances PHP)
+- **Symfony CLI** (optionnel mais recommandé)
+- **MySQL** ou **MariaDB**
+- **PHPStorm** (recommandé) avec les extensions :
+  - "Symfony Support"
+  - "PHP CS Fixer"
+
+### 📥 Installation
+Clonez le dépôt et installez les dépendances :
+```bash
+composer install
 ```
-Dans la configuration de PHPStorm
-- Activez le greffon « Symfony Support »
-- Ainsi que PHP CS Fixer
 
-## Création de la base de données
-
-- Dupliquez le fichier .env en .env.local.  
-- Modifiez ce nouveau fichier en ajustant cette ligne avec vos identifiants de bases de données :
+### ⚙️ Configuration de l'environnement
+1. Dupliquez le fichier `.env` en `.env.local`.
+2. Modifiez `.env.local` avec vos identifiants :
 ```dotenv
 DATABASE_URL="mysql://VOTRE_LOGIN:PASSWORD@mysql/VOTRE_LOGIN_pharmacie?serverVersion=10.2.25-MariaDB&charset=utf8mb4"
 ```
-- Exécutez la commande suivante :
-```shell
+3. Créez la base de données :
+```bash
 composer db
 ```
 
-## Accès au serveur Web
-
-Lancez le serveur Web local avec cette commande :
+### 🖥️ Démarrage du serveur
+Lancez le serveur avec :
 ```bash
 composer start
 ```
+Puis accédez à : [https://127.0.0.1:8000/](https://127.0.0.1:8000/)
 
-Naviguez ensuite à partir de cette adresse : <https://127.0.0.1:8000/>
+---
 
-## Vérifications de code
+## ✅ Vérifications et Qualité du Code
 
-Lancez la vérification du code PHP :
+### 🔍 Vérification du code
 ```bash
-composer test:phpcs
+composer test:phpcs  # Vérification PHP
+composer test:twigcs  # Vérification Twig
+composer test  # Vérification complète
 ```
 
-Lancez la vérification du code Twig :
+### 🔧 Correction automatique
 ```bash
-composer test:twigcs
+composer fix:phpcs  # Correction PHP
+composer fix:twigcs  # Correction Twig
+composer fix  # Correction complète
 ```
 
-Lancez la correction du code PHP :
+---
+
+## 🔑 Comptes de Test
+### 👥 Utilisateur standard
 ```bash
-composer fix:phpcs
+Email : mickey@example.com
+Mot de passe : test
 ```
 
-Lancez la correction du code Twig :
+### 🛠️ Administrateur
 ```bash
-composer fix:twigcs
+Email : batman@example.com
+Mot de passe : test
 ```
 
-Lancez la vérification PHP et Twig :
-```bash
-composer test
-```
+---
 
-Lancez la correction du code PHP et Twig :
-```bash
-composer fix
-```
+## 🎯 Bonnes Pratiques Git
 
-## Utilisateur de test 
-Compte utilisateur :
-```bash
-    email : mickey@example.com
-    mdp : test
-```
-Compte administrateur : 
-```bash
-    email : batman@example.com
-    mdp : test
-```
+### 📌 Structuration des commits
+- Utilisez des messages clairs (`feat: ajout de la gestion des commandes`).
+- Respectez la convention _Conventional Commits_.
+
+### 🌿 Gestion des branches
+- Travaillez sur des branches spécifiques (`feature/nom-fonctionnalité`).
+- Faites des **pull requests** avant de fusionner.
+
+### 📜 Documentation et maintenance
+- Ajoutez un fichier `CONTRIBUTING.md`.
+- Rédigez des **tests unitaires et fonctionnels**.
+
+---
+
+## 📩 Contact et Support
+Pour toute question ou contribution, contactez les auteurs ou ouvrez une issue sur GitHub.
+
+🚀 **Bon développement !**
 
