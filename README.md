@@ -21,6 +21,7 @@ Medical Center est une application web destinée aux professionnels de la santé
 
 ## 👔 Pour un futur recruteur
 - [Lien vers le figma : (password : audi-figma)](https://www.figma.com/design/5HtMTW8gaXapJ9yAMJ8SKW/SAE---MedicalCenter?node-id=0-1&t=R9jsdyCxqeCrw29A-1)
+- [Version bien primitive du projet](https://youtu.be/deD9Je3wHpA?si=amdndgAQPJgSemBT)
 
 ## 🚀 Installation et Configuration
 
